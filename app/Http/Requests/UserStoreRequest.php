@@ -29,7 +29,7 @@ class UserStoreRequest extends FormRequest
             'login' => 'required|string|min:8|max:50',
             'password' => 'required|string|min:8|max:16',
             'role_id' => 'required|integer|exists:roles,id',
-            'group_id' => 'required|integer|exists:groups,id',
+            'group_id' => 'required_if:role_id,1|required_if:role_id,2|integer|exists:groups,id',
         ];
     }
 }

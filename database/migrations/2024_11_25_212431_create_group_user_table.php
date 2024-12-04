@@ -11,7 +11,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('user_group', function (Blueprint $table) {
+        Schema::create('group_user', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('group_id')->constrained();
@@ -21,7 +21,7 @@ return new class extends Migration {
         $users = DB::table('users')->whereNotNull('group_id')->get();
 
         foreach ($users as $user) {
-            DB::table('user_group')->insert([
+            DB::table('group_user')->insert([
                 'user_id' => $user->id,
                 'group_id' => $user->group_id,
                 'created_at' => now(),
@@ -52,6 +52,6 @@ return new class extends Migration {
             ]);
         }
 
-        Schema::dropIfExists('user_group');
+        Schema::dropIfExists('group_user');
     }
 };

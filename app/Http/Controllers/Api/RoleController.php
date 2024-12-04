@@ -53,6 +53,6 @@ class RoleController extends Controller
     {
         $role->delete();
 
-        return response(null, Response::HTTP_NO_CONTENT);
+        return response()->json(['message' => 'Role deleted successfully.']);
     }
 }

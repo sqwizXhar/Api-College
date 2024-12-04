@@ -15,7 +15,7 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        return SubjectResource::collection(Subject::with('lessons')->get());
+        return SubjectResource::collection(Subject::with('users')->get());
     }
 
     /**
@@ -33,7 +33,7 @@ class SubjectController extends Controller
      */
     public function show(Subject $subject)
     {
-        return new SubjectResource($subject);
+        return new SubjectResource($subject->load('users'));
     }
 
     /**
@@ -53,6 +53,6 @@ class SubjectController extends Controller
     {
         $subject->delete();
 
-        return response(null, Response::HTTP_NO_CONTENT);
+        return response()->json(['message' => 'Subject deleted successfully.']);
     }
 }

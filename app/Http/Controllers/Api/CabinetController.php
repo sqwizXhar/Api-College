@@ -54,6 +54,6 @@ class CabinetController extends Controller
     {
         $cabinet->delete();
 
-        return response(null, Response::HTTP_NO_CONTENT);
+        return response()->json(['message' => 'Cabinet deleted successfully']);
     }
 }

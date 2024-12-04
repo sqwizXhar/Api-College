@@ -20,4 +20,20 @@ class Role extends Model
     {
         return Role::where('name', 'teacher')->first();
     }
+
+    public static function getStudentRole()
+    {
+        return Role::where('name', 'student')->first();
+    }
+
+    public static function getAdminRole()
+    {
+        return Role::where('name', 'admin')->first();
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->name == 'admin';
+    }
+
 }

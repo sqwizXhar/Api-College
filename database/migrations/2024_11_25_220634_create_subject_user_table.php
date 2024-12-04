@@ -19,7 +19,7 @@ return new class extends Migration {
         });
 
         Schema::table('lessons', function (Blueprint $table) {
-            $table->foreignId('subject_user_id')->nullable()->constrained();
+            $table->foreignId('subject_user_id')->nullable()->constrained('subject_user');
         });
 
         $lessons = DB::table('lessons')->whereNotNull('user_id')->whereNotNull('subject_id')->get();

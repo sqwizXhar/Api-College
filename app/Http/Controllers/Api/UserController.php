@@ -3,11 +3,19 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\GroupUserStoreRequest;
+use App\Http\Requests\UserSubjectStoreRequest;
 use App\Http\Requests\UserStoreRequest;
+use App\Http\Resources\AdminResource;
+use App\Http\Resources\GroupUserResource;
+use App\Http\Resources\UserSubjectResource;
 use App\Http\Resources\UserResource;
+use App\Models\Group;
 use App\Models\Role;
+use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Http\Response;
+use function Symfony\Component\VarDumper\Dumper\esc;
 
 class UserController extends Controller
 {
@@ -16,7 +24,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection(User::with('group', 'role')->get());
+        return UserResource::collection(User::with('groups', 'role')->get());
     }
 
     public function getStudents()
@@ -37,6 +45,22 @@ class UserController extends Controller
         return UserResource::collection($teachers);
     }
 
+    public function getAdmins()
+    {
+        $admins = User::whereHas('role', function ($query) {
+            $query->where('name', 'admin');
+        })->get();
+
+        return AdminResource::collection($admins);
+    }
+
+    public function getUserSubjects(User $user)
+    {
+        $user= User::has('subjects')->get();
+
+        return UserSubjectResource::collection($user);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -44,19 +68,38 @@ class UserController extends Controller
     {
         $validated = $request->validated();
 
+        $role = Role::find($validated['role_id']);
+
         $user = new User();
-
         $user->fill($validated);
-
-        $user->role()->associate($validated['role_id']);
-
-        if ($validated['role_id'] != Role::getTeacherRole()->id) {
-            $user->group()->associate($validated['group_id']);
-        }
+        $user->role()->associate($role);
 
         $user->save();
 
-        return new UserResource($user);
+        if ($role->id != Role::getAdminRole()->id && isset($validated['group_id'])) {
+            $group = Group::find($validated['group_id']);
+            if ($group) {
+                $user->groups()->sync($group->id);
+            }
+        } elseif ($role->isAdmin() && isset($validated['group_id'])) {
+            return response()->json(['message' => 'This role cannot have a group'], 400);
+        }
+
+        return new UserResource($user->load('groups'));
+    }
+
+    public function storeUserSubject( User $user, Subject $subject)
+    {
+        if ($user && $user->role && $user->role->id == Role::getTeacherRole()->id) {
+
+            $user->subjects()->sync($subject->id);
+
+            $user->save();
+
+            return new UserSubjectResource($user);
+        }
+
+        return response()->json(['message' => 'Invalid role'], 400);
     }
 
     /**
@@ -64,7 +107,12 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return UserResource::collection($user);
+        return new UserResource($user);
+    }
+
+    public function showUserSubjects(User $user)
+    {
+        return new UserSubjectResource($user);
     }
 
     /**чсвс
@@ -77,6 +125,13 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
+    public function updateUserSubject(User $user, Subject $subject)
+    {
+        $user->subjects()->sync([$subject->id]);
+
+        return new UserSubjectResource($user);
+    }
+
     /**
      * Remove the specified resource from storage.
      */
@@ -84,6 +139,13 @@ class UserController extends Controller
     {
         $user->delete();
 
-        return response(null, Response::HTTP_NO_CONTENT);
+        return response()->json(['message' => 'User deleted successfully']);
+    }
+
+    public function destroyUserSubject(User $user)
+    {
+        $user->subjects()->detach();
+
+        return response()->json(['message' => 'User subjects deleted successfully']);
     }
 }

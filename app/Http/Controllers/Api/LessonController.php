@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LessonStoreRequest;
 use App\Http\Resources\LessonResource;
+use App\Models\Cabinet;
+use App\Models\Group;
 use App\Models\Lesson;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 
 class LessonController extends Controller
@@ -15,7 +18,7 @@ class LessonController extends Controller
      */
     public function index()
     {
-        return LessonResource::collection(Lesson::with('cabinet', 'subject', 'group', 'user')->get());
+        return LessonResource::collection(Lesson::with('cabinet','group')->get());
     }
 
     /**
@@ -23,7 +26,20 @@ class LessonController extends Controller
      */
     public function store(LessonStoreRequest $request)
     {
-        $lesson = Lesson::create([$request->validated()]);
+        $validated = $request->validated();
+
+        $cabinet = Cabinet::find($validated['cabinet_id']);
+        $group = Group::find($validated['group_id']);
+
+        $lesson = new Lesson();
+        $lesson->fill($validated);
+
+        $lesson->subject_user_id = $validated['subject_user_id'];
+
+        $lesson->cabinet()->associate($cabinet);
+        $lesson->group()->associate($group);
+
+        $lesson->save();
 
         return new LessonResource($lesson);
     }
@@ -53,6 +69,6 @@ class LessonController extends Controller
     {
         $lesson->delete();
 
-        return response(null, 204);
+        return response()->json(['message' => 'Lesson deleted successfully']);
     }
 }
