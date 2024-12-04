@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CabinetController;
+use App\Http\Controllers\Api\GradeController;
 use App\Http\Controllers\Api\GroupController;
 use App\Http\Controllers\Api\LessonController;
 use App\Http\Controllers\Api\RoleController;
@@ -32,4 +33,5 @@ Route::apiResources([
     'subjects' => SubjectController::class,
     'cabinets' => CabinetController::class,
     'lessons' => LessonController::class,
+    'grades' => GradeController::class,
 ]);
