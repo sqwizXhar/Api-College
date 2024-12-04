@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 
 class Lesson extends Model
@@ -36,5 +37,9 @@ class Lesson extends Model
         return $this->belongsTo(Group::class);
     }
 
+    public function grades(): HasMany
+    {
+        return $this->hasMany(Grade::class);
+    }
 
 }
