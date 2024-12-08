@@ -55,6 +55,7 @@ class LessonController extends Controller
 
         $date = $validated['date'] ?? null;
         $day_of_week = $validated['day_of_week'] ;
+        $semester = $validated['semester'] ?? null;
 
         if ($day_of_week == 'true') {
             $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
@@ -63,6 +64,7 @@ class LessonController extends Controller
             foreach ($daysOfWeek as $day) {
                 $schedule = Lesson::with('cabinet', 'semester.group', 'dates')
                     ->where('day_of_week', $day)
+                    ->where('semester_id', $semester)
                     ->get();
                 $weeklySchedule[$day] = LessonResource::collection($schedule);
             }
@@ -73,10 +75,7 @@ class LessonController extends Controller
                 ->whereHas('dates', function ($query) use ($date) {
                     $query->where('date', $date);
                 })
-                ->whereHas('semester', function ($query) use ($date) {
-                    $query->where('start_date', '<=', $date)
-                    ->where('end_date', '>=', $date);
-                })
+               ->where('semester_id', $semester)
                 ->get();
             return LEssonResource::collection($schedule);
         }
