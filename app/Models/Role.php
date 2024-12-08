@@ -36,4 +36,14 @@ class Role extends Model
         return $this->name == 'admin';
     }
 
+    public function isTeacher(): bool
+    {
+        return $this->name == 'teacher';
+    }
+
+    public function isStudent(): bool
+    {
+        return $this->name == 'student';
+    }
+
 }

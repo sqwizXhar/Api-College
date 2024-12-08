@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GradeStoreRequest extends FormRequest
+class SemesterStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,10 @@ class GradeStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'grade' => 'required|integer|between:2,5',
-            'user_id' => 'required|integer|exists:users,id',
-            'date_id' => 'required|date|date_format:Y-m-d|exists:dates,id',
+            'number' => 'required|integer|between:1,12',
+            'start_date' => 'required|date|date_format:Y-m-d',
+            'end_date' => 'required|date|date_format:Y-m-d',
+            'group_id' => 'required|integer|exists:groups,id',
         ];
     }
 }

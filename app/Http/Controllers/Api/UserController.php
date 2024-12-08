@@ -24,7 +24,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection(User::with('groups', 'role')->get());
+        return UserResource::collection(User::with('groups', 'role', 'grades')->get());
     }
 
     public function getStudents()

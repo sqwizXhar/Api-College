@@ -5,14 +5,14 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SubjectResource extends BaseResource
+class GradeResource extends BaseResource
 {
     /**
      * The "data" wrapper that should be applied.
      *
      * @var string|null
      */
-    public static $wrap = 'subject';
+    public static $wrap = 'grade';
 
     /**
      * Transform the resource into an array.
@@ -23,7 +23,10 @@ class SubjectResource extends BaseResource
     {
         return array_merge(parent::toArray($request),
             [
-                'name' => $this->name,
+                'student' => $this->user->full_name,
+                'grade' => $this->grade,
+                'date' => $this->date->date,
+                'teacher' => $this->date->lesson->teacher->full_name,
             ]
         );
     }

@@ -22,7 +22,7 @@ class GroupUserStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-
+            'role' => 'required|string|in:teacher,student',
         ];
     }
 }

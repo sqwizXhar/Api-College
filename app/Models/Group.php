@@ -18,8 +18,8 @@ class Group extends Model
         return $this->belongsToMany(User::class, 'group_user')->withTimestamps();
     }
 
-    public function lessons(): HasMany
+    public function semesters(): HasMany
     {
-        return $this->hasMany(Lesson::class);
+        return $this->hasMany(Semester::class);
     }
 }

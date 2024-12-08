@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GroupStoreRequest;
+use App\Http\Requests\GroupUserStoreRequest;
 use App\Http\Resources\GroupResource;
 use App\Http\Resources\GroupUserResource;
 use App\Models\Group;
@@ -22,9 +23,18 @@ class GroupController extends Controller
         return GroupResource::collection(Group::with('users')->get());
     }
 
-    public function getGroupUsers()
+    public function getGroupUsers(GroupUserStoreRequest $request)
     {
-        $groups = Group::has('users')->get();
+        $validated = $request->validated();
+        $role = $validated['role'];
+
+        $groups = Group::whereHas('users.role', function ($query) use ($role) {
+            $query->where('name', $role);
+        })->with(['users' => function ($query) use ($role) {
+            $query->whereHas('role', function ($UserRole) use ($role) {
+                $UserRole->where('name', $role);
+            });
+        }])->get();
 
         return GroupUserResource::collection($groups);
     }
@@ -53,18 +63,12 @@ class GroupController extends Controller
         return response()->json(['message' => 'Invalid role'], 400);
     }
 
-
     /**
      * Display the specified resource.
      */
     public function show(Group $group)
     {
         return new GroupResource($group);
-    }
-
-    public function showGroupUsers(Group $group)
-    {
-        return new GroupUserResource($group);
     }
 
     /**

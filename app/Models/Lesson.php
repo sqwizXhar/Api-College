@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 class Lesson extends Model
 {
     protected $fillable = [
+        'semester',
         'day_of_week',
         'time',
         'number_of_lesson',
@@ -18,6 +19,16 @@ class Lesson extends Model
     public function cabinet(): BelongsTo
     {
         return $this->belongsTo(Cabinet::class);
+    }
+
+    public function semester(): BelongsTo
+    {
+        return $this->belongsTo(Semester::class);
+    }
+
+    public function dates(): HasMany
+    {
+        return $this->hasMany(Date::class);
     }
 
     public function getSubjectAttribute()
@@ -31,15 +42,4 @@ class Lesson extends Model
         $subjectUser = DB::table('subject_user')->where('id', $this->subject_user_id)->first();
         return $subjectUser ? User::find($subjectUser->user_id) : null;
     }
-
-    public function group(): BelongsTo
-    {
-        return $this->belongsTo(Group::class);
-    }
-
-    public function grades(): HasMany
-    {
-        return $this->hasMany(Grade::class);
-    }
-
 }

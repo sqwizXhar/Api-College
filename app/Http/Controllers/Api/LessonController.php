@@ -8,6 +8,7 @@ use App\Http\Resources\LessonResource;
 use App\Models\Cabinet;
 use App\Models\Group;
 use App\Models\Lesson;
+use App\Models\Semester;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,7 @@ class LessonController extends Controller
      */
     public function index()
     {
-        return LessonResource::collection(Lesson::with('cabinet','group')->get());
+        return LessonResource::collection(Lesson::with('cabinet', 'semester')->get());
     }
 
     /**
@@ -29,7 +30,7 @@ class LessonController extends Controller
         $validated = $request->validated();
 
         $cabinet = Cabinet::find($validated['cabinet_id']);
-        $group = Group::find($validated['group_id']);
+        $semester = Semester::find($validated['semester_id']);
 
         $lesson = new Lesson();
         $lesson->fill($validated);
@@ -37,7 +38,7 @@ class LessonController extends Controller
         $lesson->subject_user_id = $validated['subject_user_id'];
 
         $lesson->cabinet()->associate($cabinet);
-        $lesson->group()->associate($group);
+        $lesson->semester()->associate($semester);
 
         $lesson->save();
 

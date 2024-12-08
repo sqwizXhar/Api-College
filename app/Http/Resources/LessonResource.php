@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class LessonResource extends JsonResource
+class LessonResource extends BaseResource
 {
     /**
      * The "data" wrapper that should be applied.
@@ -26,17 +26,18 @@ class LessonResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
-            'id' => $this->id,
-            'day_of_week' => $this->day_of_week,
-            'time' => Carbon::parse($this->time)->format('H:i'),
-            'number_of_lesson' => $this->number_of_lesson,
-            'cabinet' => $this->cabinet ? $this->cabinet->number : null,
-            'group' => $this->group ? $this->group->name : null,
-            'subject' => $this->subject ? $this->subject->title : null,
-            'teacher' => $this->teacher ? $this->teacher->first_name . ' ' .$this->teacher->last_name . ' ' . $this->teacher->middle_name : null,
-            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
-            'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
-        ];
+        return array_merge(parent::toArray($request),
+            [
+                'date' => $this->dates->select('date'),
+                'semester' => $this->semester,
+                'day_of_week' => $this->day_of_week,
+                'time' => Carbon::parse($this->time)->format('H:i'),
+                'number_of_lesson' => $this->number_of_lesson,
+                'cabinet' => $this->cabinet ? $this->cabinet->number : null,
+                'group' => $this->group ? $this->group->name : null,
+                'subject' => $this->subject ? $this->subject->name : null,
+                'teacher' => $this->teacher ? $this->teacher->full_name : null,
+            ]
+        );
     }
 }

@@ -22,6 +22,7 @@ class LessonStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'semester' => 'required|string',
             'day_of_week' => 'required|string|max:15',
             'time' => 'required|string|date_format:H:i',
             'number_of_lesson' => 'required|string',

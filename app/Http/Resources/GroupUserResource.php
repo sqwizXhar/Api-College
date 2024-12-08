@@ -8,8 +8,15 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GroupUserResource extends JsonResource
+class GroupUserResource extends BaseResource
 {
+    /**
+     * The "data" wrapper that should be applied.
+     *
+     * @var string|null
+     */
+    public static $wrap = 'groupUser';
+
     /**
      * Transform the resource into an array.
      *
@@ -17,13 +24,11 @@ class GroupUserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'users' => UserResource::collection($this->users),
-            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
-            'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
-        ];
-
+        return array_merge(parent::toArray($request),
+            [
+                'name' => $this->name,
+                'users' => $this->users->select('first_name', 'last_name', 'middle_name'),
+            ]
+        );
     }
 }

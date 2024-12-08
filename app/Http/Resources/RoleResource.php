@@ -2,10 +2,11 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RoleResource extends JsonResource
+class RoleResource extends BaseResource
 {
     /**
      * The "data" wrapper that should be applied.
@@ -21,12 +22,14 @@ class RoleResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'users' => UserResource::collection($this->users),
-            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
-            'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
-        ];
+        return array_merge(parent::toArray($request),
+            [
+                'id' => $this->id,
+                'name' => $this->name,
+                'users' => User::select('first_name', 'last_name', 'middle_name')->get(),
+                'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+                'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
+            ]
+        );
     }
 }

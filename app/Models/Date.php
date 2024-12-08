@@ -6,20 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Grade extends Model
+class Date extends Model
 {
     protected $fillable = [
-        'grade',
-        'date'
+        'date',
     ];
 
-    public function user(): BelongsTo
+    public function lesson(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Lesson::class);
     }
 
-    public function date(): BelongsTo
+    public function grades(): HasMany
     {
-        return $this->belongsTo(Date::class);
+        return $this->hasMany(Grade::class);
     }
 }
