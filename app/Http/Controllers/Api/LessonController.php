@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LessonRequest;
 use App\Http\Requests\LessonStoreRequest;
 use App\Http\Resources\LessonResource;
 use App\Models\Cabinet;
@@ -19,7 +20,7 @@ class LessonController extends Controller
      */
     public function index()
     {
-        return LessonResource::collection(Lesson::with('cabinet', 'semester')->get());
+        return LessonResource::collection(Lesson::with('cabinet', 'semester', 'dates')->get());
     }
 
     /**
@@ -48,9 +49,37 @@ class LessonController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Lesson $lesson)
+    public function show(LessonRequest $request)
     {
-        return new LessonResource($lesson);
+        $validated = $request->validated();
+
+        $date = $validated['date'] ?? null;
+        $day_of_week = $validated['day_of_week'] ;
+
+        if ($day_of_week == 'true') {
+            $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+            $weeklySchedule = [];
+
+            foreach ($daysOfWeek as $day) {
+                $schedule = Lesson::with('cabinet', 'semester.group', 'dates')
+                    ->where('day_of_week', $day)
+                    ->get();
+                $weeklySchedule[$day] = LessonResource::collection($schedule);
+            }
+            return response()->json($weeklySchedule);
+        }
+        else if($day_of_week) {
+            $schedule = Lesson::with('cabinet', 'semester.group', 'dates')
+                ->whereHas('dates', function ($query) use ($date) {
+                    $query->where('date', $date);
+                })
+                ->whereHas('semester', function ($query) use ($date) {
+                    $query->where('start_date', '<=', $date)
+                    ->where('end_date', '>=', $date);
+                })
+                ->get();
+            return LEssonResource::collection($schedule);
+        }
     }
 
     /**
