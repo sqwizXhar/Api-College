@@ -42,9 +42,16 @@ class SemesterController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show(SemesterRequest $request)
     {
-        
+        $validated = $request->validated();
+        $group = $validated['group'];
+
+        $semester = Semester::whereHas('group', function ($query) use ($group) {
+            $query->where('name', $group);
+        })->with('group')->get();
+
+        return SemesterResource::collection($semester);
     }
 
     /**

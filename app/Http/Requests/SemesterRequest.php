@@ -22,7 +22,7 @@ class SemesterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'group' => 'string|exists:groups,name',
         ];
     }
 }
