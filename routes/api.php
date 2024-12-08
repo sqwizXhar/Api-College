@@ -28,7 +28,9 @@ Route::delete('user/{user}/subject', [UserController::class, 'destroyUserSubject
 
 Route::get('dates/lessons', [DateController::class, 'show'])->name('dates.lessons.show');
 
-Route::get('semesters/group', [SemesterController::class, 'show'])->name('semesters.show');
+Route::get('semesters/group', [SemesterController::class, 'show'])->name('semesters.group.show');
+
+Route::get('lessons/date', [LessonController::class, 'show'])->name('lessons.date.show');
 
 Route::apiResources([
     'users' => UserController::class,
