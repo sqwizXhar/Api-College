@@ -22,13 +22,12 @@ class LessonStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'semester' => 'required|string',
             'day_of_week' => 'required|string|max:15',
             'time' => 'required|string|date_format:H:i',
             'number_of_lesson' => 'required|string',
             'cabinet_id' => 'required|integer|exists:cabinets,id',
-            'group_id' => 'required|integer|exists:groups,id',
             'subject_user_id' => 'required|integer|exists:subject_user,id',
+            'semester_id' => 'required|integer|exists:semesters,id',
         ];
     }
 }
