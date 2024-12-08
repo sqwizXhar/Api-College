@@ -24,6 +24,7 @@ class LessonRequest extends FormRequest
         return [
             'day_of_week' => 'in:true,false',
             'date' => 'required_if:day_of_week,false|date|exists:dates,date',
+            'semester' => 'integer|exists:semesters,id',
         ];
     }
 }
