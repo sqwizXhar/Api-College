@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\GroupAssigned;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GroupUserStoreRequest;
 use App\Http\Requests\UserSubjectStoreRequest;
@@ -120,16 +121,12 @@ class UserController extends Controller
      */
     public function update(UserStoreRequest $request, User $user)
     {
-        $user->update($request->validated());
-
-        return new UserResource($user);
+        return new UserResource($user->update($request->validated()));
     }
 
     public function updateUserSubject(User $user, Subject $subject)
     {
-        $user->subjects()->sync([$subject->id]);
-
-        return new UserSubjectResource($user);
+        return new UserSubjectResource($user->subjects()->sync([$subject->id]));
     }
 
     /**
