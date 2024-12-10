@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\GroupAssigned;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GroupStoreRequest;
 use App\Http\Requests\GroupUserStoreRequest;
@@ -76,16 +77,12 @@ class GroupController extends Controller
      */
     public function update(GroupStoreRequest $request, Group $group)
     {
-        $group->update($request->validated());
-
-        return new GroupResource($group);
+        return new GroupResource($group->update($request->validated()));
     }
 
     public function updateGroupUser(Group $group, User $user)
     {
-        $group->users()->sync([$user->id]);
-
-        return new GroupUserResource($group);
+        return new GroupUserResource($group->users()->sync([$user->id]));
     }
 
     /**
