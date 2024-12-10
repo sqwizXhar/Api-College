@@ -42,9 +42,7 @@ class CabinetController extends Controller
      */
     public function update(CabinetStoreRequest $request, Cabinet $cabinet)
     {
-        $cabinet->update($request->validated());
-
-        return new CabinetResource($cabinet);
+        return new CabinetResource($cabinet->update($request->validated()));
     }
 
     /**
