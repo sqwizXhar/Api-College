@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CabinetStoreRequest;
+use App\Http\Requests\CabiinetRequests\CabinetStoreRequest;
 use App\Http\Resources\CabinetResource;
 use App\Models\Cabinet;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class CabinetController extends Controller
 {

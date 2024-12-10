@@ -3,15 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\GradeRequest;
-use App\Http\Requests\GradeStoreRequest;
-use App\Http\Requests\GroupStoreRequest;
+use App\Http\Requests\GradeRequests\GradeRequest;
+use App\Http\Requests\GradeRequests\GradeStoreRequest;
 use App\Http\Resources\GradeResource;
 use App\Models\Date;
 use App\Models\Grade;
-use App\Models\Lesson;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class GradeController extends Controller
 {

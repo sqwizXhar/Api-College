@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\LessonRequests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class SubjectStoreRequest extends FormRequest
+class LessonRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,9 @@ class SubjectStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
+            'day_of_week' => 'in:true,false',
+            'date' => 'required_if:day_of_week,false|date|exists:dates,date',
+            'semester' => 'integer|exists:semesters,id',
         ];
     }
 }

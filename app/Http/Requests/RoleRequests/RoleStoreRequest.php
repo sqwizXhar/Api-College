@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\RoleRequests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class SemesterRequest extends FormRequest
+class RoleStoreRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class SemesterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'group' => 'string|exists:groups,name',
+            'name' => 'required|string|max:255',
         ];
     }
 }

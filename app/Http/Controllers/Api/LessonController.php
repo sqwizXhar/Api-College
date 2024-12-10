@@ -3,15 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LessonRequest;
-use App\Http\Requests\LessonStoreRequest;
+use App\Http\Requests\LessonRequests\LessonRequest;
+use App\Http\Requests\LessonRequests\LessonStoreRequest;
 use App\Http\Resources\LessonResource;
 use App\Models\Cabinet;
-use App\Models\Group;
 use App\Models\Lesson;
 use App\Models\Semester;
-use App\Models\Subject;
-use Illuminate\Http\Request;
 
 class LessonController extends Controller
 {

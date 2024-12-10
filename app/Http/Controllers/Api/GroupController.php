@@ -4,15 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Events\GroupAssigned;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\GroupStoreRequest;
-use App\Http\Requests\GroupUserStoreRequest;
+use App\Http\Requests\GroupRequests\GroupStoreRequest;
+use App\Http\Requests\GroupRequests\GroupUserStoreRequest;
 use App\Http\Resources\GroupResource;
 use App\Http\Resources\GroupUserResource;
 use App\Models\Group;
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Http\Response;
-use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {

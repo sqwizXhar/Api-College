@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SubjectStoreRequest;
+use App\Http\Requests\SubjectRequests\SubjectStoreRequest;
 use App\Http\Resources\SubjectResource;
 use App\Models\Subject;
-use Illuminate\Http\Response;
 
 class SubjectController extends Controller
 {
