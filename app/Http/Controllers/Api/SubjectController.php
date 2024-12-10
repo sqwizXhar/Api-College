@@ -41,9 +41,7 @@ class SubjectController extends Controller
      */
     public function update(SubjectStoreRequest $request, Subject $subject)
     {
-        $subject->update($request->validated());
-
-        return new SubjectResource($subject);
+        return new SubjectResource($subject->update($request->validated()));
     }
 
     /**
