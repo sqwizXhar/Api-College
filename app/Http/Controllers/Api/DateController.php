@@ -14,9 +14,27 @@ class DateController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(DateRequest $request)
     {
-        return DateResource::collection(Date::with('lesson')->get());
+        $validated = $request->validated();
+
+        $day = $validated['day'];
+        $group = $validated['group'];
+        $date = $validated['dates'];
+        $semester = $validated['semester'] ?? null;
+
+        $dateQuery = Date::whereHas('lesson', function ($query) use ($day, $group, $semester) {
+            $query->where('day_of_week', $day)
+                ->whereHas('group', function ($query) use ($group) {
+                    $query->where('name', $group);
+                })
+                ->where('semester', $semester);
+        })->whereIn('date', $date);
+
+
+        $dates = $dateQuery->with('lesson.group')->get();
+
+        return DateResource::collection($dates);
     }
 
     /**
@@ -41,27 +59,9 @@ class DateController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(DateRequest $request)
+    public function show(Date $date)
     {
-        $validated = $request->validated();
-
-        $day = $validated['day'];
-        $group = $validated['group'];
-        $date = $validated['dates'];
-        $semester = $validated['semester'] ?? null;
-
-        $dateQuery = Date::whereHas('lesson', function ($query) use ($day, $group, $semester) {
-            $query->where('day_of_week', $day)
-                ->whereHas('group', function ($query) use ($group) {
-                    $query->where('name', $group);
-                })
-                ->where('semester', $semester);
-        })->whereIn('date', $date);
-
-
-        $dates = $dateQuery->with('lesson.group')->get();
-
-        return DateResource::collection($dates);
+        return new DateResource($date);
     }
 
     /**
@@ -69,9 +69,7 @@ class DateController extends Controller
      */
     public function update(DateStoreRequest $request, Date $date)
     {
-        $date->update($request->validated());
-
-        return new DateResource($date);
+        return new DateResource($date->update($request->validated()));
     }
 
     /**
