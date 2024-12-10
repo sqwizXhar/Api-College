@@ -26,7 +26,7 @@ class RoleResource extends BaseResource
             [
                 'id' => $this->id,
                 'name' => $this->name,
-                'users' => User::select('first_name', 'last_name', 'middle_name')->get(),
+                'users' => $this->users->select('first_name', 'last_name', 'middle_name'),
                 'created_at' => $this->created_at->format('Y-m-d H:i:s'),
                 'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
             ]
