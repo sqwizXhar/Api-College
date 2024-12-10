@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\GradeRequest;
 use App\Http\Requests\GradeStoreRequest;
 use App\Http\Requests\GroupStoreRequest;
 use App\Http\Resources\GradeResource;
@@ -17,9 +18,25 @@ class GradeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(GradeRequest $request)
     {
-        return GradeResource::collection(Grade::with('user', 'date')->get());
+        $validated = $request->validated();
+
+        $user = $validated['user'] ?? null;
+        $date = $validated['date'] ?? null;
+
+        $grade = Grade::with('user', 'date')
+            ->whereHas('user', function ($query) use ($user) {
+                $query->where('id', $user);
+            })
+            ->whereHas('date', function ($query) use ($date) {
+                if (isset($date)) {
+                    $query->where('date', $date);
+                }
+            })
+            ->get();
+
+        return GradeResource::collection($grade);
     }
 
     /**
@@ -48,7 +65,7 @@ class GradeController extends Controller
      */
     public function show(Grade $grade)
     {
-        return new GradeResource($grade->load(['user', 'date']));
+        return new GradeResource($grade->with('user', 'date'));
     }
 
     /**
@@ -56,9 +73,7 @@ class GradeController extends Controller
      */
     public function update(GradeStoreRequest $request, Grade $grade)
     {
-        $grade->update($request->validated());
-
-        return new GradeResource($grade);
+        return new GradeResource($grade->update($request->validated()));
     }
 
     /**

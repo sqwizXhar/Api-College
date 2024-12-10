@@ -15,9 +15,19 @@ class SemesterController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(SemesterRequest $request)
     {
-        return SemesterResource::collection(Semester::with('lessons', 'group')->get());
+        $validated = $request->validated();
+        $group = $validated['group'];
+
+        $semester = Semester::with('group')
+            ->whereHas('group', function ($query) use ($group) {
+                $query->where('name', $group);
+            })
+            ->orderBy('number')
+            ->get();
+
+        return SemesterResource::collection($semester);
     }
 
     /**
@@ -42,16 +52,9 @@ class SemesterController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(SemesterRequest $request)
+    public function show(Semester $semester)
     {
-        $validated = $request->validated();
-        $group = $validated['group'];
-
-        $semester = Semester::whereHas('group', function ($query) use ($group) {
-            $query->where('name', $group);
-        })->with('group')->get();
-
-        return SemesterResource::collection($semester);
+        return new SemesterResource($semester);
     }
 
     /**
@@ -59,9 +62,7 @@ class SemesterController extends Controller
      */
     public function update(SemesterStoreRequest $request, Semester $semester)
     {
-        $semester->update($request->validated());
-
-        return new SemesterResource($semester);
+        return new SemesterResource($semester->update($request->validated()));
     }
 
     /**
