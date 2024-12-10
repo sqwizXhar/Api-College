@@ -26,12 +26,6 @@ Route::post('user/{user}/subject/{subject}', [UserController::class, 'storeUserS
 Route::put('user/{user}/subject/{subject}', [UserController::class, 'updateUserSubject'])->name('user.subject.update');
 Route::delete('user/{user}/subject', [UserController::class, 'destroyUserSubject'])->name('user.subjects.destroy');
 
-Route::get('dates/lessons', [DateController::class, 'show'])->name('dates.lessons.show');
-
-Route::get('semesters/group', [SemesterController::class, 'show'])->name('semesters.group.show');
-
-Route::get('lessons/date', [LessonController::class, 'show'])->name('lessons.date.show');
-
 Route::apiResources([
     'users' => UserController::class,
     'groups' => GroupController::class,
