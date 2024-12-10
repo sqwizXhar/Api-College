@@ -4,19 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Events\GroupAssigned;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\GroupUserStoreRequest;
-use App\Http\Requests\UserSubjectStoreRequest;
-use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserRequests\UserStoreRequest;
 use App\Http\Resources\AdminResource;
-use App\Http\Resources\GroupUserResource;
-use App\Http\Resources\UserSubjectResource;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\UserSubjectResource;
 use App\Models\Group;
 use App\Models\Role;
 use App\Models\Subject;
 use App\Models\User;
-use Illuminate\Http\Response;
-use function Symfony\Component\VarDumper\Dumper\esc;
 
 class UserController extends Controller
 {

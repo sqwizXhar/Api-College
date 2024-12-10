@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SemesterRequest;
-use App\Http\Requests\SemesterStoreRequest;
+use App\Http\Requests\SemesterRequests\SemesterRequest;
+use App\Http\Requests\SemesterRequests\SemesterStoreRequest;
 use App\Http\Resources\SemesterResource;
 use App\Models\Group;
 use App\Models\Semester;
-use Illuminate\Http\Request;
 
 class SemesterController extends Controller
 {

@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\DateRequest;
-use App\Http\Requests\DateStoreRequest;
+use App\Http\Requests\DateRequests\DateRequest;
+use App\Http\Requests\DateRequests\DateStoreRequest;
 use App\Http\Resources\DateResource;
 use App\Models\Date;
-use Illuminate\Http\Request;
 
 class DateController extends Controller
 {

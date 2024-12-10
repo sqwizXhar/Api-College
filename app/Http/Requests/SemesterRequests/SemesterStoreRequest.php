@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\SemesterRequests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class AdminStoreRequest extends FormRequest
+class SemesterStoreRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,10 @@ class AdminStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'login' => 'required|min:8|max:50',
-            'password' => 'required|min:8|max:16',
+            'number' => 'required|integer|between:1,12',
+            'start_date' => 'required|date|date_format:Y-m-d',
+            'end_date' => 'required|date|date_format:Y-m-d',
+            'group_id' => 'required|integer|exists:groups,id',
         ];
     }
 }

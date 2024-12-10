@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\GradeRequests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class GroupUserStoreRequest extends FormRequest
+class GradeRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,8 @@ class GroupUserStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'role' => 'required|string|in:teacher,student',
+            'user' => 'integer|exists:users,id',
+            'date' => 'date|date_format:Y-m-d|exists:dates,date',
         ];
     }
 }

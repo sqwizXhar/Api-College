@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\CabiinetRequests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class CabinetStoreRequest extends FormRequest
+class CabinetStoreRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
