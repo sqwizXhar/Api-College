@@ -33,8 +33,9 @@ class UserResource extends BaseResource
                 'middle_name' => $this->middle_name,
                 'login' => $this->login,
                 'role' => $this->role ? $this->role->name : '',
-                'groups' => $this->when(!$this->role->isAdmin(), $this->groups->select('id', 'name')),
-                'grade' => $this->when(!$this->role->isAdmin() && !$this->role->isTeacher(), $this->grades->select('grade')),
+                $this->mergeWhen(!$this->role->isAdmin() && $this->groups->isNotEmpty(), [
+                    'groups' => $this->groups->pluck('name')->toArray(),
+                ])
             ]
         );
     }
