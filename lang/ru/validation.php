@@ -173,8 +173,8 @@ return [
   */
 
     'custom' => [
-        'foreign_key_validation' => [
-            'errors' => 'Невозможно удалить или обновить, так как существует ограничение на внешний ключ.'
+        'attribute-name' => [
+            'rule-name' => 'custom-message',
         ],
     ],
 
