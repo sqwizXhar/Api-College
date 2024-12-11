@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CabiinetRequests\CabinetStoreRequest;
-use App\Http\Resources\CabinetResource;
+use App\Http\Resources\CabinetResources\CabinetResource;
 use App\Models\Cabinet;
 
 class CabinetController extends Controller

@@ -1,20 +1,18 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\SubjectResources;
 
-use App\Models\Group;
-use App\Models\User;
+use App\Http\Resources\BaseResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class GroupResource extends BaseResource
+class SubjectResource extends BaseResource
 {
     /**
      * The "data" wrapper that should be applied.
      *
      * @var string|null
      */
-    public static $wrap = 'group';
+    public static $wrap = 'subject';
 
     /**
      * Transform the resource into an array.

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubjectRequests\SubjectStoreRequest;
-use App\Http\Resources\SubjectResource;
+use App\Http\Resources\SubjectResources\SubjectResource;
 use App\Models\Subject;
 
 class SubjectController extends Controller

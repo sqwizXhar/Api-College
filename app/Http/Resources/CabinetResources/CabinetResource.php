@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\CabinetResources;
 
+use App\Http\Resources\BaseResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class SubjectResource extends BaseResource
+class CabinetResource extends BaseResource
 {
     /**
      * The "data" wrapper that should be applied.
      *
      * @var string|null
      */
-    public static $wrap = 'subject';
+    public static $wrap = 'cabinet';
 
     /**
      * Transform the resource into an array.
@@ -23,7 +23,8 @@ class SubjectResource extends BaseResource
     {
         return array_merge(parent::toArray($request),
             [
-                'name' => $this->name,
+                'purpose' => $this->purpose,
+                'number' => $this->number,
             ]
         );
     }

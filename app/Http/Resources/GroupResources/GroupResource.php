@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\GroupResources;
 
+use App\Http\Resources\BaseResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class GradeResource extends BaseResource
+class GroupResource extends BaseResource
 {
     /**
      * The "data" wrapper that should be applied.
      *
      * @var string|null
      */
-    public static $wrap = 'grade';
+    public static $wrap = 'group';
 
     /**
      * Transform the resource into an array.
@@ -23,10 +23,7 @@ class GradeResource extends BaseResource
     {
         return array_merge(parent::toArray($request),
             [
-                'student' => $this->user->full_name,
-                'grade' => $this->grade,
-                'date' => $this->date->date,
-                'teacher' => $this->date->lesson->teacher->full_name,
+                'name' => $this->name,
             ]
         );
     }
