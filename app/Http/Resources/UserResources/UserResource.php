@@ -1,14 +1,9 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\UserResources;
 
-use App\Models\Grade;
-use App\Models\Group;
-use App\Models\User;
+use App\Http\Resources\BaseResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\DB;
-use function Laravel\Prompts\select;
 
 class UserResource extends BaseResource
 {

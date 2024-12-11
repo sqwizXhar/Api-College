@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\GroupResources;
 
-use Carbon\Carbon;
+use App\Http\Resources\BaseResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class SemesterResource extends BaseResource
+class GroupUserResource extends BaseResource
 {
     /**
      * The "data" wrapper that should be applied.
      *
      * @var string|null
      */
-    public static $wrap = 'semester';
+    public static $wrap = 'groupUser';
 
     /**
      * Transform the resource into an array.
@@ -24,10 +23,8 @@ class SemesterResource extends BaseResource
     {
         return array_merge(parent::toArray($request),
             [
-                'number' => $this->number,
-                'start_date' => Carbon::parse($this->start_date)->format('Y-m-d'),
-                'end_date' => $this->end_date,
-                'group' => $this->group->name,
+                'name' => $this->name,
+                'users' => $this->users->select('first_name', 'last_name', 'middle_name'),
             ]
         );
     }

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\DateResources;
 
+use App\Http\Resources\BaseResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 class DateResource extends BaseResource
 {

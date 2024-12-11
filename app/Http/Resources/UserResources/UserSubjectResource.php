@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\UserResources;
 
-use App\Models\Subject;
-use App\Models\User;
+use App\Http\Resources\BaseResource;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserSubjectResource extends BaseResource
 {

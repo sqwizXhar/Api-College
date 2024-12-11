@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DateRequests\DateRequest;
 use App\Http\Requests\DateRequests\DateStoreRequest;
-use App\Http\Resources\DateResource;
+use App\Http\Resources\DateResources\DateResource;
 use App\Models\Date;
 
 class DateController extends Controller

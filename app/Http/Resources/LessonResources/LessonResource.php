@@ -1,14 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\LessonResources;
 
-use App\Models\Cabinet;
-use App\Models\Role;
-use App\Models\Subject;
-use App\Models\User;
+use App\Http\Resources\BaseResource;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 class LessonResource extends BaseResource
 {

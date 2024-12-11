@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RoleRequests\RoleStoreRequest;
-use App\Http\Resources\RoleResource;
+use App\Http\Resources\RoleResources\RoleResource;
 use App\Models\Role;
 
 class RoleController extends Controller

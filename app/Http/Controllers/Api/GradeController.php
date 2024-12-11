@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GradeRequests\GradeRequest;
 use App\Http\Requests\GradeRequests\GradeStoreRequest;
-use App\Http\Resources\GradeResource;
+use App\Http\Resources\GradeResources\GradeResource;
 use App\Models\Date;
 use App\Models\Grade;
 use App\Models\User;
