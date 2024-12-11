@@ -16,12 +16,5 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        $exceptions->respond(function (Response $response, Throwable $exception) {
-            if ($exception instanceof \Illuminate\Database\QueryException && $exception->getCode() === '23503') {
-                return response()->json([
-                    'errors' => trans('validation.custom.foreign_key_validation.errors'),
-                ], 400);
-            }
-            return $response;
-        });
+        //
     })->create();
