@@ -24,9 +24,6 @@ class LessonResource extends BaseResource
     {
         return array_merge(parent::toArray($request),
             [
-                $this->mergeWhen($request->has('date'), [
-                    'day_of_week' => $this->day_of_week,
-                ]),
                 'time' => Carbon::parse($this->time)->format('H:i'),
                 'number_of_lesson' => $this->number_of_lesson ?? null,
                 'cabinet' => $this->cabinet ? $this->cabinet->number : null,
