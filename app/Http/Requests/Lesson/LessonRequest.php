@@ -22,9 +22,18 @@ class LessonRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'day_of_week' => 'in:true,false',
-            'date' => 'required_if:day_of_week,false|date|exists:dates,date',
+            'has_weekly_schedule' => 'required|boolean',
+            'date' => 'nullable|required_if:has_weekly_schedule,false|date|exists:dates,date',
             'semester' => 'integer|exists:semesters,id',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'date' => [
+                'required_if' => 'Поле :attribute обязательно для заполнения, когда :other ложно(0)',
+            ]
         ];
     }
 }
