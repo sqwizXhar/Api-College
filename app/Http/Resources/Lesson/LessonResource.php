@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\LessonResources;
+namespace App\Http\Resources\Lesson;
 
 use App\Http\Resources\BaseResource;
 use Carbon\Carbon;

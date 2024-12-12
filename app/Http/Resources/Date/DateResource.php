@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\DateResources;
+namespace App\Http\Resources\Date;
 
 use App\Http\Resources\BaseResource;
 use Illuminate\Http\Request;

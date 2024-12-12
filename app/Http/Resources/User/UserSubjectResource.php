@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Http\Resources\UserResources;
+namespace App\Http\Resources\User;
 
 use App\Http\Resources\BaseResource;
+use App\Http\Resources\Subject\SubjectResource;
 use Illuminate\Http\Request;
 
-class UserResource extends BaseResource
+class UserSubjectResource extends BaseResource
 {
     /**
      * The "data" wrapper that should be applied.
      *
      * @var string|null
      */
-    public static $wrap = 'user';
+    public static $wrap = 'userSubject';
 
     /**
      * Transform the resource into an array.
@@ -26,11 +27,8 @@ class UserResource extends BaseResource
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
                 'middle_name' => $this->middle_name,
-                'login' => $this->login,
-                'role' => $this->role ? $this->role->name : '',
-                $this->mergeWhen(!$this->role->isAdmin() && $this->groups->isNotEmpty(), [
-                    'groups' => $this->groups->pluck('name')->toArray(),
-                ])
+                'role' => $this->role->name,
+                'subjects' => SubjectResource::collection($this->subjects),
             ]
         );
     }

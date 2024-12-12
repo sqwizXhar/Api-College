@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Resources\AdminResources;
+namespace App\Http\Resources\Subject;
 
 use App\Http\Resources\BaseResource;
 use Illuminate\Http\Request;
 
-class AdminResource extends BaseResource
+class SubjectResource extends BaseResource
 {
     /**
      * The "data" wrapper that should be applied.
      *
      * @var string|null
      */
-    public static $wrap = 'admin';
+    public static $wrap = 'subject';
 
     /**
      * Transform the resource into an array.
@@ -23,8 +23,8 @@ class AdminResource extends BaseResource
     {
         return array_merge(parent::toArray($request),
             [
-                'login' => $this->login,
-            ],
+                'name' => $this->name,
+            ]
         );
     }
 }

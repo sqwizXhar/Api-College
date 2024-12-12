@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Resources\GroupResources;
+namespace App\Http\Resources\Admin;
 
 use App\Http\Resources\BaseResource;
 use Illuminate\Http\Request;
 
-class GroupUserResource extends BaseResource
+class AdminResource extends BaseResource
 {
     /**
      * The "data" wrapper that should be applied.
      *
      * @var string|null
      */
-    public static $wrap = 'groupUser';
+    public static $wrap = 'admin';
 
     /**
      * Transform the resource into an array.
@@ -23,9 +23,8 @@ class GroupUserResource extends BaseResource
     {
         return array_merge(parent::toArray($request),
             [
-                'name' => $this->name,
-                'users' => $this->users->select('first_name', 'last_name', 'middle_name'),
-            ]
+                'login' => $this->login,
+            ],
         );
     }
 }
