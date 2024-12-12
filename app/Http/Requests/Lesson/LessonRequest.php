@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\LessonRequests;
+namespace App\Http\Requests\Lesson;
 
 use App\Http\Requests\BaseFormRequest;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\RoleRequests;
+namespace App\Http\Requests\Role;
 
 use App\Http\Requests\BaseFormRequest;
 

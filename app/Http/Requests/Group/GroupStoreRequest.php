@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\GroupRequests;
+namespace App\Http\Requests\Group;
 
 use App\Http\Requests\BaseFormRequest;
 

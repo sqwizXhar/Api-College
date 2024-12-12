@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\DateRequests;
+namespace App\Http\Requests\Date;
 
 use App\Http\Requests\BaseFormRequest;
 

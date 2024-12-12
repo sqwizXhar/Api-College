@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\CabiinetRequests;
+namespace App\Http\Requests\Cabinet;
 
 use App\Http\Requests\BaseFormRequest;
 

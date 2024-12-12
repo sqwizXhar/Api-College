@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\GradeRequests;
+namespace App\Http\Requests\Grade;
 
 use App\Http\Requests\BaseFormRequest;
 
