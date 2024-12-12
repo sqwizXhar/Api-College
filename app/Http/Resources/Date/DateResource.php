@@ -23,13 +23,11 @@ class DateResource extends BaseResource
     {
         return array_merge(parent::toArray($request),
             [
-                'date' => $this->date,
-                'semester' => $this->lesson->semester,
-                'number_of_lesson' => $this->lesson->number_of_lesson,
-                'time' => $this->lesson->time,
-                'cabinet' => $this->lesson->cabinet->number,
-                'teacher' => $this->lesson->teacher->full_name,
-                'subject' => $this->lesson->subject->name,
+                'number_of_lesson' => $this->lesson ? $this->lesson->number_of_lesson : null,
+                'time' => $this->lesson ? $this->lesson->time : null,
+                'subject' => $this->lesson->subject ? $this->lesson->subject->name : null,
+                'cabinet' => $this->lesson->cabinet ? $this->lesson->cabinet->number : null,
+                'teacher' => $this->lesson->teacher ? $this->lesson->teacher->full_name : null,
             ]
         );
     }

@@ -22,10 +22,9 @@ class DateRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'day' => 'required|string|in:Monday,Tuesday,Wednesday,Thursday,Friday',
-            'group' => 'required|string|exists:groups,name',
-            'dates' => 'sometimes|array',
-            'dates.*' => 'date|date_format:Y-m-d|exists:dates,date',
+            'dates' => 'required|sometimes|array',
+            'dates.*' => 'required|date|date_format:Y-m-d|exists:dates,date',
+            'semester' => 'integer|exists:semesters,number',
         ];
     }
 }
