@@ -85,10 +85,8 @@ class LessonController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Lesson $lesson)
+    public function destroy()
     {
-        $lesson->delete();
-
-        return response()->json(['message' => 'Lesson deleted successfully']);
+        return response()->json(['message' => 'Lesson cannot be deleted!'], 400);
     }
 }

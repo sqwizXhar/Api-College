@@ -67,10 +67,8 @@ class DateController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Date $date)
+    public function destroy()
     {
-        $date->delete();
-
-        return response()->json(['message' => 'Date deleted successfully']);
+       return response()->json(['message' => 'The date cannot be deleted.'], 400);
     }
 }
