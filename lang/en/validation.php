@@ -173,8 +173,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'has_weekly_schedule' => [
+            'boolean' => 'The :attribute field must be true(1) or false(0)',
         ],
     ],
 

@@ -173,8 +173,8 @@ return [
   */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'has_weekly_schedule' => [
+            'boolean' => 'Поле :attribute должно быть истинным(1) или ложным(0)',
         ],
     ],
 
@@ -217,6 +217,7 @@ return [
         'number' => 'Номер',
         'subject_user_id' => 'Связь урок-пользователь',
         'group_user_id' => 'Связь группа-пользователь',
+        'has_weekly_schedule' => 'Еженедельное расписание',
     ],
 ];
 
