@@ -25,7 +25,7 @@ class LessonResource extends BaseResource
         return array_merge(parent::toArray($request),
             [
                 'time' => Carbon::parse($this->time)->format('H:i'),
-                'number_of_lesson' => $this->number_of_lesson,
+                'number_of_lesson' => $this->number_of_lesson ?? null,
                 'cabinet' => $this->cabinet ? $this->cabinet->number : null,
                 'group' => $this->semester->group ? $this->semester->group->name : null,
                 'subject' => $this->subject ? $this->subject->name : null,

@@ -20,31 +20,28 @@ class LessonController extends Controller
         $validated = $request->validated();
 
         $date = $validated['date'] ?? null;
-        $day_of_week = $validated['day_of_week'];
         $semester = $validated['semester'] ?? null;
 
-        if ($day_of_week == 'true') {
-            $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-            $weeklySchedule = [];
+        $daysOfWeek = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница'];
+        $weeklySchedule = [];
 
-            foreach ($daysOfWeek as $day) {
-                $schedule = Lesson::where('day_of_week', $day)
-                    ->where('semester_id', $semester)
-                    ->get();
-                $weeklySchedule[$day] = LessonResource::collection($schedule);
-            }
-
-            return response()->json($weeklySchedule);
-        }
-        else if($day_of_week) {
-            $schedule = Lesson::whereHas('dates', function ($query) use ($date) {
-                    $query->where('date', $date);
+        foreach ($daysOfWeek as $day) {
+            $schedule = Lesson::where('day_of_week', $day)
+                ->whereHas('dates', function ($query) use ($date) {
+                    if ($date) {
+                        $query->where('date', $date);
+                    }
                 })
-                ->where('semester_id', $semester)
+                ->whereHas('semester', function ($query) use ($semester) {
+                    if ($semester) {
+                        $query->where('semester_id', $semester);
+                    }
+                })
                 ->get();
-
-            return LEssonResource::collection($schedule);
+            $weeklySchedule[$day] = LessonResource::collection($schedule);
         }
+
+        return response()->json($weeklySchedule);
     }
 
     /**
