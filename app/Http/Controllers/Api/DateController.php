@@ -17,17 +17,13 @@ class DateController extends Controller
     {
         $validated = $request->validated();
 
-        $day = $validated['day'];
-        $group = $validated['group'];
         $date = $validated['dates'];
         $semester = $validated['semester'] ?? null;
 
-        $dateQuery = Date::whereHas('lesson', function ($query) use ($day, $group, $semester) {
-            $query->where('day_of_week', $day)
-                ->whereHas('group', function ($query) use ($group) {
-                    $query->where('name', $group);
-                })
-                ->where('semester', $semester);
+        $dateQuery = Date::whereHas('lesson', function ($query) use ($semester) {
+            if($semester) {
+                $query->where('semester_id', $semester);
+            }
         })->whereIn('date', $date)->get();
 
         return DateResource::collection($dateQuery);
