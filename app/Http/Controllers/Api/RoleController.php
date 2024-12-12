@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RoleRequests\RoleStoreRequest;
-use App\Http\Resources\RoleResources\RoleResource;
+use App\Http\Requests\Role\RoleStoreRequest;
+use App\Http\Resources\Role\RoleResource;
 use App\Models\Role;
 
 class RoleController extends Controller
@@ -14,7 +14,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return RoleResource::collection(Role::with('users')->get());
+        return RoleResource::collection(Role::get());
     }
 
     /**
@@ -40,7 +40,9 @@ class RoleController extends Controller
      */
     public function update(RoleStoreRequest $request, Role $role)
     {
-        return new RoleResource($role->update($request->validated()));
+        $role->update($request->validated());
+
+        return new RoleResource($role);
     }
 
     /**

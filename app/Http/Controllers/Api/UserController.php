@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Events\GroupAssigned;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequests\UserStoreRequest;
-use App\Http\Resources\AdminResources\AdminResource;
-use App\Http\Resources\UserResources\UserResource;
-use App\Http\Resources\UserResources\UserSubjectResource;
+use App\Http\Requests\User\UserStoreRequest;
+use App\Http\Resources\Admin\AdminResource;
+use App\Http\Resources\User\UserResource;
+use App\Http\Resources\User\UserSubjectResource;
 use App\Models\Group;
 use App\Models\Role;
 use App\Models\Subject;
@@ -20,7 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection(User::with('groups', 'role', 'grades')->get());
+        return UserResource::collection(User::get());
     }
 
     public function getStudents()
@@ -50,9 +49,9 @@ class UserController extends Controller
         return AdminResource::collection($admins);
     }
 
-    public function getUserSubjects(User $user)
+    public function getUserSubjects()
     {
-        $user= User::has('subjects')->get();
+        $user = User::has('subjects')->get();
 
         return UserSubjectResource::collection($user);
     }
@@ -69,7 +68,6 @@ class UserController extends Controller
         $user = new User();
         $user->fill($validated);
         $user->role()->associate($role);
-
         $user->save();
 
         if ($role->id != Role::getAdminRole()->id && isset($validated['group_id'])) {
@@ -87,9 +85,7 @@ class UserController extends Controller
     public function storeUserSubject( User $user, Subject $subject)
     {
         if ($user && $user->role && $user->role->id == Role::getTeacherRole()->id) {
-
             $user->subjects()->sync($subject->id);
-
             $user->save();
 
             return new UserSubjectResource($user);
@@ -116,12 +112,16 @@ class UserController extends Controller
      */
     public function update(UserStoreRequest $request, User $user)
     {
-        return new UserResource($user->update($request->validated()));
+        $user->update($request->validated());
+
+        return new UserResource($user);
     }
 
     public function updateUserSubject(User $user, Subject $subject)
     {
-        return new UserSubjectResource($user->subjects()->sync([$subject->id]));
+        $user->subjects()->sync([$subject->id]);
+
+        return new UserSubjectResource($user);
     }
 
     /**

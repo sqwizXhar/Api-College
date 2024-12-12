@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CabiinetRequests\CabinetStoreRequest;
-use App\Http\Resources\CabinetResources\CabinetResource;
+use App\Http\Requests\Cabinet\CabinetStoreRequest;
+use App\Http\Resources\Cabinet\CabinetResource;
 use App\Models\Cabinet;
 
 class CabinetController extends Controller
@@ -40,7 +40,9 @@ class CabinetController extends Controller
      */
     public function update(CabinetStoreRequest $request, Cabinet $cabinet)
     {
-        return new CabinetResource($cabinet->update($request->validated()));
+        $cabinet->update($request->validated());
+
+        return new CabinetResource($cabinet);
     }
 
     /**

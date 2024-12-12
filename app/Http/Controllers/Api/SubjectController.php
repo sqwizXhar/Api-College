@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SubjectRequests\SubjectStoreRequest;
-use App\Http\Resources\SubjectResources\SubjectResource;
+use App\Http\Requests\Subject\SubjectStoreRequest;
+use App\Http\Resources\Subject\SubjectResource;
 use App\Models\Subject;
 
 class SubjectController extends Controller
@@ -14,7 +14,7 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        return SubjectResource::collection(Subject::with('users')->get());
+        return SubjectResource::collection(Subject::get());
     }
 
     /**
@@ -32,7 +32,7 @@ class SubjectController extends Controller
      */
     public function show(Subject $subject)
     {
-        return new SubjectResource($subject->load('users'));
+        return new SubjectResource($subject);
     }
 
     /**
@@ -40,7 +40,9 @@ class SubjectController extends Controller
      */
     public function update(SubjectStoreRequest $request, Subject $subject)
     {
-        return new SubjectResource($subject->update($request->validated()));
+        $subject->update($request->validated());
+
+        return new SubjectResource($subject);
     }
 
     /**

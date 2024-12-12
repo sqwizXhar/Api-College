@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SemesterRequests\SemesterRequest;
-use App\Http\Requests\SemesterRequests\SemesterStoreRequest;
-use App\Http\Resources\SemesterResources\SemesterResource;
+use App\Http\Requests\Semester\SemesterRequest;
+use App\Http\Requests\Semester\SemesterStoreRequest;
+use App\Http\Resources\Semester\SemesterResource;
 use App\Models\Group;
 use App\Models\Semester;
 
@@ -19,8 +19,7 @@ class SemesterController extends Controller
         $validated = $request->validated();
         $group = $validated['group'];
 
-        $semester = Semester::with('group')
-            ->whereHas('group', function ($query) use ($group) {
+        $semester = Semester::whereHas('group', function ($query) use ($group) {
                 $query->where('name', $group);
             })
             ->orderBy('number')
@@ -40,9 +39,7 @@ class SemesterController extends Controller
 
         $semester = new Semester();
         $semester->fill($validated);
-
         $semester->group()->associate($group);
-
         $semester->save();
 
         return new SemesterResource($semester);
@@ -61,7 +58,9 @@ class SemesterController extends Controller
      */
     public function update(SemesterStoreRequest $request, Semester $semester)
     {
-        return new SemesterResource($semester->update($request->validated()));
+        $semester->update($request->validated());
+
+        return new SemesterResource($semester);
     }
 
     /**

@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Events\GroupAssigned;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\GroupRequests\GroupStoreRequest;
-use App\Http\Requests\GroupRequests\GroupUserStoreRequest;
-use App\Http\Resources\GroupResources\GroupResource;
-use App\Http\Resources\GroupResources\GroupUserResource;
+use App\Http\Requests\Group\GroupStoreRequest;
+use App\Http\Requests\Group\GroupUserStoreRequest;
+use App\Http\Resources\Group\GroupResource;
+use App\Http\Resources\Group\GroupUserResource;
 use App\Models\Group;
 use App\Models\Role;
 use App\Models\User;
@@ -19,7 +19,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        return GroupResource::collection(Group::with('users')->get());
+        return GroupResource::collection(Group::get());
     }
 
     public function getGroupUsers(GroupUserStoreRequest $request)
@@ -51,9 +51,7 @@ class GroupController extends Controller
     public function storeGroupUser(Group $group, User $user)
     {
         if ($user && $user->role && $user->role->id != Role::getAdminRole()->id) {
-
             $group->users()->attach($user->id);
-
             $group->save();
 
             return new GroupUserResource($group);
@@ -75,12 +73,16 @@ class GroupController extends Controller
      */
     public function update(GroupStoreRequest $request, Group $group)
     {
-        return new GroupResource($group->update($request->validated()));
+        $group->update($request->validated());
+
+        return new GroupResource($group);
     }
 
     public function updateGroupUser(Group $group, User $user)
     {
-        return new GroupUserResource($group->users()->sync([$user->id]));
+        $group->users()->sync([$user->id]);
+
+        return new GroupUserResource($group);
     }
 
     /**

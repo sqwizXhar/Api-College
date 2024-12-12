@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\DateRequests\DateRequest;
-use App\Http\Requests\DateRequests\DateStoreRequest;
-use App\Http\Resources\DateResources\DateResource;
+use App\Http\Requests\Date\DateRequest;
+use App\Http\Requests\Date\DateStoreRequest;
+use App\Http\Resources\Date\DateResource;
 use App\Models\Date;
 
 class DateController extends Controller
@@ -28,12 +28,9 @@ class DateController extends Controller
                     $query->where('name', $group);
                 })
                 ->where('semester', $semester);
-        })->whereIn('date', $date);
+        })->whereIn('date', $date)->get();
 
-
-        $dates = $dateQuery->with('lesson.group')->get();
-
-        return DateResource::collection($dates);
+        return DateResource::collection($dateQuery);
     }
 
     /**
@@ -47,9 +44,7 @@ class DateController extends Controller
 
         $date = new Date();
         $date->fill($validated);
-
         $date->lesson()->associate($lesson);
-
         $date->save();
 
         return new DateResource($date);
@@ -68,7 +63,9 @@ class DateController extends Controller
      */
     public function update(DateStoreRequest $request, Date $date)
     {
-        return new DateResource($date->update($request->validated()));
+        $date->update($request->validated());
+
+        return new DateResource($date);
     }
 
     /**

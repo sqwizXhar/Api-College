@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LessonRequests\LessonRequest;
-use App\Http\Requests\LessonRequests\LessonStoreRequest;
-use App\Http\Resources\LessonResources\LessonResource;
+use App\Http\Requests\Lesson\LessonRequest;
+use App\Http\Requests\Lesson\LessonStoreRequest;
+use App\Http\Resources\Lesson\LessonResource;
 use App\Models\Cabinet;
 use App\Models\Lesson;
 use App\Models\Semester;
@@ -20,7 +20,7 @@ class LessonController extends Controller
         $validated = $request->validated();
 
         $date = $validated['date'] ?? null;
-        $day_of_week = $validated['day_of_week'] ;
+        $day_of_week = $validated['day_of_week'];
         $semester = $validated['semester'] ?? null;
 
         if ($day_of_week == 'true') {
@@ -28,21 +28,21 @@ class LessonController extends Controller
             $weeklySchedule = [];
 
             foreach ($daysOfWeek as $day) {
-                $schedule = Lesson::with('cabinet', 'semester.group', 'dates')
-                    ->where('day_of_week', $day)
+                $schedule = Lesson::where('day_of_week', $day)
                     ->where('semester_id', $semester)
                     ->get();
                 $weeklySchedule[$day] = LessonResource::collection($schedule);
             }
+
             return response()->json($weeklySchedule);
         }
         else if($day_of_week) {
-            $schedule = Lesson::with('cabinet', 'semester.group', 'dates')
-                ->whereHas('dates', function ($query) use ($date) {
+            $schedule = Lesson::whereHas('dates', function ($query) use ($date) {
                     $query->where('date', $date);
                 })
                 ->where('semester_id', $semester)
                 ->get();
+
             return LEssonResource::collection($schedule);
         }
     }
@@ -59,12 +59,9 @@ class LessonController extends Controller
 
         $lesson = new Lesson();
         $lesson->fill($validated);
-
         $lesson->subject_user_id = $validated['subject_user_id'];
-
         $lesson->cabinet()->associate($cabinet);
         $lesson->semester()->associate($semester);
-
         $lesson->save();
 
         return new LessonResource($lesson);
@@ -83,7 +80,9 @@ class LessonController extends Controller
      */
     public function update(LessonStoreRequest $request, Lesson $lesson)
     {
-        return new LessonResource($lesson->update($request->validated()));
+        $lesson->update($request->validated());
+
+        return new LessonResource($lesson);
     }
 
     /**
