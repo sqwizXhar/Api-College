@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Events\GroupAssigned;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Group\StoreGroupRequest;
 use App\Http\Requests\Group\StoreGroupUserRequest;
