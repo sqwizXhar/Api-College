@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\User\UserStoreRequest;
+use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Resources\Admin\AdminResource;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UserSubjectResource;
@@ -59,7 +59,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UserStoreRequest $request)
+    public function store(StoreUserRequest $request)
     {
         $validated = $request->validated();
 
@@ -110,7 +110,7 @@ class UserController extends Controller
     /**чсвс
      * Update the specified resource in storage.
      */
-    public function update(UserStoreRequest $request, User $user)
+    public function update(StoreUserRequest $request, User $user)
     {
         $user->update($request->validated());
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Cabinet\CabinetStoreRequest;
+use App\Http\Requests\Cabinet\StoreCabinetRequest;
 use App\Http\Resources\Cabinet\CabinetResource;
 use App\Models\Cabinet;
 
@@ -20,7 +20,7 @@ class CabinetController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CabinetStoreRequest $request)
+    public function store(StoreCabinetRequest $request)
     {
         $cabinet = Cabinet::create($request->validated());
 
@@ -38,7 +38,7 @@ class CabinetController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(CabinetStoreRequest $request, Cabinet $cabinet)
+    public function update(StoreCabinetRequest $request, Cabinet $cabinet)
     {
         $cabinet->update($request->validated());
 

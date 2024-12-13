@@ -4,7 +4,7 @@ namespace App\Http\Requests\Lesson;
 
 use App\Http\Requests\BaseFormRequest;
 
-class LessonStoreRequest extends BaseFormRequest
+class StoreLessonRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
