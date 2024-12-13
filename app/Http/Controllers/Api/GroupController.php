@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Events\GroupAssigned;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Group\GroupStoreRequest;
-use App\Http\Requests\Group\GroupUserStoreRequest;
+use App\Http\Requests\Group\StoreGroupRequest;
+use App\Http\Requests\Group\StoreGroupUserRequest;
 use App\Http\Resources\Group\GroupResource;
 use App\Http\Resources\Group\GroupUserResource;
 use App\Models\Group;
@@ -22,7 +22,7 @@ class GroupController extends Controller
         return GroupResource::collection(Group::get());
     }
 
-    public function getGroupUsers(GroupUserStoreRequest $request)
+    public function getGroupUsers(StoreGroupUserRequest $request)
     {
         $validated = $request->validated();
         $role = $validated['role'];
@@ -41,7 +41,7 @@ class GroupController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(GroupStoreRequest $request)
+    public function store(StoreGroupRequest $request)
     {
         $group = Group::create($request->validated());
 
@@ -71,7 +71,7 @@ class GroupController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(GroupStoreRequest $request, Group $group)
+    public function update(StoreGroupRequest $request, Group $group)
     {
         $group->update($request->validated());
 

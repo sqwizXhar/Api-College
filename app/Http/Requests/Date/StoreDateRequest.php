@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Group;
+namespace App\Http\Requests\Date;
 
 use App\Http\Requests\BaseFormRequest;
 
-class GroupStoreRequest extends BaseFormRequest
+class StoreDateRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,8 @@ class GroupStoreRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
+            'date' => 'required|date|date_format:Y-m-d',
+            'lesson_id' => 'required|integer|exists:lessons,id',
         ];
     }
 }

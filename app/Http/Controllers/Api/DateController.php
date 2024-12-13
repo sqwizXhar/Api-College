@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Date\DateRequest;
-use App\Http\Requests\Date\DateStoreRequest;
+use App\Http\Requests\Date\StoreDateRequest;
 use App\Http\Resources\Date\DateResource;
 use App\Models\Date;
 
@@ -36,7 +36,7 @@ class DateController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(DateStoreRequest $request)
+    public function store(StoreDateRequest $request)
     {
         $validated = $request->validated();
 
@@ -61,7 +61,7 @@ class DateController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(DateStoreRequest $request, Date $date)
+    public function update(StoreDateRequest $request, Date $date)
     {
         $date->update($request->validated());
 

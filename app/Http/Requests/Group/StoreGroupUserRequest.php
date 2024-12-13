@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Cabinet;
+namespace App\Http\Requests\Group;
 
 use App\Http\Requests\BaseFormRequest;
 
-class CabinetStoreRequest extends BaseFormRequest
+class StoreGroupUserRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,7 @@ class CabinetStoreRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'purpose' => 'required|string',
-            'number' => 'required|string',
+            'role' => 'required|string|in:teacher,student',
         ];
     }
 }

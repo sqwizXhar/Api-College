@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Lesson\LessonRequest;
-use App\Http\Requests\Lesson\LessonStoreRequest;
+use App\Http\Requests\Lesson\StoreLessonRequest;
 use App\Http\Resources\Lesson\LessonResource;
 use App\Models\Cabinet;
 use App\Models\Lesson;
@@ -47,7 +47,7 @@ class LessonController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(LessonStoreRequest $request)
+    public function store(StoreLessonRequest $request)
     {
         $validated = $request->validated();
 
@@ -75,7 +75,7 @@ class LessonController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(LessonStoreRequest $request, Lesson $lesson)
+    public function update(StoreLessonRequest $request, Lesson $lesson)
     {
         $lesson->update($request->validated());
 
