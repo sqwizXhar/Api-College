@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Role;
+namespace App\Http\Requests\Group;
 
 use App\Http\Requests\BaseFormRequest;
 
-class RoleStoreRequest extends BaseFormRequest
+class StoreGroupUserRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class RoleStoreRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
+            'role' => 'required|string|in:teacher,student',
         ];
     }
 }

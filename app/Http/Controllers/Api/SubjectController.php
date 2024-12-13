@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Subject\SubjectStoreRequest;
+use App\Http\Requests\Subject\StoreSubjectRequest;
 use App\Http\Resources\Subject\SubjectResource;
 use App\Models\Subject;
 
@@ -20,7 +20,7 @@ class SubjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(SubjectStoreRequest $request)
+    public function store(StoreSubjectRequest $request)
     {
         $subject = Subject::create($request->validated());
 
@@ -38,7 +38,7 @@ class SubjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(SubjectStoreRequest $request, Subject $subject)
+    public function update(StoreSubjectRequest $request, Subject $subject)
     {
         $subject->update($request->validated());
 

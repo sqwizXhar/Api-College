@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Semester\SemesterRequest;
-use App\Http\Requests\Semester\SemesterStoreRequest;
+use App\Http\Requests\Semester\StoreSemesterRequest;
 use App\Http\Resources\Semester\SemesterResource;
 use App\Models\Group;
 use App\Models\Semester;
@@ -31,7 +31,7 @@ class SemesterController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(SemesterStoreRequest $request)
+    public function store(StoreSemesterRequest $request)
     {
         $validated = $request->validated();
 
@@ -56,7 +56,7 @@ class SemesterController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(SemesterStoreRequest $request, Semester $semester)
+    public function update(StoreSemesterRequest $request, Semester $semester)
     {
         $semester->update($request->validated());
 
