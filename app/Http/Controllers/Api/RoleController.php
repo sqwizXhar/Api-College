@@ -14,7 +14,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return RoleResource::collection(Role::get());
+        return RoleResource::collection(Role::all());
     }
 
     /**

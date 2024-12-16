@@ -18,7 +18,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        return GroupResource::collection(Group::get());
+        return GroupResource::collection(Group::all());
     }
 
     public function getGroupUsers(StoreGroupUserRequest $request)

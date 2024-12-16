@@ -24,7 +24,8 @@ class DateController extends Controller
             if($semester) {
                 $query->where('semester_id', $semester);
             }
-        })->whereIn('date', $date)->get();
+        })->whereIn('date', $date)
+          ->get();
 
         return DateResource::collection($dateQuery);
     }

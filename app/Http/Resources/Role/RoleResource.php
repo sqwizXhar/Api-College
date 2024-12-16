@@ -23,11 +23,8 @@ class RoleResource extends BaseResource
     {
         return array_merge(parent::toArray($request),
             [
-                'id' => $this->id,
                 'name' => $this->name,
-                'users' => $this->users->select('first_name', 'last_name', 'middle_name'),
-                'created_at' => $this->created_at->format('Y-m-d H:i:s'),
-                'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
+                'users' => $this->users ? $this->users->select('first_name', 'last_name', 'middle_name') : null,
             ]
         );
     }
