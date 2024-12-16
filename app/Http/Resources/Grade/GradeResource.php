@@ -23,10 +23,10 @@ class GradeResource extends BaseResource
     {
         return array_merge(parent::toArray($request),
             [
-                'student' => $this->user->full_name,
+                'student' => $this->user ? $this->user->full_name : null,
                 'grade' => $this->grade,
-                'date' => $this->date->date,
-                'teacher' => $this->date->lesson->teacher->full_name,
+                'date' => $this->date ? $this->date->date : null,
+                'teacher' => $this->date->lesson->teacher ? $this->date->lesson->teacher->full_name : null,
             ]
         );
     }

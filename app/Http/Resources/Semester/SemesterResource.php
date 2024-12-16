@@ -25,9 +25,9 @@ class SemesterResource extends BaseResource
         return array_merge(parent::toArray($request),
             [
                 'number' => $this->number,
-                'start_date' => Carbon::parse($this->start_date)->format('Y-m-d'),
+                'start_date' => $this->start_date,
                 'end_date' => $this->end_date,
-                'group' => $this->group->name,
+                'group' => $this->group ? $this->group->name : null,
             ]
         );
     }
