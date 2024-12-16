@@ -22,13 +22,15 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $roles = Role::where('name', '!=', 'admin')->get();
+
         return [
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
             'middle_name' => $this->faker->lastName,
             'login' => $this->faker->unique()->userName,
             'password' => Hash::make('password'),
-            'role_id' => Role::all()->random()->id,
+            'role_id' => $roles->random()->id,
         ];
     }
 
