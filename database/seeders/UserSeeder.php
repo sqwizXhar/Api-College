@@ -23,7 +23,15 @@ class UserSeeder extends Seeder
 
         User::factory()->create(['role_id' => $teacherRole]);
         User::factory()->create(['role_id' => $studentRole]);
-        User::factory()->create(['role_id' => $adminRole]);
+
+        User::factory()->create([
+            'first_name' => 'Admin',
+            'last_name' => 'Admin',
+            'middle_name' => 'Admin',
+            'login' => 'admin',
+            'password' => Hash::make('password'),
+            'role_id' => $adminRole,
+        ]);
 
         User::factory()->count(10)->create();
     }
