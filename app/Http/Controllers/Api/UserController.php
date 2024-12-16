@@ -11,6 +11,7 @@ use App\Models\Group;
 use App\Models\Role;
 use App\Models\Subject;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -62,6 +63,8 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $validated = $request->validated();
+
+        $validated['password'] = Hash::make($validated['password']);
 
         $role = Role::find($validated['role_id']);
 
