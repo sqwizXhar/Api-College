@@ -27,7 +27,6 @@ class SemesterResource extends BaseResource
                 'number' => $this->number,
                 'start_date' => $this->start_date,
                 'end_date' => $this->end_date,
-                'group' => $this->group ? $this->group->name : null,
             ]
         );
     }
