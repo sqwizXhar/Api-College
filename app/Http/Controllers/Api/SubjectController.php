@@ -14,7 +14,7 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        return SubjectResource::collection(Subject::get());
+        return SubjectResource::collection(Subject::all());
     }
 
     /**

@@ -14,7 +14,7 @@ class CabinetController extends Controller
      */
     public function index()
     {
-        return CabinetResource::collection(Cabinet::with('lessons')->get());
+        return CabinetResource::collection(Cabinet::all());
     }
 
     /**
