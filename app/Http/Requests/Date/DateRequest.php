@@ -22,7 +22,7 @@ class DateRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'dates' => 'required|sometimes|array',
+            'dates' => 'required|array',
             'dates.*' => 'required|date|date_format:Y-m-d|exists:dates,date',
             'semester' => 'integer|exists:semesters,number',
         ];
