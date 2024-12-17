@@ -26,6 +26,8 @@ Route::post('user/{user}/subject/{subject}', [UserController::class, 'storeUserS
 Route::put('user/{user}/subject/{subject}', [UserController::class, 'updateUserSubject'])->name('user.subject.update');
 Route::delete('user/{user}/subject', [UserController::class, 'destroyUserSubject'])->name('user.subjects.destroy');
 
+Route::post('login', [UserController::class, 'login'])->name('user.login');
+
 Route::apiResources([
     'users' => UserController::class,
     'groups' => GroupController::class,
