@@ -59,23 +59,6 @@ class UserController extends Controller
         return UserSubjectResource::collection($user);
     }
 
-    public function login(LoginRequest $request)
-    {
-        $credentials = $request->only('login', 'password');
-
-        if(!Auth::attempt($credentials)) {
-            return response()->json(['message' => 'Unauthorized'], 401);
-        }
-
-        $user = Auth::user();
-        $token = $user->createToken('authToken')->plainTextToken;
-
-        return response()->json([
-            'token' => $token,
-            'token_type' => 'Bearer',
-        ]);
-    }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -101,13 +84,9 @@ class UserController extends Controller
             return response()->json(['message' => 'This role cannot have a group'], 400);
         }
 
-        $token = $user->createToken('authToken')->plainTextToken;
+        $user->createToken('authToken')->plainTextToken;
 
-        return response()->json([
-            'user' => new UserResource($user),
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-        ]);
+        return new UserResource($user);
     }
 
     public function storeUserSubject(User $user, Subject $subject)
