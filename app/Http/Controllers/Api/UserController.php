@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\LoginRequest;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Resources\Admin\AdminResource;
 use App\Http\Resources\User\UserResource;
@@ -11,6 +12,7 @@ use App\Models\Group;
 use App\Models\Role;
 use App\Models\Subject;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -57,6 +59,23 @@ class UserController extends Controller
         return UserSubjectResource::collection($user);
     }
 
+    public function login(LoginRequest $request)
+    {
+        $credentials = $request->only('login', 'password');
+
+        if(!Auth::attempt($credentials)) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        $user = Auth::user();
+        $token = $user->createToken('authToken')->plainTextToken;
+
+        return response()->json([
+            'token' => $token,
+            'token_type' => 'Bearer',
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -82,10 +101,16 @@ class UserController extends Controller
             return response()->json(['message' => 'This role cannot have a group'], 400);
         }
 
-        return new UserResource($user->load('groups'));
+        $token = $user->createToken('authToken')->plainTextToken;
+
+        return response()->json([
+            'user' => new UserResource($user),
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+        ]);
     }
 
-    public function storeUserSubject( User $user, Subject $subject)
+    public function storeUserSubject(User $user, Subject $subject)
     {
         if ($user && $user->role && $user->role->id == Role::getTeacherRole()->id) {
             $user->subjects()->sync($subject->id);
