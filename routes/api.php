@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CabinetController;
 use App\Http\Controllers\Api\DateController;
 use App\Http\Controllers\Api\GradeController;
@@ -26,7 +27,7 @@ Route::post('user/{user}/subject/{subject}', [UserController::class, 'storeUserS
 Route::put('user/{user}/subject/{subject}', [UserController::class, 'updateUserSubject'])->name('user.subject.update');
 Route::delete('user/{user}/subject', [UserController::class, 'destroyUserSubject'])->name('user.subjects.destroy');
 
-Route::post('login', [UserController::class, 'login'])->name('user.login');
+Route::post('login', [AuthController::class, 'login'])->name('user.login');
 
 Route::apiResources([
     'users' => UserController::class,
