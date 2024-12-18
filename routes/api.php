@@ -27,7 +27,7 @@ Route::post('user/{user}/subject/{subject}', [UserController::class, 'storeUserS
 Route::put('user/{user}/subject/{subject}', [UserController::class, 'updateUserSubject'])->name('user.subject.update');
 Route::delete('user/{user}/subject', [UserController::class, 'destroyUserSubject'])->name('user.subjects.destroy');
 
-Route::post('login', [AuthController::class, 'login'])->name('user.login');
+Route::post('login', [AuthController::class, 'login'])->name('user.login')->middleware('auth:sanctum', \App\Http\Middleware\CheckRole::class.':admin');
 
 Route::apiResources([
     'users' => UserController::class,
