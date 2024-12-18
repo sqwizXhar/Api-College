@@ -16,9 +16,7 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next, string $role): Response
     {
-        $user = Auth::user();
-
-        if($user && $user->role && $user->role->name === $role) {
+        if(Auth::check() && Auth::user()->role && Auth::user()->role->name === $role) {
             return $next($request);
         }
 
