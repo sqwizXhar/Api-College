@@ -49,4 +49,9 @@ class Role extends Model
         return $this->name == 'student';
     }
 
+    public static function getRoleId(string $roleName): int
+    {
+        return Role::where('name', $roleName)->first()->id;
+    }
+
 }
