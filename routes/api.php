@@ -44,9 +44,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('user/{user}/subject', [UserController::class, 'destroyUserSubject'])->name('user.subjects.destroy');
     });
 
-    Route::middleware(CheckRole::class . ':teacher')->group(function () {
-        Route::apiResource('grades', GradeController::class);
-    });
+    Route::apiResource('grades', GradeController::class)->middleware(CheckRole::class . ':teacher');
+    Route::apiResource('grades', GradeController::class)->only('index')->middleware(CheckRole::class . ':student');
 });
 
 
