@@ -91,13 +91,13 @@ class GroupController extends Controller
     {
         $group->delete();
 
-        return response()->make('', 200);
+        return response()->json([]);
     }
 
     public function destroyGroupUser(Group $group)
     {
         $group->users()->detach();
 
-        return response()->make('', 200);
+        return response()->json([]);
     }
 }

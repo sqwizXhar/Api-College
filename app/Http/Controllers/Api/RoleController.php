@@ -52,6 +52,6 @@ class RoleController extends Controller
     {
         $role->delete();
 
-        return response()->make('', 200);
+        return response()->json([]);
     }
 }

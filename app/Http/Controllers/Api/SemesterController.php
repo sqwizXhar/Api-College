@@ -70,6 +70,6 @@ class SemesterController extends Controller
     {
         $semester->delete();
 
-        return response()->make('', 200);
+        return response()->json([]);
     }
 }

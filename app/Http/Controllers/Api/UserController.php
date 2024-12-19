@@ -136,13 +136,13 @@ class UserController extends Controller
     {
         $user->delete();
 
-        return response()->make('', 200);
+        return response()->json([]);
     }
 
     public function destroyUserSubject(User $user)
     {
         $user->subjects()->detach();
 
-        return response()->make('', 200);
+        return response()->json([]);
     }
 }
