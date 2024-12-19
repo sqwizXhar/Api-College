@@ -13,7 +13,8 @@ class DateController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(DateRequest $request)
+
+    public function __invoke(DateRequest $request)
     {
         $validated = $request->validated();
 
@@ -25,51 +26,8 @@ class DateController extends Controller
                 $query->where('semester_id', $semester);
             }
         })->whereIn('date', $date)
-          ->get();
+            ->get();
 
         return DateResource::collection($dateQuery);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreDateRequest $request)
-    {
-        $validated = $request->validated();
-
-        $lesson = $validated['lesson_id'];
-
-        $date = new Date();
-        $date->fill($validated);
-        $date->lesson()->associate($lesson);
-        $date->save();
-
-        return new DateResource($date);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Date $date)
-    {
-        return new DateResource($date);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(StoreDateRequest $request, Date $date)
-    {
-        $date->update($request->validated());
-
-        return new DateResource($date);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy()
-    {
-       return response()->json(['message' => 'The date cannot be deleted.'], 400);
     }
 }

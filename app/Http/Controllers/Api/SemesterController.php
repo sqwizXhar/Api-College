@@ -70,6 +70,6 @@ class SemesterController extends Controller
     {
         $semester->delete();
 
-        return response()->json(['message' => 'Semester deleted successfully']);
+        return response()->json([]);
     }
 }

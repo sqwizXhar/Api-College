@@ -30,10 +30,25 @@ class StoreUserRequest extends BaseFormRequest
             'password' => 'required|string|min:8',
             'role_id' => 'required|integer|exists:roles,id',
             'group_id' => [
-                'required_if:role_id,' . Role::getRoleId('student') . ',' . Role::getRoleId('teacher'),
+                'required_if:role_id,' . Role::role('student') . ',' . Role::role('teacher'),
                 'integer',
                 'exists:groups,id'
             ],
+        ];
+    }
+
+    public function messages(): array
+    {
+        $roleNames = [
+            'admin' => 'админ',
+            'student' => 'студент',
+            'teacher' => 'преподаватель'
+        ];
+
+        return [
+            'group_id' => [
+                'required_if' => 'Поле :attribute обязательна для заполнения, когда :other' . ' ' . $roleNames[Role::roleName($this->request->get('role_id'))],
+            ]
         ];
     }
 }

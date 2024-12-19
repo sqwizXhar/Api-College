@@ -19,19 +19,19 @@ class Role extends Model
         return $this->hasMany(User::class);
     }
 
-    public static function getTeacherRole()
+    public function scopeTeacherRole($query)
     {
-        return Role::where('name', 'teacher')->first();
+        return $query->where('name', 'teacher')->first();
     }
 
-    public static function getStudentRole()
+    public function scopeStudentRole($query)
     {
-        return Role::where('name', 'student')->first();
+        return $query->where('name', 'student')->first();
     }
 
-    public static function getAdminRole()
+    public function scopeAdminRole($query)
     {
-        return Role::where('name', 'admin')->first();
+        return $query->where('name', 'admin')->first();
     }
 
     public function isAdmin(): bool
@@ -49,9 +49,14 @@ class Role extends Model
         return $this->name == 'student';
     }
 
-    public static function getRoleId(string $roleName): int
+    public function scopeRole($query, $roleName)
     {
-        return Role::where('name', $roleName)->first()->id;
+        return $query->where('name', $roleName)->first()->id;
+    }
+
+    public function scopeRoleName($query, $roleId)
+    {
+        return $query->where('id', $roleId)->first()->name;
     }
 
 }

@@ -20,6 +20,6 @@ class CheckRole
             return $next($request);
         }
 
-        return response()->json(['message' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED);
+        return response()->json(['error' => __('auth.unauthorized')], Response::HTTP_UNAUTHORIZED);
     }
 }
