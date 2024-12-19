@@ -22,7 +22,7 @@ class StoreUserSubjectRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-
+            //
         ];
     }
 }
