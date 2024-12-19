@@ -13,14 +13,20 @@ class DateController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(DateRequest $request)
+
+    public function __invoke(DateRequest $request)
     {
         $validated = $request->validated();
 
-        $dates = $validated['dates'];
+        $date = $validated['dates'];
         $semester = $validated['semester'] ?? null;
 
-        $dateQuery = (new Date())($dates, $semester);
+        $dateQuery = Date::whereHas('lesson', function ($query) use ($semester) {
+            if($semester) {
+                $query->where('semester_id', $semester);
+            }
+        })->whereIn('date', $date)
+            ->get();
 
         return DateResource::collection($dateQuery);
     }
