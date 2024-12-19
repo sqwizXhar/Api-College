@@ -49,14 +49,14 @@ class GroupController extends Controller
 
     public function storeGroupUser(Group $group, User $user)
     {
-        if ($user && $user->role && $user->role->id != Role::getAdminRole()->id) {
+        if ($user && $user->role && $user->role->id != Role::adminRole()->id) {
             $group->users()->attach($user->id);
             $group->save();
 
             return new GroupUserResource($group);
         }
 
-        return response()->json(['message' => 'Invalid role'], 400);
+        return response()->json(['error' => __('error.invalid_role')], 400);
     }
 
     /**
@@ -91,13 +91,13 @@ class GroupController extends Controller
     {
         $group->delete();
 
-        return response()->json(['message' => 'Group deleted successfully']);
+        return response()->make('', 200);
     }
 
     public function destroyGroupUser(Group $group)
     {
         $group->users()->detach();
 
-        return response()->json(['message' => 'Group user deleted successfully']);
+        return response()->make('', 200);
     }
 }

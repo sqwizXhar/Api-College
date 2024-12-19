@@ -79,6 +79,6 @@ class GradeController extends Controller
     {
         $grade->delete();
 
-        return response()->json('Grade deleted successfully');
+        return response()->make('', 200);
     }
 }

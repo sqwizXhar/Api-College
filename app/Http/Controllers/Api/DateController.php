@@ -17,59 +17,11 @@ class DateController extends Controller
     {
         $validated = $request->validated();
 
-        $date = $validated['dates'];
+        $dates = $validated['dates'];
         $semester = $validated['semester'] ?? null;
 
-        $dateQuery = Date::whereHas('lesson', function ($query) use ($semester) {
-            if($semester) {
-                $query->where('semester_id', $semester);
-            }
-        })->whereIn('date', $date)
-          ->get();
+        $dateQuery = (new Date())($dates, $semester);
 
         return DateResource::collection($dateQuery);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreDateRequest $request)
-    {
-        $validated = $request->validated();
-
-        $lesson = $validated['lesson_id'];
-
-        $date = new Date();
-        $date->fill($validated);
-        $date->lesson()->associate($lesson);
-        $date->save();
-
-        return new DateResource($date);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Date $date)
-    {
-        return new DateResource($date);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(StoreDateRequest $request, Date $date)
-    {
-        $date->update($request->validated());
-
-        return new DateResource($date);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy()
-    {
-       return response()->json(['message' => 'The date cannot be deleted.'], 400);
     }
 }

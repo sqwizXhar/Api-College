@@ -87,6 +87,6 @@ class LessonController extends Controller
      */
     public function destroy()
     {
-        return response()->json(['message' => 'Lesson cannot be deleted!'], 400);
+        return response()->json(['error' => __('error.lesson_cannot_be_deleted')], 400);
     }
 }

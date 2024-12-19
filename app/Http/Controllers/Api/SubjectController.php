@@ -52,6 +52,6 @@ class SubjectController extends Controller
     {
         $subject->delete();
 
-        return response()->json(['message' => 'Subject deleted successfully.']);
+        return response()->make('', 200);
     }
 }
