@@ -15,6 +15,18 @@ class Date extends Model
         'date',
     ];
 
+    public function __invoke($dates, $semester = null)
+    {
+        $dateQuery = self::whereHas('lesson', function ($query) use ($semester) {
+            if($semester) {
+                $query->where('semester_id', $semester);
+            }
+        })->whereIn('date', $dates)
+            ->get();
+
+        return $dateQuery;
+    }
+
     public function lesson(): BelongsTo
     {
         return $this->belongsTo(Lesson::class);
