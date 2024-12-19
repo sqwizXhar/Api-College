@@ -30,7 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
             'semesters' => SemesterController::class,
         ]);
 
-        Route::get('dates', [DateController::class, 'index'])->name('dates.index');
+        Route::get('dates', DateController::class)->name('dates.index');
         Route::get('students', [UserController::class, 'getStudents'])->name('users.students');
         Route::get('admins', [UserController::class, 'getAdmins'])->name('users.admins');
         Route::get('group/users', [GroupController::class, 'getGroupUsers'])->name('groups.users');
