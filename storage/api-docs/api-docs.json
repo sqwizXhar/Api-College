@@ -1,0 +1,2345 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Backend API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/": {},
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login",
+                "operationId": "82d74137970376a374510566964c9813",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "login",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "login": {
+                                        "type": "string",
+                                        "example": "user23"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "your_token_here"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/admin/cabinets": {
+            "get": {
+                "tags": [
+                    "Cabinet"
+                ],
+                "summary": "CabinetsInfo",
+                "operationId": "e857b0cb4a07f10bbbd0f1b6706286b7",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "cabinets": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "number": {
+                                                        "type": "string",
+                                                        "example": "21"
+                                                    },
+                                                    "purpose": {
+                                                        "type": "string",
+                                                        "example": "Russian"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Cabinet"
+                ],
+                "summary": "Create",
+                "operationId": "a30829548ca3d941c88abb33c242cc6d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "number",
+                                    "purpose"
+                                ],
+                                "properties": {
+                                    "number": {
+                                        "type": "string",
+                                        "example": "21"
+                                    },
+                                    "purpose": {
+                                        "type": "string",
+                                        "example": "Russian"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "cabinet": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "number": {
+                                                    "type": "string",
+                                                    "example": "21"
+                                                },
+                                                "purpose": {
+                                                    "type": "string",
+                                                    "example": "Russian"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/cabinets/{cabinet}": {
+            "get": {
+                "tags": [
+                    "Cabinet"
+                ],
+                "summary": "GetCabinetID",
+                "operationId": "4b4621ebbb2a0c03a23f914a70ac2c60",
+                "parameters": [
+                    {
+                        "name": "cabinet",
+                        "in": "path",
+                        "description": "Cabinet ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "cabinet": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "number": {
+                                                    "type": "string",
+                                                    "example": "21"
+                                                },
+                                                "purpose": {
+                                                    "type": "string",
+                                                    "example": "Russian"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Cabinet"
+                ],
+                "summary": "Update",
+                "operationId": "82ed994e47f5944e478c3a8a40fbda08",
+                "parameters": [
+                    {
+                        "name": "cabinet",
+                        "in": "path",
+                        "description": "Cabinet ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "number",
+                                    "purpose"
+                                ],
+                                "properties": {
+                                    "number": {
+                                        "type": "string",
+                                        "example": "21"
+                                    },
+                                    "purpose": {
+                                        "type": "string",
+                                        "example": "Russian"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "cabinet": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "number": {
+                                                    "type": "string",
+                                                    "example": "21"
+                                                },
+                                                "purpose": {
+                                                    "type": "string",
+                                                    "example": "Russian"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Cabinet"
+                ],
+                "summary": "Delete",
+                "operationId": "a00a41c9bb166c77b990294ed76a048d",
+                "parameters": [
+                    {
+                        "name": "cabinet",
+                        "in": "path",
+                        "description": "Cabinet ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/dates": {
+            "get": {
+                "tags": [
+                    "Date"
+                ],
+                "summary": "DatesInfo",
+                "operationId": "b198eddefa7705dcf2b7d9e229b3c102",
+                "parameters": [
+                    {
+                        "name": "dates[]",
+                        "in": "query",
+                        "description": "Array of dates",
+                        "required": true,
+                        "explode": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "format": "date"
+                            }
+                        },
+                        "example": [
+                            "2020-10-27",
+                            "2023-03-22"
+                        ]
+                    },
+                    {
+                        "name": "semester",
+                        "in": "query",
+                        "description": "Semester ID",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "dates": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "number_of_lesson": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "time": {
+                                                        "type": "string",
+                                                        "format": "time",
+                                                        "example": "13:00"
+                                                    },
+                                                    "subject": {
+                                                        "type": "string",
+                                                        "example": "Math"
+                                                    },
+                                                    "cabinet": {
+                                                        "type": "string",
+                                                        "example": "21"
+                                                    },
+                                                    "teacher": {
+                                                        "type": "string",
+                                                        "example": "User Userov Userovich"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/grades": {
+            "get": {
+                "tags": [
+                    "Grade"
+                ],
+                "summary": "GradesInfo",
+                "operationId": "8422a14a071581db62c0836e007c4d92",
+                "parameters": [
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "description": "Date ID",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "2023-03-22"
+                    },
+                    {
+                        "name": "user",
+                        "in": "query",
+                        "description": "User ID",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "grades": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "grade": {
+                                                        "type": "integer",
+                                                        "example": 5
+                                                    },
+                                                    "user": {
+                                                        "type": "string",
+                                                        "example": "User Userov Userovich"
+                                                    },
+                                                    "date": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Grade"
+                ],
+                "summary": "Create",
+                "operationId": "97735cc9dfeff3d9098aa4d85c993aef",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "grade",
+                                    "user_id",
+                                    "date_id"
+                                ],
+                                "properties": {
+                                    "grade": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "date_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "grade": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "grade": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "user": {
+                                                    "type": "string",
+                                                    "example": "User Userov Userovich"
+                                                },
+                                                "date": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/grades/{grade}": {
+            "put": {
+                "tags": [
+                    "Grade"
+                ],
+                "summary": "Update",
+                "operationId": "b23a6c23725ec8f7301737b84319fe81",
+                "parameters": [
+                    {
+                        "name": "grade",
+                        "in": "path",
+                        "description": "Grade ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "grade",
+                                    "user_id",
+                                    "date_id"
+                                ],
+                                "properties": {
+                                    "grade": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "date_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "grade": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "grade": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "user": {
+                                                    "type": "string",
+                                                    "example": "User Userov Userovich"
+                                                },
+                                                "date": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Grade"
+                ],
+                "summary": "Delete",
+                "operationId": "82ce6fe6cc730ad5a97065c300a67c07",
+                "parameters": [
+                    {
+                        "name": "grade",
+                        "in": "path",
+                        "description": "Grade ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/groups": {
+            "get": {
+                "tags": [
+                    "Group"
+                ],
+                "summary": "GroupsInfo",
+                "operationId": "42bae3f26bf83e45b919fcbd6f2720d7",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "groups": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "OAIp2"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Group"
+                ],
+                "summary": "Create",
+                "operationId": "89db403173427de890a5d41ca8519a08",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "OAIp2"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "group": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "OAIp2"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/groups/{group}": {
+            "get": {
+                "tags": [
+                    "Group"
+                ],
+                "summary": "GetGroupID",
+                "operationId": "b77150428df0b8d1c3af9552e763dc65",
+                "parameters": [
+                    {
+                        "name": "group",
+                        "in": "path",
+                        "description": "Group ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "group": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "OAIp2"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Group"
+                ],
+                "summary": "Update",
+                "operationId": "331761998f3b0aa1a801eb01d3f4fdaa",
+                "parameters": [
+                    {
+                        "name": "group",
+                        "in": "path",
+                        "description": "Group ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "OAIp2"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "group": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "OAIp2"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Group"
+                ],
+                "summary": "Delete",
+                "operationId": "54094f01a1f0294a063e25e282917d39",
+                "parameters": [
+                    {
+                        "name": "group",
+                        "in": "path",
+                        "description": "Group ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/roles": {
+            "get": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "RolesInfo",
+                "operationId": "d759adc397a06cb7eaed9fcd91d708b7",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "roles": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "admin"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "Create",
+                "operationId": "988a10414d5cadb65aeb70d172b1fdf5",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "admin"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "role": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "admin"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/roles/{role}": {
+            "get": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "GetRoleID",
+                "operationId": "0846af1b52e8890e31bed5a2aa62677e",
+                "parameters": [
+                    {
+                        "name": "role",
+                        "in": "path",
+                        "description": "Role ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "role": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "admin"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "Update",
+                "operationId": "2a48c28af18fe70d44b7978222460b99",
+                "parameters": [
+                    {
+                        "name": "role",
+                        "in": "path",
+                        "description": "Role ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "admin"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "role": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "admin"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "Delete",
+                "operationId": "d49ccb923c36753a9c1dfef62cba3b36",
+                "parameters": [
+                    {
+                        "name": "role",
+                        "in": "path",
+                        "description": "Role ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/semesters": {
+            "get": {
+                "tags": [
+                    "Semester"
+                ],
+                "summary": "SemestersInfo",
+                "operationId": "cf2913192f19f5e219c0b890da6f57af",
+                "parameters": [
+                    {
+                        "name": "group",
+                        "in": "query",
+                        "description": "Group name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "OAIp2"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "semesters": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "number": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "start_date": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "1994-10-11"
+                                                    },
+                                                    "end_date": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2002-01-19"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Semester"
+                ],
+                "summary": "Create",
+                "operationId": "ac66ba2c9916d7ac9fc6cc8ff4d58e60",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "number",
+                                    "start_date",
+                                    "end_date"
+                                ],
+                                "properties": {
+                                    "number": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "start_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1994-10-11"
+                                    },
+                                    "end_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2002-01-19"
+                                    },
+                                    "group_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "semster": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "number": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "start_date": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "1994-10-11"
+                                                },
+                                                "end_date": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2002-01-19"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/semesters/{semester}": {
+            "put": {
+                "tags": [
+                    "Semester"
+                ],
+                "summary": "Update",
+                "operationId": "8e4e8ab19b8d2f8f7e242e0cd01a7bc1",
+                "parameters": [
+                    {
+                        "name": "semester",
+                        "in": "path",
+                        "description": "Semester ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "number",
+                                    "start_date",
+                                    "end_date"
+                                ],
+                                "properties": {
+                                    "number": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "start_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1994-10-11"
+                                    },
+                                    "end_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2002-01-19"
+                                    },
+                                    "group_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "semester": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "number": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "start_date": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "1994-10-11"
+                                                },
+                                                "end_date": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2002-01-19"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Semester"
+                ],
+                "summary": "Delete",
+                "operationId": "545345072f4df4f5c09c5c75b907e5e3",
+                "parameters": [
+                    {
+                        "name": "semester",
+                        "in": "path",
+                        "description": "Semester ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/subjects": {
+            "get": {
+                "tags": [
+                    "Subject"
+                ],
+                "summary": "SubjectsInfo",
+                "operationId": "12497b066572afd147f379b9cde711ab",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "subjects": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Math"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Subject"
+                ],
+                "summary": "Create",
+                "operationId": "175bb390f066ee59c5aaa43d861db8a6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Math"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "subjects": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Math"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/subjects/{subject}": {
+            "get": {
+                "tags": [
+                    "Subject"
+                ],
+                "summary": "GetSubjectID",
+                "operationId": "893ab96b73c5f2f1292b6f71931e2598",
+                "parameters": [
+                    {
+                        "name": "subject",
+                        "in": "path",
+                        "description": "Subject ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "subject": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Math"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Subject"
+                ],
+                "summary": "Update",
+                "operationId": "60ede9ac804b763ac2fb4f4203f6efa0",
+                "parameters": [
+                    {
+                        "name": "subject",
+                        "in": "path",
+                        "description": "Subject ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Math"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "subject": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Math"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Subject"
+                ],
+                "summary": "Delete",
+                "operationId": "0465349b526b40967d21b00afb2547b3",
+                "parameters": [
+                    {
+                        "name": "subject",
+                        "in": "path",
+                        "description": "Subject ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/users": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "UsersInfo",
+                "operationId": "4544f248046aed947ceb62dbf5b40c1a",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "users": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "first_name": {
+                                                        "type": "string",
+                                                        "example": "User"
+                                                    },
+                                                    "last_name": {
+                                                        "type": "string",
+                                                        "example": "Userov"
+                                                    },
+                                                    "middle_name": {
+                                                        "type": "string",
+                                                        "example": "Userovich"
+                                                    },
+                                                    "login": {
+                                                        "type": "string",
+                                                        "example": "user23"
+                                                    },
+                                                    "role_id": {
+                                                        "type": "integer",
+                                                        "example": 2
+                                                    },
+                                                    "group_id": {
+                                                        "type": "integer",
+                                                        "example": 1,
+                                                        "nullable": true
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Create",
+                "operationId": "5645f140f0fe32147b607ee812a34b9a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "first_name",
+                                    "last_name",
+                                    "middle_name",
+                                    "login",
+                                    "password",
+                                    "role_id"
+                                ],
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "example": "User"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "example": "Userov"
+                                    },
+                                    "middle_name": {
+                                        "type": "string",
+                                        "example": "Userovich"
+                                    },
+                                    "login": {
+                                        "type": "string",
+                                        "example": "user23"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    },
+                                    "role_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "group_id": {
+                                        "type": "integer",
+                                        "example": 1,
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "first_name": {
+                                                    "type": "string",
+                                                    "example": "User"
+                                                },
+                                                "last_name": {
+                                                    "type": "string",
+                                                    "example": "Userov"
+                                                },
+                                                "middle_name": {
+                                                    "type": "string",
+                                                    "example": "Userovich"
+                                                },
+                                                "login": {
+                                                    "type": "string",
+                                                    "example": "user23"
+                                                },
+                                                "role_id": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "group_id": {
+                                                    "type": "integer",
+                                                    "example": 1,
+                                                    "nullable": true
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/users/{user}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "GetUserID",
+                "operationId": "748bc742334adaee7de4183311e4e382",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "first_name": {
+                                                    "type": "string",
+                                                    "example": "User"
+                                                },
+                                                "last_name": {
+                                                    "type": "string",
+                                                    "example": "Userov"
+                                                },
+                                                "middle_name": {
+                                                    "type": "string",
+                                                    "example": "Userovich"
+                                                },
+                                                "login": {
+                                                    "type": "string",
+                                                    "example": "user23"
+                                                },
+                                                "role_id": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "group_id": {
+                                                    "type": "integer",
+                                                    "example": 1,
+                                                    "nullable": true
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update",
+                "operationId": "93f6ed5426f6a0a5117d60bff5beb9f3",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "first_name",
+                                    "last_name",
+                                    "middle_name",
+                                    "login",
+                                    "password",
+                                    "role_id"
+                                ],
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "example": "User"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "example": "Userov"
+                                    },
+                                    "middle_name": {
+                                        "type": "string",
+                                        "example": "Userovich"
+                                    },
+                                    "login": {
+                                        "type": "string",
+                                        "example": "user23"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    },
+                                    "role_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "group_id": {
+                                        "type": "integer",
+                                        "example": 1,
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "first_name": {
+                                                    "type": "string",
+                                                    "example": "User"
+                                                },
+                                                "last_name": {
+                                                    "type": "string",
+                                                    "example": "Userov"
+                                                },
+                                                "middle_name": {
+                                                    "type": "string",
+                                                    "example": "Userovich"
+                                                },
+                                                "login": {
+                                                    "type": "string",
+                                                    "example": "user23"
+                                                },
+                                                "role_id": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "group_id": {
+                                                    "type": "integer",
+                                                    "example": 1,
+                                                    "nullable": true
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Delete",
+                "operationId": "310953a7070097257ff822f81dcc9170",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "Authorization",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Cabinet",
+            "description": "Cabinet"
+        },
+        {
+            "name": "Date",
+            "description": "Date"
+        },
+        {
+            "name": "Grade",
+            "description": "Grade"
+        },
+        {
+            "name": "Group",
+            "description": "Group"
+        },
+        {
+            "name": "Role",
+            "description": "Role"
+        },
+        {
+            "name": "Semester",
+            "description": "Semester"
+        },
+        {
+            "name": "Subject",
+            "description": "Subject"
+        },
+        {
+            "name": "User",
+            "description": "User"
+        }
+    ]
+}
