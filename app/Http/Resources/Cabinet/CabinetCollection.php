@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Http\Collections;
+namespace App\Http\Resources\Cabinet;
 
-use App\Http\Resources\Group\GroupResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class GroupCollection extends ResourceCollection
+class CabinetCollection extends ResourceCollection
 {
     /**
      * The "data" wrapper that should be applied.
      *
      * @var string|null
      */
-    public static $wrap = null;
+    public static $wrap = 'cabinets';
 
     /**
      * Transform the resource collection into an array.
@@ -22,8 +21,6 @@ class GroupCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return [
-            'groups' => GroupResource::collection($this->collection),
-        ];
+        return parent::toArray($request);
     }
 }

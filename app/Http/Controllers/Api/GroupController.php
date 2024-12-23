@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Collections\GroupCollection;
-use App\Http\Collections\GroupUserCollection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Group\StoreGroupRequest;
 use App\Http\Requests\Group\StoreGroupUserRequest;
+use App\Http\Resources\Group\GroupCollection;
 use App\Http\Resources\Group\GroupResource;
+use App\Http\Resources\Group\GroupUserCollection;
 use App\Http\Resources\Group\GroupUserResource;
 use App\Models\Group;
 use App\Models\Role;

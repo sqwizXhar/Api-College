@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Http\Collections;
+namespace App\Http\Resources\Group;
 
-use App\Http\Resources\Date\DateResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class DateCollection extends ResourceCollection
+class GroupCollection extends ResourceCollection
 {
     /**
      * The "data" wrapper that should be applied.
      *
      * @var string|null
      */
-    public static $wrap = null;
+    public static $wrap = 'groups';
 
     /**
      * Transform the resource collection into an array.
@@ -22,8 +21,6 @@ class DateCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return [
-            'dates' => DateResource::collection($this->collection),
-        ];
+        return parent::toArray($request);
     }
 }

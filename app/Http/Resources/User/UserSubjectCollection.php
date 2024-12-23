@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Http\Collections;
+namespace App\Http\Resources\User;
 
-use App\Http\Resources\Semester\SemesterResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class SemesterCollection extends ResourceCollection
+class UserSubjectCollection extends ResourceCollection
 {
     /**
      * The "data" wrapper that should be applied.
      *
      * @var string|null
      */
-    public static $wrap = null;
+    public static $wrap = 'users';
 
     /**
      * Transform the resource collection into an array.
@@ -22,8 +21,6 @@ class SemesterCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return [
-            'semesters' => SemesterResource::collection($this->collection),
-        ];
+        return parent::toArray($request);
     }
 }

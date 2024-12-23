@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Collections\RoleCollection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Role\StoreRoleRequest;
+use App\Http\Resources\Role\RoleCollection;
 use App\Http\Resources\Role\RoleResource;
 use App\Models\Role;
 

@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Http\Collections;
+namespace App\Http\Resources\User;
 
-use App\Http\Resources\Cabinet\CabinetResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class CabinetCollection extends ResourceCollection
+class UserCollection extends ResourceCollection
 {
     /**
      * The "data" wrapper that should be applied.
      *
      * @var string|null
      */
-    public static $wrap = null;
+    public static $wrap = 'users';
 
     /**
      * Transform the resource collection into an array.
@@ -22,8 +21,6 @@ class CabinetCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return [
-            'cabinets' => CabinetResource::collection($this->collection),
-        ];
+        return parent::toArray($request);
     }
 }
