@@ -19,7 +19,7 @@ class GradeController extends Controller
     {
         $validated = $request->validated();
 
-        $user = $validated['user'] ?? null;
+        $user = $validated['user'];
         $date = $validated['date'] ?? null;
 
         $grade = Grade::whereHas('user', function ($query) use ($user) {
@@ -43,7 +43,7 @@ class GradeController extends Controller
         $validated = $request->validated();
 
         $user = User::find($validated['user_id']);
-        $date = Date::find($validated['date']);
+        $date = Date::find($validated['date_id']);
 
         $grade = new Grade();
         $grade->fill($validated);
