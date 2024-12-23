@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Collections\GradesCollection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Grade\GradeRequest;
 use App\Http\Requests\Grade\StoreGradeRequest;
 use App\Http\Resources\Grade\GradeResource;
+use App\Http\Resources\Grade\GradesCollection;
 use App\Models\Date;
 use App\Models\Grade;
 use App\Models\User;

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Collections\CabinetCollection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cabinet\StoreCabinetRequest;
+use App\Http\Resources\Cabinet\CabinetCollection;
 use App\Http\Resources\Cabinet\CabinetResource;
 use App\Models\Cabinet;
 

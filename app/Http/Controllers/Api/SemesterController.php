@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Collections\SemesterCollection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Semester\SemesterRequest;
 use App\Http\Requests\Semester\StoreSemesterRequest;
+use App\Http\Resources\Semester\SemesterCollection;
 use App\Http\Resources\Semester\SemesterResource;
 use App\Models\Group;
 use App\Models\Semester;

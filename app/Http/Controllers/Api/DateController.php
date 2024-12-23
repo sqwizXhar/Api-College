@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Collections\DateCollection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Date\DateRequest;
+use App\Http\Resources\Date\DateCollection;
 use App\Models\Date;
 
 class DateController extends Controller

@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Http\Collections;
+namespace App\Http\Resources\Role;
 
-use App\Http\Resources\User\UserSubjectResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class UserSubjectCollection extends ResourceCollection
+class RoleCollection extends ResourceCollection
 {
     /**
      * The "data" wrapper that should be applied.
      *
      * @var string|null
      */
-    public static $wrap = null;
+    public static $wrap = 'roles';
 
     /**
      * Transform the resource collection into an array.
@@ -22,8 +21,6 @@ class UserSubjectCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return [
-            'users' => UserSubjectResource::collection($this->collection),
-        ];
+        return parent::toArray($request);
     }
 }

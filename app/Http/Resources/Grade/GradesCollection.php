@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Http\Collections;
+namespace App\Http\Resources\Grade;
 
-use App\Http\Resources\Group\GroupUserResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class GroupUserCollection extends ResourceCollection
+class GradesCollection extends ResourceCollection
 {
     /**
      * The "data" wrapper that should be applied.
      *
      * @var string|null
      */
-    public static $wrap = null;
+    public static $wrap = 'grades';
 
     /**
      * Transform the resource collection into an array.
@@ -22,8 +21,6 @@ class GroupUserCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return [
-            'groups' => GroupUserResource::collection($this->collection),
-        ];
+        return parent::toArray($request);
     }
 }

@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Http\Collections;
+namespace App\Http\Resources\Date;
 
-use App\Http\Resources\Role\RoleResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class RoleCollection extends ResourceCollection
+class DateCollection extends ResourceCollection
 {
     /**
      * The "data" wrapper that should be applied.
      *
      * @var string|null
      */
-    public static $wrap = null;
+    public static $wrap = 'dates';
 
     /**
      * Transform the resource collection into an array.
@@ -22,8 +21,6 @@ class RoleCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return [
-            'roles' => RoleResource::collection($this->collection),
-        ];
+        return parent::toArray($request);
     }
 }

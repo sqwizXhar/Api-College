@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Collections\UserCollection;
-use App\Http\Collections\UserSubjectCollection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Resources\Admin\AdminResource;
+use App\Http\Resources\User\UserCollection;
 use App\Http\Resources\User\UserResource;
+use App\Http\Resources\User\UserSubjectCollection;
 use App\Http\Resources\User\UserSubjectResource;
 use App\Models\Group;
 use App\Models\Role;
