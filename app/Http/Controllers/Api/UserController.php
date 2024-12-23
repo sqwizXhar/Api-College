@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Collections\UserCollection;
+use App\Http\Collections\UserSubjectCollection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Resources\Admin\AdminResource;
@@ -20,7 +22,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection(User::all());
+        return new UserCollection(User::all());
     }
 
     public function getStudents()
@@ -29,7 +31,7 @@ class UserController extends Controller
             $query->where('name', 'student');
         })->get();
 
-        return UserResource::collection($students);
+        return new UserCollection($students);
     }
 
     public function getTeachers()
@@ -38,7 +40,7 @@ class UserController extends Controller
             $query->where('name', 'teacher');
         })->get();
 
-        return UserResource::collection($teachers);
+        return new UserCollection($teachers);
     }
 
     public function getAdmins()
@@ -47,14 +49,14 @@ class UserController extends Controller
             $query->where('name', 'admin');
         })->get();
 
-        return AdminResource::collection($admins);
+        return new UserCollection($admins);
     }
 
     public function getUserSubjects()
     {
         $user = User::has('subjects')->get();
 
-        return UserSubjectResource::collection($user);
+        return new UserSubjectCollection($user);
     }
 
     /**
@@ -96,7 +98,7 @@ class UserController extends Controller
             return new UserSubjectResource($user);
         }
 
-        return response()->json(['error' =>  __('error.invalid_role')], 400);
+        return response()->json(['error' => __('error.invalid_role')], 400);
     }
 
     /**

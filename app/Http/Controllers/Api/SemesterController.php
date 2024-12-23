@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Collections\SemesterCollection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Semester\SemesterRequest;
 use App\Http\Requests\Semester\StoreSemesterRequest;
@@ -25,7 +26,7 @@ class SemesterController extends Controller
             ->orderBy('number')
             ->get();
 
-        return SemesterResource::collection($semester);
+        return new SemesterCollection($semester);
     }
 
     /**

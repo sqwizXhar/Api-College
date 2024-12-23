@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Collections\RoleCollection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Role\StoreRoleRequest;
 use App\Http\Resources\Role\RoleResource;
@@ -14,7 +15,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return RoleResource::collection(Role::all());
+        return new RoleCollection(Role::all());
     }
 
     /**

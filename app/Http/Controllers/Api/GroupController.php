@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Collections\GroupCollection;
+use App\Http\Collections\GroupUserCollection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Group\GroupStoreRequest;
 use App\Http\Requests\Group\StoreGroupUserRequest;
@@ -18,7 +20,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        return GroupResource::collection(Group::all());
+        return new GroupCollection(Group::all());
     }
 
     public function getGroupUsers(StoreGroupUserRequest $request)
@@ -34,7 +36,7 @@ class GroupController extends Controller
             });
         }])->get();
 
-        return GroupUserResource::collection($groups);
+        return new GroupUserCollection($groups);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Collections\SubjectCollection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Subject\StoreSubjectRequest;
 use App\Http\Resources\Subject\SubjectResource;
@@ -14,7 +15,7 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        return SubjectResource::collection(Subject::all());
+        return new SubjectCollection(Subject::all());
     }
 
     /**

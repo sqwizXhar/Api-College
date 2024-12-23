@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Collections\GradesCollection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Grade\GradeRequest;
 use App\Http\Requests\Grade\StoreGradeRequest;
@@ -32,7 +33,7 @@ class GradeController extends Controller
             })
             ->get();
 
-        return GradeResource::collection($grade);
+        return new GradesCollection($grade);
     }
 
     /**
