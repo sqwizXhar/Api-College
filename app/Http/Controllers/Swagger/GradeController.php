@@ -34,35 +34,79 @@ use App\Http\Controllers\Controller;
  *                   @OA\Property(property="updated_at", type="string", example="2024-12-20 17:49:36"),
  *                   @OA\Property(property="grade", type="integer", example=5),
  *                   @OA\Property(property="user", type="string", example="User Userov Userovich"),
- *                   @OA\Property(property="date", type="string", example="2024-12-20"),
+ *                   @OA\Property(property="date", type="string", format="date", example="2024-12-20"),
  *               )
  *          )
  *     )
  * ),
  *
  * @OA\Get(
- *      path="/api/grades",
- *      summary="GradesInfo",
+ *       path="/api/grades",
+ *       summary="GradesInfo for Students",
+ *       tags={"Grade"},
+ *       security={{ "bearerAuth": {} }},
+ *
+ *
+ *      @OA\Parameter(
+ *          description="User ID",
+ *          in="query",
+ *          name="user",
+ *          required=true,
+ *          @OA\Schema(type="integer"),
+ *          example=1
+ *      ),
+ *
+ *      @OA\Parameter(
+ *           description="Date ID",
+ *           in="query",
+ *           name="date",
+ *           required=false,
+ *           @OA\Schema(type="string", format="date"),
+ *       ),
+ *
+ *       @OA\Response(
+ *          response=200,
+ *          description="Ok",
+ *          @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="grades",
+ *                 type="array",
+ *                 @OA\Items(
+ *                 @OA\Property(property="id", type="integer", example=1),
+ *                 @OA\Property(property="created_at", type="string", example="2024-12-20 17:49:36"),
+ *                 @OA\Property(property="updated_at", type="string", example="2024-12-20 17:49:36"),
+ *                 @OA\Property(property="grade", type="integer", example=5),
+ *                 @OA\Property(property="user", type="string", example="User Userov Userovich"),
+ *                 @OA\Property(property="date", type="string", format="date", example="2024-12-20")
+ *               )
+ *            )
+ *         )
+ *      )
+ *  ),
+ *
+ * @OA\Get(
+ *      path="/api/teacher/grades",
+ *      summary="GradesInfo for Teachers",
  *      tags={"Grade"},
  *      security={{ "bearerAuth": {} }},
+ *
+ *
+ *     @OA\Parameter(
+ *         description="User ID",
+ *         in="query",
+ *         name="user",
+ *         required=true,
+ *         @OA\Schema(type="integer"),
+ *         example=1
+ *     ),
  *
  *     @OA\Parameter(
  *          description="Date ID",
  *          in="query",
  *          name="date",
  *          required=false,
- *          @OA\Schema(type="string"),
- *          example="2023-03-22"
+ *          @OA\Schema(type="string", format="date"),
  *      ),
- *
- *     @OA\Parameter(
- *         description="User ID",
- *         in="query",
- *         name="user",
- *         required=false,
- *         @OA\Schema(type="integer"),
- *         example=1
- *     ),
  *
  *      @OA\Response(
  *         response=200,
@@ -77,12 +121,13 @@ use App\Http\Controllers\Controller;
  *                @OA\Property(property="updated_at", type="string", example="2024-12-20 17:49:36"),
  *                @OA\Property(property="grade", type="integer", example=5),
  *                @OA\Property(property="user", type="string", example="User Userov Userovich"),
- *                @OA\Property(property="date", type="string", example="2024-12-20")
+ *                @OA\Property(property="date", type="string", format="date", example="2024-12-20")
  *              )
  *           )
  *        )
  *     )
  * ),
+ *
  *
  * @OA\Put(
  *       path="/api/grades/{grade}",
@@ -120,7 +165,7 @@ use App\Http\Controllers\Controller;
  *                 @OA\Property(property="updated_at", type="string", example="2024-12-20 17:49:36"),
  *                 @OA\Property(property="grade", type="integer", example=5),
  *                 @OA\Property(property="user", type="string", example="User Userov Userovich"),
- *                 @OA\Property(property="date", type="string", example="2024-12-20"),
+ *                 @OA\Property(property="date", type="string", format="date", example="2024-12-20"),
  *             )
  *         )
  *     )
