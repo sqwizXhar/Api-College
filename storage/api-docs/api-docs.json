@@ -463,28 +463,28 @@
                 "tags": [
                     "Grade"
                 ],
-                "summary": "GradesInfo",
+                "summary": "GradesInfo for Students",
                 "operationId": "8422a14a071581db62c0836e007c4d92",
                 "parameters": [
+                    {
+                        "name": "user",
+                        "in": "query",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    },
                     {
                         "name": "date",
                         "in": "query",
                         "description": "Date ID",
                         "required": false,
                         "schema": {
-                            "type": "string"
-                        },
-                        "example": "2023-03-22"
-                    },
-                    {
-                        "name": "user",
-                        "in": "query",
-                        "description": "User ID",
-                        "required": false,
-                        "schema": {
-                            "type": "integer"
-                        },
-                        "example": 1
+                            "type": "string",
+                            "format": "date"
+                        }
                     }
                 ],
                 "responses": {
@@ -520,6 +520,7 @@
                                                     },
                                                     "date": {
                                                         "type": "string",
+                                                        "format": "date",
                                                         "example": "2024-12-20"
                                                     }
                                                 },
@@ -605,10 +606,94 @@
                                                 },
                                                 "date": {
                                                     "type": "string",
+                                                    "format": "date",
                                                     "example": "2024-12-20"
                                                 }
                                             },
                                             "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/teacher/grades": {
+            "get": {
+                "tags": [
+                    "Grade"
+                ],
+                "summary": "GradesInfo for Teachers",
+                "operationId": "1b1f65ac050727335836018f34e5a488",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "query",
+                        "description": "User ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    },
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "description": "Date ID",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "grades": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "grade": {
+                                                        "type": "integer",
+                                                        "example": 5
+                                                    },
+                                                    "user": {
+                                                        "type": "string",
+                                                        "example": "User Userov Userovich"
+                                                    },
+                                                    "date": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2024-12-20"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
                                         }
                                     },
                                     "type": "object"
@@ -700,6 +785,7 @@
                                                 },
                                                 "date": {
                                                     "type": "string",
+                                                    "format": "date",
                                                     "example": "2024-12-20"
                                                 }
                                             },
@@ -863,6 +949,124 @@
                 ]
             }
         },
+        "/api/admin/group/{group}/user/{user}": {
+            "post": {
+                "tags": [
+                    "Group User"
+                ],
+                "summary": "Create",
+                "operationId": "b5aa6ca7cd0462798c4b508e275a8ad5",
+                "parameters": [
+                    {
+                        "name": "group",
+                        "in": "path",
+                        "description": "Group ID",
+                        "required": true,
+                        "example": 1
+                    },
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "group": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "OAIp2"
+                                                },
+                                                "users": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "first_name": {
+                                                                "type": "string",
+                                                                "example": "User"
+                                                            },
+                                                            "last_name": {
+                                                                "type": "string",
+                                                                "example": "Userov"
+                                                            },
+                                                            "middle_name": {
+                                                                "type": "string",
+                                                                "example": "Userovich"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Group User"
+                ],
+                "summary": "Delete",
+                "operationId": "c960d7b87ccf75b4b23abfa0a033591b",
+                "parameters": [
+                    {
+                        "name": "group",
+                        "in": "path",
+                        "description": "Group ID",
+                        "required": true,
+                        "example": 1
+                    },
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/admin/groups/{group}": {
             "get": {
                 "tags": [
@@ -1006,6 +1210,466 @@
                         "name": "group",
                         "in": "path",
                         "description": "Group ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/group/users": {
+            "get": {
+                "tags": [
+                    "Group User"
+                ],
+                "summary": "GroupsUserInfo",
+                "operationId": "fe1aa7d093536f4d78394cdabd4ac00e",
+                "parameters": [
+                    {
+                        "name": "role",
+                        "in": "query",
+                        "description": "Role name",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "student",
+                                "teacher"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "groups": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "OAIp2"
+                                                    },
+                                                    "users": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "first_name": {
+                                                                    "type": "string",
+                                                                    "example": "User"
+                                                                },
+                                                                "last_name": {
+                                                                    "type": "string",
+                                                                    "example": "Userov"
+                                                                },
+                                                                "middle_name": {
+                                                                    "type": "string",
+                                                                    "example": "Userovich"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/lessons": {
+            "post": {
+                "tags": [
+                    "Lesson"
+                ],
+                "summary": "Create",
+                "operationId": "0deeca9e844dc146d365a0b05cc055d4",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "day_of_week",
+                                    "time",
+                                    "number_of_lesson",
+                                    "cabinet_id",
+                                    "subject_user_id",
+                                    "semester_id"
+                                ],
+                                "properties": {
+                                    "day_of_week": {
+                                        "type": "string",
+                                        "example": "Понедельник"
+                                    },
+                                    "time": {
+                                        "type": "string",
+                                        "format": "time",
+                                        "example": "13:00"
+                                    },
+                                    "number_of_lesson": {
+                                        "type": "string",
+                                        "example": "1"
+                                    },
+                                    "cabinet_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "subject_user_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "semester_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "lesson": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "day_of_week": {
+                                                    "type": "string",
+                                                    "example": "Понедельник"
+                                                },
+                                                "time": {
+                                                    "type": "string",
+                                                    "format": "time",
+                                                    "example": "13:00"
+                                                },
+                                                "number_of_lesson": {
+                                                    "type": "string",
+                                                    "example": "1"
+                                                },
+                                                "cabinet": {
+                                                    "type": "string",
+                                                    "example": "21"
+                                                },
+                                                "subject": {
+                                                    "type": "string",
+                                                    "example": "Russian"
+                                                },
+                                                "teacher": {
+                                                    "type": "string",
+                                                    "example": "User Userov Userovich"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/lessons": {
+            "get": {
+                "tags": [
+                    "Lesson"
+                ],
+                "summary": "LessonsInfo",
+                "operationId": "616b520697fda882347614be52660832",
+                "parameters": [
+                    {
+                        "name": "has_weekly_schedule",
+                        "in": "query",
+                        "description": "Weekly Schedule (1 for true, 0 for false)",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "enum": [
+                                0,
+                                1
+                            ],
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "semester",
+                        "in": "query",
+                        "description": "Semester ID",
+                        "required": false,
+                        "schema": {
+                            "type": "intger"
+                        }
+                    },
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "description": "Date",
+                        "required": false,
+                        "schema": {
+                            "type": "date",
+                            "format": "date"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "lessons": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "day_of_week": {
+                                                        "type": "string",
+                                                        "example": "Понедельник"
+                                                    },
+                                                    "time": {
+                                                        "type": "string",
+                                                        "format": "time",
+                                                        "example": "13:00"
+                                                    },
+                                                    "number_of_lesson": {
+                                                        "type": "string",
+                                                        "example": "1"
+                                                    },
+                                                    "cabinet": {
+                                                        "type": "string",
+                                                        "example": "21"
+                                                    },
+                                                    "subject": {
+                                                        "type": "string",
+                                                        "example": "Russian"
+                                                    },
+                                                    "teacher": {
+                                                        "type": "string",
+                                                        "example": "User Userov Userovich"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/lessons/{lesson}": {
+            "put": {
+                "tags": [
+                    "Lesson"
+                ],
+                "summary": "Update",
+                "operationId": "0276dcd2064ee1982a2e8d85d14190ea",
+                "parameters": [
+                    {
+                        "name": "lesson",
+                        "in": "path",
+                        "description": "Lesson ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "day_of_week",
+                                    "time",
+                                    "number_of_lesson",
+                                    "cabinet_id",
+                                    "subject_user_id",
+                                    "semester_id"
+                                ],
+                                "properties": {
+                                    "day_of_week": {
+                                        "type": "string",
+                                        "example": "Понедельник"
+                                    },
+                                    "time": {
+                                        "type": "string",
+                                        "format": "time",
+                                        "example": "13:00"
+                                    },
+                                    "number_of_lesson": {
+                                        "type": "string",
+                                        "example": "1"
+                                    },
+                                    "cabinet_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "subject_user_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "semester_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "lesson": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "day_of_week": {
+                                                    "type": "string",
+                                                    "example": "Понедельник"
+                                                },
+                                                "time": {
+                                                    "type": "string",
+                                                    "format": "time",
+                                                    "example": "13:00"
+                                                },
+                                                "number_of_lesson": {
+                                                    "type": "string",
+                                                    "example": "1"
+                                                },
+                                                "cabinet": {
+                                                    "type": "string",
+                                                    "example": "21"
+                                                },
+                                                "subject": {
+                                                    "type": "string",
+                                                    "example": "Russian"
+                                                },
+                                                "teacher": {
+                                                    "type": "string",
+                                                    "example": "User Userov Userovich"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Lesson"
+                ],
+                "summary": "Delete",
+                "operationId": "412e6b45ea63bafc0d6d6dc0f08c27d1",
+                "parameters": [
+                    {
+                        "name": "lesson",
+                        "in": "path",
+                        "description": "Lesson ID",
                         "required": true,
                         "example": 1
                     }
@@ -1917,14 +2581,9 @@
                                                         "type": "string",
                                                         "example": "user23"
                                                     },
-                                                    "role_id": {
-                                                        "type": "integer",
-                                                        "example": 2
-                                                    },
-                                                    "group_id": {
-                                                        "type": "integer",
-                                                        "example": 1,
-                                                        "nullable": true
+                                                    "role": {
+                                                        "type": "string",
+                                                        "example": "student"
                                                     }
                                                 },
                                                 "type": "object"
@@ -2035,17 +2694,326 @@
                                                     "type": "string",
                                                     "example": "user23"
                                                 },
-                                                "role_id": {
-                                                    "type": "integer",
-                                                    "example": 2
-                                                },
-                                                "group_id": {
-                                                    "type": "integer",
-                                                    "example": 1,
-                                                    "nullable": true
+                                                "role": {
+                                                    "type": "string",
+                                                    "example": "student"
                                                 }
                                             },
                                             "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/user/{user}/subject/{subject}": {
+            "post": {
+                "tags": [
+                    "User Subject"
+                ],
+                "summary": "Create",
+                "operationId": "6e1e5b74f7a9c4547f734d8abbf737e3",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "example": 1
+                    },
+                    {
+                        "name": "subject",
+                        "in": "path",
+                        "description": "Subject ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "first_name": {
+                                                    "type": "string",
+                                                    "example": "User"
+                                                },
+                                                "last_name": {
+                                                    "type": "string",
+                                                    "example": "Userov"
+                                                },
+                                                "middle_name": {
+                                                    "type": "string",
+                                                    "example": "Userovich"
+                                                },
+                                                "subjects": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Russian"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "User Subject"
+                ],
+                "summary": "Delete",
+                "operationId": "30e7dd38e47c91af8b0003e8a87b3c5a",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "example": 1
+                    },
+                    {
+                        "name": "subject",
+                        "in": "path",
+                        "description": "Subject ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/teachers": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "TeachersInfo",
+                "operationId": "3edeff89c42dcc4966de16117dc2ee87",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "users": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "first_name": {
+                                                        "type": "string",
+                                                        "example": "User"
+                                                    },
+                                                    "last_name": {
+                                                        "type": "string",
+                                                        "example": "Userov"
+                                                    },
+                                                    "middle_name": {
+                                                        "type": "string",
+                                                        "example": "Userovich"
+                                                    },
+                                                    "login": {
+                                                        "type": "string",
+                                                        "example": "user23"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/students": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "StudentsInfo",
+                "operationId": "64f921ed752d8666e952d1145de1df5b",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "users": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "first_name": {
+                                                        "type": "string",
+                                                        "example": "User"
+                                                    },
+                                                    "last_name": {
+                                                        "type": "string",
+                                                        "example": "Userov"
+                                                    },
+                                                    "middle_name": {
+                                                        "type": "string",
+                                                        "example": "Userovich"
+                                                    },
+                                                    "login": {
+                                                        "type": "string",
+                                                        "example": "user23"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/admins": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "AdminsInfo",
+                "operationId": "6dea359e5905a1cfbff761bcfa862d42",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "users": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2024-12-20 17:49:36"
+                                                    },
+                                                    "first_name": {
+                                                        "type": "string",
+                                                        "example": "User"
+                                                    },
+                                                    "last_name": {
+                                                        "type": "string",
+                                                        "example": "Userov"
+                                                    },
+                                                    "middle_name": {
+                                                        "type": "string",
+                                                        "example": "Userovich"
+                                                    },
+                                                    "login": {
+                                                        "type": "string",
+                                                        "example": "user23"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
                                         }
                                     },
                                     "type": "object"
@@ -2114,14 +3082,9 @@
                                                     "type": "string",
                                                     "example": "user23"
                                                 },
-                                                "role_id": {
-                                                    "type": "integer",
-                                                    "example": 2
-                                                },
-                                                "group_id": {
-                                                    "type": "integer",
-                                                    "example": 1,
-                                                    "nullable": true
+                                                "role": {
+                                                    "type": "string",
+                                                    "example": "student"
                                                 }
                                             },
                                             "type": "object"
@@ -2184,18 +3147,9 @@
                                         "type": "string",
                                         "example": "user23"
                                     },
-                                    "password": {
+                                    "role": {
                                         "type": "string",
-                                        "example": "12345678"
-                                    },
-                                    "role_id": {
-                                        "type": "integer",
-                                        "example": 2
-                                    },
-                                    "group_id": {
-                                        "type": "integer",
-                                        "example": 1,
-                                        "nullable": true
+                                        "example": "student"
                                     }
                                 },
                                 "type": "object"
@@ -2240,14 +3194,9 @@
                                                     "type": "string",
                                                     "example": "user23"
                                                 },
-                                                "role_id": {
-                                                    "type": "integer",
-                                                    "example": 2
-                                                },
-                                                "group_id": {
-                                                    "type": "integer",
-                                                    "example": 1,
-                                                    "nullable": true
+                                                "role": {
+                                                    "type": "string",
+                                                    "example": "student"
                                                 }
                                             },
                                             "type": "object"
@@ -2291,6 +3240,161 @@
                     }
                 ]
             }
+        },
+        "/api/admin/user/subjects": {
+            "get": {
+                "tags": [
+                    "User Subject"
+                ],
+                "summary": "UserSubjectsInfo",
+                "operationId": "5be6ef38ed9b0504761a26a340e4aae7",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "users": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "first_name": {
+                                                    "type": "string",
+                                                    "example": "User"
+                                                },
+                                                "last_name": {
+                                                    "type": "string",
+                                                    "example": "Userov"
+                                                },
+                                                "middle_name": {
+                                                    "type": "string",
+                                                    "example": "Userovich"
+                                                },
+                                                "subjects": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Russian"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/user/{user}/subjects": {
+            "get": {
+                "tags": [
+                    "User Subject"
+                ],
+                "summary": "GetUserSubjectsID",
+                "operationId": "133e99e326990907a6595a1d3fbc68dc",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "User ID",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-20 17:49:36"
+                                                },
+                                                "first_name": {
+                                                    "type": "string",
+                                                    "example": "User"
+                                                },
+                                                "last_name": {
+                                                    "type": "string",
+                                                    "example": "Userov"
+                                                },
+                                                "middle_name": {
+                                                    "type": "string",
+                                                    "example": "Userovich"
+                                                },
+                                                "subjects": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Russian"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -2326,6 +3430,14 @@
             "description": "Group"
         },
         {
+            "name": "Group User",
+            "description": "Group User"
+        },
+        {
+            "name": "Lesson",
+            "description": "Lesson"
+        },
+        {
             "name": "Role",
             "description": "Role"
         },
@@ -2340,6 +3452,10 @@
         {
             "name": "User",
             "description": "User"
+        },
+        {
+            "name": "User Subject",
+            "description": "User Subject"
         }
     ]
 }
