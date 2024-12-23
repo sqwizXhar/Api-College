@@ -17,9 +17,9 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $teacherRole = Role::getTeacherRole();
-        $studentRole = Role::getStudentRole();
-        $adminRole = Role::getAdminRole();
+        $teacherRole = Role::teacherRole();
+        $studentRole = Role::studentRole();
+        $adminRole = Role::adminRole();
 
         User::factory()->create(['role_id' => $teacherRole]);
         User::factory()->create(['role_id' => $studentRole]);

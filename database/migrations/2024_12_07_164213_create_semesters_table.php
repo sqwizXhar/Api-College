@@ -35,7 +35,7 @@ return new class extends Migration
     {
         Schema::table('lessons', function (Blueprint $table) {
            $table->foreignId('group_id')->nullable()->constrained();
-           $table->addColumn('integer', 'semester');
+           $table->addColumn('integer', 'semester')->nullable();
            $table->dropForeign(['semester_id']);
            $table->dropColumn('semester_id');
         });

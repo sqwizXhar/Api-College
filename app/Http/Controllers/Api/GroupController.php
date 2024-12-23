@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Collections\GroupCollection;
 use App\Http\Collections\GroupUserCollection;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Group\GroupStoreRequest;
+use App\Http\Requests\Group\StoreGroupRequest;
 use App\Http\Requests\Group\StoreGroupUserRequest;
 use App\Http\Resources\Group\GroupResource;
 use App\Http\Resources\Group\GroupUserResource;
@@ -42,7 +42,7 @@ class GroupController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(GroupStoreRequest $request)
+    public function store(StoreGroupRequest $request)
     {
         $group = Group::create($request->validated());
 
@@ -69,21 +69,19 @@ class GroupController extends Controller
         return new GroupResource($group);
     }
 
+    public function showGroupUsers(Group $group)
+    {
+        return new GroupUserResource($group);
+    }
+
     /**
      * Update the specified resource in storage.
      */
-    public function update(GroupStoreRequest $request, Group $group)
+    public function update(StoreGroupRequest $request, Group $group)
     {
         $group->update($request->validated());
 
         return new GroupResource($group);
-    }
-
-    public function updateGroupUser(Group $group, User $user)
-    {
-        $group->users()->sync([$user->id]);
-
-        return new GroupUserResource($group);
     }
 
     /**
@@ -96,9 +94,9 @@ class GroupController extends Controller
         return response()->json([]);
     }
 
-    public function destroyGroupUser(Group $group)
+    public function destroyGroupUser(Group $group, User $user)
     {
-        $group->users()->detach();
+        $group->users()->detach($user->id);
 
         return response()->json([]);
     }
