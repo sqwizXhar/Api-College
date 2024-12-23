@@ -44,7 +44,7 @@ return new class extends Migration {
             $table->foreignId('group_id')->nullable()->constrained();
         });
 
-        $userGroups = DB::table('user_group')->get();
+        $userGroups = DB::table('group_user')->get();
 
         foreach ($userGroups as $user) {
             DB::table('users')->where('id', $user->user_id)->update([
