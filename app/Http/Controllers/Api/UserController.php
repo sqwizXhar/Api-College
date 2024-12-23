@@ -89,8 +89,8 @@ class UserController extends Controller
 
     public function storeUserSubject(User $user, Subject $subject)
     {
-        if ($user && $user->role && $user->role->id == Role::teacherRole()->id) {
-            $user->subjects()->sync($subject->id);
+        if ($user?->role->name === 'teacher') {
+            $user->subjects()->attach($subject->id);
             $user->save();
 
             return new UserSubjectResource($user);
@@ -122,13 +122,6 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    public function updateUserSubject(User $user, Subject $subject)
-    {
-        $user->subjects()->sync([$subject->id]);
-
-        return new UserSubjectResource($user);
-    }
-
     /**
      * Remove the specified resource from storage.
      */
@@ -139,9 +132,9 @@ class UserController extends Controller
         return response()->json([]);
     }
 
-    public function destroyUserSubject(User $user)
+    public function destroyUserSubject(User $user, Subject $subject)
     {
-        $user->subjects()->detach();
+        $user->subjects()->detach($subject->id);
 
         return response()->json([]);
     }
