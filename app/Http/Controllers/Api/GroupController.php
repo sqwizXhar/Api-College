@@ -67,6 +67,11 @@ class GroupController extends Controller
         return new GroupResource($group);
     }
 
+    public function showGroupUsers(Group $group)
+    {
+        return new GroupUserResource($group);
+    }
+
     /**
      * Update the specified resource in storage.
      */
@@ -75,13 +80,6 @@ class GroupController extends Controller
         $group->update($request->validated());
 
         return new GroupResource($group);
-    }
-
-    public function updateGroupUser(Group $group, User $user)
-    {
-        $group->users()->sync([$user->id]);
-
-        return new GroupUserResource($group);
     }
 
     /**
@@ -94,9 +92,9 @@ class GroupController extends Controller
         return response()->json([]);
     }
 
-    public function destroyGroupUser(Group $group)
+    public function destroyGroupUser(Group $group, User $user)
     {
-        $group->users()->detach();
+        $group->users()->detach($user->id);
 
         return response()->json([]);
     }
