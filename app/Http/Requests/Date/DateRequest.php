@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Date;
 
 use App\Http\Requests\BaseFormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\ValidationException;
 
 class DateRequest extends BaseFormRequest
 {
@@ -25,6 +27,14 @@ class DateRequest extends BaseFormRequest
             'dates' => 'required|array',
             'dates.*' => 'required|date|date_format:Y-m-d|exists:dates,date',
             'semester' => 'integer|exists:semesters,number',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'dates.*.date' => 'Для даты не нашлось результотов.',
+            'dates.*.date_format' => 'Поле дата должна быть в формате Y-m-d',
         ];
     }
 }
