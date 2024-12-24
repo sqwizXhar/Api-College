@@ -59,7 +59,11 @@ class SemesterController extends Controller
      */
     public function update(StoreSemesterRequest $request, Semester $semester)
     {
-        $semester->update($request->validated());
+        $validated = $request->validated();
+
+        $semester->group()->associate($validated['group_id']);
+
+        $semester->update($validated);
 
         return new SemesterResource($semester);
     }
