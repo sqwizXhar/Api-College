@@ -26,7 +26,7 @@ class DateRequest extends BaseFormRequest
         return [
             'dates' => 'required|array',
             'dates.*' => 'required|date|date_format:Y-m-d|exists:dates,date',
-            'semester' => 'integer|exists:semesters,number',
+            'semester' => 'integer|exists:semesters,id|nullable',
         ];
     }
 
