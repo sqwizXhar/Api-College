@@ -28,7 +28,7 @@ use App\Http\Controllers\Controller;
  *        description="Ok",
  *        @OA\JsonContent(
  *               @OA\Property(
- *                   property="semster",
+ *                   property="semester",
  *                   type="object",
  *                   @OA\Property(property="id", type="integer", example=1),
  *                   @OA\Property(property="created_at", type="string", example="2024-12-20 17:49:36"),

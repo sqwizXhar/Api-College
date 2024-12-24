@@ -87,13 +87,13 @@
                                                         "type": "string",
                                                         "example": "2024-12-20 17:49:36"
                                                     },
-                                                    "number": {
-                                                        "type": "string",
-                                                        "example": "21"
-                                                    },
                                                     "purpose": {
                                                         "type": "string",
                                                         "example": "Russian"
+                                                    },
+                                                    "number": {
+                                                        "type": "string",
+                                                        "example": "21"
                                                     }
                                                 },
                                                 "type": "object"
@@ -163,13 +163,13 @@
                                                     "type": "string",
                                                     "example": "2024-12-20 17:49:36"
                                                 },
-                                                "number": {
-                                                    "type": "string",
-                                                    "example": "21"
-                                                },
                                                 "purpose": {
                                                     "type": "string",
                                                     "example": "Russian"
+                                                },
+                                                "number": {
+                                                    "type": "string",
+                                                    "example": "21"
                                                 }
                                             },
                                             "type": "object"
@@ -225,13 +225,13 @@
                                                     "type": "string",
                                                     "example": "2024-12-20 17:49:36"
                                                 },
-                                                "number": {
-                                                    "type": "string",
-                                                    "example": "21"
-                                                },
                                                 "purpose": {
                                                     "type": "string",
                                                     "example": "Russian"
+                                                },
+                                                "number": {
+                                                    "type": "string",
+                                                    "example": "21"
                                                 }
                                             },
                                             "type": "object"
@@ -309,13 +309,13 @@
                                                     "type": "string",
                                                     "example": "2024-12-20 17:49:36"
                                                 },
-                                                "number": {
-                                                    "type": "string",
-                                                    "example": "21"
-                                                },
                                                 "purpose": {
                                                     "type": "string",
                                                     "example": "Russian"
+                                                },
+                                                "number": {
+                                                    "type": "string",
+                                                    "example": "21"
                                                 }
                                             },
                                             "type": "object"
@@ -420,7 +420,7 @@
                                                         "example": "2024-12-20 17:49:36"
                                                     },
                                                     "number_of_lesson": {
-                                                        "type": "integer",
+                                                        "type": "string",
                                                         "example": "1"
                                                     },
                                                     "time": {
@@ -1001,6 +1001,10 @@
                                                     "type": "array",
                                                     "items": {
                                                         "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
                                                             "first_name": {
                                                                 "type": "string",
                                                                 "example": "User"
@@ -1279,6 +1283,10 @@
                                                         "type": "array",
                                                         "items": {
                                                             "properties": {
+                                                                "id": {
+                                                                    "type": "integer",
+                                                                    "example": 1
+                                                                },
                                                                 "first_name": {
                                                                     "type": "string",
                                                                     "example": "User"
@@ -1386,10 +1394,6 @@
                                                     "type": "string",
                                                     "example": "2024-12-20 17:49:36"
                                                 },
-                                                "day_of_week": {
-                                                    "type": "string",
-                                                    "example": "Понедельник"
-                                                },
                                                 "time": {
                                                     "type": "string",
                                                     "format": "time",
@@ -1492,10 +1496,6 @@
                                                     "updated_at": {
                                                         "type": "string",
                                                         "example": "2024-12-20 17:49:36"
-                                                    },
-                                                    "day_of_week": {
-                                                        "type": "string",
-                                                        "example": "Понедельник"
                                                     },
                                                     "time": {
                                                         "type": "string",
@@ -1617,10 +1617,6 @@
                                                 "updated_at": {
                                                     "type": "string",
                                                     "example": "2024-12-20 17:49:36"
-                                                },
-                                                "day_of_week": {
-                                                    "type": "string",
-                                                    "example": "Понедельник"
                                                 },
                                                 "time": {
                                                     "type": "string",
@@ -2084,7 +2080,7 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "semster": {
+                                        "semester": {
                                             "properties": {
                                                 "id": {
                                                     "type": "integer",
@@ -2341,7 +2337,7 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "subjects": {
+                                        "subject": {
                                             "properties": {
                                                 "id": {
                                                     "type": "integer",
@@ -3147,9 +3143,18 @@
                                         "type": "string",
                                         "example": "user23"
                                     },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "12345678"
+                                    },
                                     "role": {
                                         "type": "string",
                                         "example": "student"
+                                    },
+                                    "group_id": {
+                                        "type": "integer",
+                                        "example": 1,
+                                        "nullable": true
                                     }
                                 },
                                 "type": "object"

@@ -31,8 +31,8 @@ use App\Http\Controllers\Controller;
  *                   @OA\Property(property="id", type="integer", example=1),
  *                   @OA\Property(property="created_at", type="string", example="2024-12-20 17:49:36"),
  *                   @OA\Property(property="updated_at", type="string", example="2024-12-20 17:49:36"),
+ *                   @OA\Property(property="purpose", type="string", example="Russian"),
  *                   @OA\Property(property="number", type="string", example="21"),
- *                   @OA\Property(property="purpose", type="string", example="Russian")
  *               )
  *          )
  *     )
@@ -55,8 +55,8 @@ use App\Http\Controllers\Controller;
  *                @OA\Property(property="id", type="integer", example=1),
  *                @OA\Property(property="created_at", type="string", example="2024-12-20 17:49:36"),
  *                @OA\Property(property="updated_at", type="string", example="2024-12-20 17:49:36"),
+ *                @OA\Property(property="purpose", type="string", example="Russian"),
  *                @OA\Property(property="number", type="string", example="21"),
- *                @OA\Property(property="purpose", type="string", example="Russian")
  *              )
  *           )
  *        )
@@ -87,8 +87,8 @@ use App\Http\Controllers\Controller;
  *                   @OA\Property(property="id", type="integer", example=1),
  *                   @OA\Property(property="created_at", type="string", example="2024-12-20 17:49:36"),
  *                   @OA\Property(property="updated_at", type="string", example="2024-12-20 17:49:36"),
+ *                   @OA\Property(property="purpose", type="string", example="Russian"),
  *                   @OA\Property(property="number", type="string", example="21"),
- *                   @OA\Property(property="purpose", type="string", example="Russian")
  *               )
  *           )
  *       )
@@ -127,8 +127,8 @@ use App\Http\Controllers\Controller;
  *                 @OA\Property(property="id", type="integer", example=1),
  *                 @OA\Property(property="created_at", type="string", example="2024-12-20 17:49:36"),
  *                 @OA\Property(property="updated_at", type="string", example="2024-12-20 17:49:36"),
+ *                 @OA\Property(property="purpose", type="string", example="Russian"),
  *                 @OA\Property(property="number", type="string", example="21"),
- *                 @OA\Property(property="purpose", type="string", example="Russian")
  *             )
  *         )
  *     )

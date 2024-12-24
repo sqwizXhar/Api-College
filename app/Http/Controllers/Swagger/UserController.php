@@ -331,7 +331,9 @@ use App\Http\Controllers\Controller;
  *             @OA\Property(property="last_name", type="string", example="Userov"),
  *             @OA\Property(property="middle_name", type="string", example="Userovich"),
  *             @OA\Property(property="login", type="string", example="user23"),
+ *             @OA\Property(property="password", type="string", example="12345678"),
  *             @OA\Property(property="role", type="string", example="student"),
+ *             @OA\Property(property="group_id", type="integer", example=1, nullable=true)
  *         )
  *      ),
  *

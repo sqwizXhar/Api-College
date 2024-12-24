@@ -73,6 +73,7 @@ use App\Http\Controllers\Controller;
  *                        property="users",
  *                        type="array",
  *                        @OA\Items(
+ *                            @OA\Property(property="id", type="integer", example=1),
  *                            @OA\Property(property="first_name", type="string", example="User"),
  *                            @OA\Property(property="last_name", type="string", example="Userov"),
  *                            @OA\Property(property="middle_name", type="string", example="Userovich"),
@@ -167,6 +168,7 @@ use App\Http\Controllers\Controller;
  *                     property="users",
  *                     type="array",
  *                     @OA\Items(
+ *                         @OA\Property(property="id", type="integer", example=1),
  *                         @OA\Property(property="first_name", type="string", example="User"),
  *                         @OA\Property(property="last_name", type="string", example="Userov"),
  *                         @OA\Property(property="middle_name", type="string", example="Userovich"),
