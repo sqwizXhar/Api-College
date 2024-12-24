@@ -22,7 +22,7 @@ class SemesterRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'group' => 'string|exists:groups,name',
+            'group' => 'required|string|exists:groups,name',
         ];
     }
 }
