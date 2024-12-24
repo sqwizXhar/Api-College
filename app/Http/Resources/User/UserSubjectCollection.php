@@ -12,7 +12,7 @@ class UserSubjectCollection extends ResourceCollection
      *
      * @var string|null
      */
-    public static $wrap = 'users';
+    public static $wrap = null;
 
     /**
      * Transform the resource collection into an array.
@@ -21,6 +21,8 @@ class UserSubjectCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+       return [
+           'users' => UserSubjectResource::collection($this->collection),
+       ];
     }
 }
