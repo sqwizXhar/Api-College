@@ -5,7 +5,7 @@ namespace App\Http\Resources\Grade;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class GradesCollection extends ResourceCollection
+class GradeCollection extends ResourceCollection
 {
     /**
      * The "data" wrapper that should be applied.

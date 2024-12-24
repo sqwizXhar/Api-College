@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Grade\GradeRequest;
 use App\Http\Requests\Grade\StoreGradeRequest;
 use App\Http\Resources\Grade\GradeResource;
-use App\Http\Resources\Grade\GradesCollection;
+use App\Http\Resources\Grade\GradeCollection;
 use App\Models\Date;
 use App\Models\Grade;
 use App\Models\User;
@@ -24,8 +24,8 @@ class GradeController extends Controller
         $date = $validated['date'] ?? null;
 
         $grade = Grade::whereHas('user', function ($query) use ($user) {
-                $query->where('id', $user);
-            })
+            $query->where('id', $user);
+        })
             ->whereHas('date', function ($query) use ($date) {
                 if (isset($date)) {
                     $query->where('date', $date);
@@ -33,7 +33,7 @@ class GradeController extends Controller
             })
             ->get();
 
-        return new GradesCollection($grade);
+        return new GradeCollection($grade);
     }
 
     /**
@@ -68,7 +68,12 @@ class GradeController extends Controller
      */
     public function update(StoreGradeRequest $request, Grade $grade)
     {
-        $grade->update($request->validated());
+        $validated = $request->validated();
+
+        $grade->user()->associate($validated['user_id']);
+        $grade->date()->associate($validated['date_id']);
+
+        $grade->update($validated);
 
         return new GradeResource($grade);
     }

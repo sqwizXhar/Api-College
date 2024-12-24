@@ -77,7 +77,13 @@ class LessonController extends Controller
      */
     public function update(StoreLessonRequest $request, Lesson $lesson)
     {
-        $lesson->update($request->validated());
+        $validated = $request->validated();
+
+        $lesson->cabinet()->associate($validated['cabinet_id']);
+        $lesson->semester()->associate($validated['semester_id']);
+        $lesson->subject_user_id = $validated['subject_user_id'];
+
+        $lesson->update($validated);
 
         return new LessonResource($lesson);
     }
