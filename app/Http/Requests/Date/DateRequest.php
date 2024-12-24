@@ -35,6 +35,7 @@ class DateRequest extends BaseFormRequest
         return [
             'dates.*.date' => 'Для даты не нашлось результотов.',
             'dates.*.date_format' => 'Поле дата должна быть в формате Y-m-d',
+            'dates.*.exists' => 'Для даты не нашлось результатов.'
         ];
     }
 }
