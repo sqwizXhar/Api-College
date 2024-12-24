@@ -12,7 +12,7 @@ class GroupUserCollection extends ResourceCollection
      *
      * @var string|null
      */
-    public static $wrap = 'groups';
+    public static $wrap = null;
 
     /**
      * Transform the resource collection into an array.
@@ -21,6 +21,8 @@ class GroupUserCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'groups' => GroupuserResource::collection($this->collection),
+        ];
     }
 }
