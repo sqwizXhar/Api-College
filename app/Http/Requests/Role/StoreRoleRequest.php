@@ -22,7 +22,7 @@ class StoreRoleRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => 'required|unique:roles,name|string|max:255',
         ];
     }
 }
