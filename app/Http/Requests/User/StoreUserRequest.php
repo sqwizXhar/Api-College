@@ -26,7 +26,7 @@ class StoreUserRequest extends BaseFormRequest
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'middle_name' => 'required|string|max:255',
-            'login' => 'required|unique:users,login|string|min:8|max:50',
+            'login' => 'required|unique:users,login|string|min:4|max:50',
             'password' => 'required|string|min:8',
             'role_id' => 'required|integer|exists:roles,id',
             'group_id' => [

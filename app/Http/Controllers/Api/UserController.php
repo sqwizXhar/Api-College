@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Resources\Admin\AdminResource;
+use App\Http\Resources\User\UserCollection;
 use App\Http\Resources\User\UserResource;
+use App\Http\Resources\User\UserSubjectCollection;
 use App\Http\Resources\User\UserSubjectResource;
 use App\Models\Group;
 use App\Models\Role;
@@ -20,7 +22,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection(User::all());
+        return new UserCollection(User::all());
     }
 
     public function getStudents()
@@ -29,7 +31,7 @@ class UserController extends Controller
             $query->where('name', 'student');
         })->get();
 
-        return UserResource::collection($students);
+        return new UserCollection($students);
     }
 
     public function getTeachers()
@@ -38,7 +40,7 @@ class UserController extends Controller
             $query->where('name', 'teacher');
         })->get();
 
-        return UserResource::collection($teachers);
+        return new UserCollection($teachers);
     }
 
     public function getAdmins()
@@ -47,14 +49,14 @@ class UserController extends Controller
             $query->where('name', 'admin');
         })->get();
 
-        return AdminResource::collection($admins);
+        return new UserCollection($admins);
     }
 
     public function getUserSubjects()
     {
         $user = User::has('subjects')->get();
 
-        return UserSubjectResource::collection($user);
+        return new UserSubjectCollection($user);
     }
 
     /**
@@ -89,14 +91,14 @@ class UserController extends Controller
 
     public function storeUserSubject(User $user, Subject $subject)
     {
-        if ($user && $user->role && $user->role->id == Role::teacherRole()->id) {
-            $user->subjects()->sync($subject->id);
+        if ($user?->role->name === 'teacher') {
+            $user->subjects()->attach($subject->id);
             $user->save();
 
             return new UserSubjectResource($user);
         }
 
-        return response()->json(['error' =>  __('error.invalid_role')], 400);
+        return response()->json(['error' => __('error.invalid_role')], 400);
     }
 
     /**
@@ -122,13 +124,6 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    public function updateUserSubject(User $user, Subject $subject)
-    {
-        $user->subjects()->sync([$subject->id]);
-
-        return new UserSubjectResource($user);
-    }
-
     /**
      * Remove the specified resource from storage.
      */
@@ -139,9 +134,9 @@ class UserController extends Controller
         return response()->json([]);
     }
 
-    public function destroyUserSubject(User $user)
+    public function destroyUserSubject(User $user, Subject $subject)
     {
-        $user->subjects()->detach();
+        $user->subjects()->detach($subject->id);
 
         return response()->json([]);
     }

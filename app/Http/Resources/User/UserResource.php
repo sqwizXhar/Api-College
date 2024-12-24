@@ -27,9 +27,8 @@ class UserResource extends BaseResource
                 'last_name' => $this->last_name,
                 'middle_name' => $this->middle_name,
                 'login' => $this->login,
-                'role' => $this->role ? $this->role->name : '',
-                $this->mergeWhen(!$this->role->isAdmin() && $this->groups->isNotEmpty(), [
-                    'groups' => $this->groups->pluck('name')->toArray(),
+                $this->mergeWhen(!preg_match('/(admins|teachers|students)/', $request->path()), [
+                    'role' => $this->role ? $this->role->name : null,
                 ])
             ]
         );

@@ -24,7 +24,7 @@ class GroupUserResource extends BaseResource
         return array_merge(parent::toArray($request),
             [
                 'name' => $this->name,
-                'users' => $this->users ? $this->users->select('first_name', 'last_name', 'middle_name') : null,
+                'users' => $this->users ? $this->users->select('id','first_name', 'last_name', 'middle_name') : null,
             ]
         );
     }

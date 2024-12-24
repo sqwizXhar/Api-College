@@ -24,7 +24,7 @@ class StoreGradeRequest extends BaseFormRequest
         return [
             'grade' => 'required|integer|between:2,5',
             'user_id' => 'required|integer|exists:users,id',
-            'date_id' => 'required|date|date_format:Y-m-d|exists:dates,id',
+            'date_id' => 'required|integer|exists:dates,id',
         ];
     }
 }

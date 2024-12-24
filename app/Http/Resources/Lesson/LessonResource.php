@@ -13,7 +13,7 @@ class LessonResource extends BaseResource
      *
      * @var string|null
      */
-    public static $wrap = 'lessons';
+    public static $wrap = 'lesson';
 
     /**
      * Transform the resource into an array.

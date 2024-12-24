@@ -4,7 +4,7 @@ namespace App\Http\Requests\Group;
 
 use App\Http\Requests\BaseFormRequest;
 
-class GroupStoreRequest extends BaseFormRequest
+class StoreGroupRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Date\DateRequest;
-use App\Http\Requests\Date\StoreDateRequest;
-use App\Http\Resources\Date\DateResource;
+use App\Http\Resources\Date\DateCollection;
 use App\Models\Date;
 
 class DateController extends Controller
@@ -28,6 +27,6 @@ class DateController extends Controller
         })->whereIn('date', $date)
             ->get();
 
-        return DateResource::collection($dateQuery);
+        return new DateCollection($dateQuery);
     }
 }

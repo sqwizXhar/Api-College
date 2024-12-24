@@ -27,8 +27,7 @@ class UserSubjectResource extends BaseResource
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
                 'middle_name' => $this->middle_name,
-                'role' => $this->role ? $this->role->name : null,
-                'subjects' => SubjectResource::collection($this->subjects),
+                'subjects' => $this->subjects ? $this->subjects->select('id', 'name')->toArray() : null,
             ]
         );
     }
