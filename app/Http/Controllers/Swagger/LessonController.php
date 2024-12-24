@@ -81,7 +81,7 @@ use App\Http\Controllers\Controller;
  *         description="Ok",
  *         @OA\JsonContent(
  *            @OA\Property(
- *                property="lessons",
+ *                property="Понедельник",
  *                type="array",
  *                @OA\Items(
  *                @OA\Property(property="id", type="integer", example=1),

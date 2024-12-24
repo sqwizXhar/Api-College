@@ -1477,7 +1477,7 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "lessons": {
+                                        "Понедельник": {
                                             "type": "array",
                                             "items": {
                                                 "properties": {
