@@ -420,8 +420,8 @@
                                                         "example": "2024-12-20 17:49:36"
                                                     },
                                                     "number_of_lesson": {
-                                                        "type": "string",
-                                                        "example": "1"
+                                                        "type": "integer",
+                                                        "example": 1
                                                     },
                                                     "time": {
                                                         "type": "string",
@@ -1352,8 +1352,8 @@
                                         "example": "13:00"
                                     },
                                     "number_of_lesson": {
-                                        "type": "string",
-                                        "example": "1"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "cabinet_id": {
                                         "type": "integer",
@@ -1400,8 +1400,8 @@
                                                     "example": "13:00"
                                                 },
                                                 "number_of_lesson": {
-                                                    "type": "string",
-                                                    "example": "1"
+                                                    "type": "integer",
+                                                    "example": 1
                                                 },
                                                 "cabinet": {
                                                     "type": "string",
@@ -1503,8 +1503,8 @@
                                                         "example": "13:00"
                                                     },
                                                     "number_of_lesson": {
-                                                        "type": "string",
-                                                        "example": "1"
+                                                        "type": "integer",
+                                                        "example": 1
                                                     },
                                                     "cabinet": {
                                                         "type": "string",
@@ -1576,8 +1576,8 @@
                                         "example": "13:00"
                                     },
                                     "number_of_lesson": {
-                                        "type": "string",
-                                        "example": "1"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "cabinet_id": {
                                         "type": "integer",
@@ -1624,8 +1624,8 @@
                                                     "example": "13:00"
                                                 },
                                                 "number_of_lesson": {
-                                                    "type": "string",
-                                                    "example": "1"
+                                                    "type": "integer",
+                                                    "example": 1
                                                 },
                                                 "cabinet": {
                                                     "type": "string",

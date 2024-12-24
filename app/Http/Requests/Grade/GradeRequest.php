@@ -22,7 +22,7 @@ class GradeRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'user' => 'integer|exists:users,id',
+            'user' => 'required|integer|exists:users,id',
             'date' => 'date|date_format:Y-m-d|exists:dates,date',
         ];
     }

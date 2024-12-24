@@ -46,7 +46,7 @@ use App\Models\Date;
  *                @OA\Property(property="id", type="integer", example=1),
  *                @OA\Property(property="created_at", type="string", example="2024-12-20 17:49:36"),
  *                @OA\Property(property="updated_at", type="string", example="2024-12-20 17:49:36"),
- *                @OA\Property(property="number_of_lesson", type="string", example="1"),
+ *                @OA\Property(property="number_of_lesson", type="integer", example=1),
  *                @OA\Property(property="time", type="string", format="time", example="13:00"),
  *                @OA\Property(property="subject", type="string", example="Math"),
  *                @OA\Property(property="cabinet", type="string", example="21"),

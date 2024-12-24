@@ -24,7 +24,7 @@ class StoreLessonRequest extends BaseFormRequest
         return [
             'day_of_week' => 'required|string|max:15',
             'time' => 'required|string|date_format:H:i',
-            'number_of_lesson' => 'required|string',
+            'number_of_lesson' => 'required|integer|min:1|max:12',
             'cabinet_id' => 'required|integer|exists:cabinets,id',
             'subject_user_id' => 'required|integer|exists:subject_user,id',
             'semester_id' => 'required|integer|exists:semesters,id',
