@@ -33,7 +33,7 @@ class DateRequest extends BaseFormRequest
     public function messages(): array
     {
         return [
-            'dates.*.date' => 'Для даты не нашлось результотов.',
+            'dates.*.date' => 'Для даты не нашлось результатов.',
             'dates.*.date_format' => 'Поле дата должна быть в формате Y-m-d',
             'dates.*.exists' => 'Для даты не нашлось результатов.'
         ];
