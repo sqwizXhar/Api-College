@@ -220,7 +220,8 @@ return [
         'has_weekly_schedule' => 'Еженедельное расписание',
         'role' => 'Роль',
         'group' => 'Группа',
-        'dates' => 'Дата'
+        'dates' => 'Дата',
+        'subject' => 'Урок'
     ],
 ];
 

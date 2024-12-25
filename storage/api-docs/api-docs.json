@@ -382,8 +382,7 @@
                             }
                         },
                         "example": [
-                            "2020-10-27",
-                            "2023-03-22"
+                            "2020-10-27"
                         ]
                     },
                     {
@@ -446,6 +445,57 @@
                                         }
                                     },
                                     "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/teacher/dates": {
+            "get": {
+                "tags": [
+                    "Date"
+                ],
+                "summary": "DatesSubjectInfo",
+                "operationId": "4732f7169a6d976c58a36c8b1bda9a93",
+                "parameters": [
+                    {
+                        "name": "subject",
+                        "in": "query",
+                        "description": "Subject name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "date": {
+                                                "type": "string",
+                                                "format": "date",
+                                                "example": "2024-12-25"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
                                 }
                             }
                         }
