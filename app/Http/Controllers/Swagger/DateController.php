@@ -25,7 +25,7 @@ use App\Models\Date;
  *             @OA\Items(type="string", format="date")
  *         ),
  *         explode=true,
- *         example={"2020-10-27", "2023-03-22"}
+ *         example={"2020-10-27"}
  *     ),
  *     @OA\Parameter(
  *         name="semester",
@@ -56,6 +56,33 @@ use App\Models\Date;
  *        )
  *     )
  * ),
+ *
+ * @OA\Get(
+ *       path="/api/teacher/dates",
+ *       summary="DatesSubjectInfo",
+ *       tags={"Date"},
+ *       security={{ "bearerAuth": {} }},
+ *
+ *      @OA\Parameter(
+ *          name="subject",
+ *          in="query",
+ *          description="Subject name",
+ *          required=true,
+ *          @OA\Schema(type="string")
+ *      ),
+ *
+ *       @OA\Response(
+ *          response=200,
+ *          description="Ok",
+ *          @OA\JsonContent(
+ *                 type="array",
+ *                 @OA\Items(
+ *                 @OA\Property(property="id", type="integer", example=1),
+ *                 @OA\Property(property="date", type="date", example="2024-12-25"),
+ *            )
+ *         )
+ *      )
+ *  ),
  *
  */
 class DateController extends Controller
