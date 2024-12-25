@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::middleware(CheckRole::class . ':teacher')->prefix('teacher')->group(function () {
         Route::apiResource('grades', GradeController::class);
+        Route::get('dates', [DateController::class, 'getDates'])->name('dates.info');
     });
 
     Route::middleware(CheckRole::class . ':student')->group(function () {
@@ -38,7 +39,7 @@ Route::middleware('auth:sanctum')->group(function () {
         ]);
 
         Route::apiResource('lessons', LessonController::class)->except('index');
-        Route::get('dates', DateController::class)->name('dates.index');
+        Route::get('dates', [DateController::class, 'index'])->name('dates.index');
 
         Route::get('students', [UserController::class, 'getStudents'])->name('users.students');
         Route::get('admins', [UserController::class, 'getAdmins'])->name('users.admins');
