@@ -85,6 +85,6 @@ class GradeController extends Controller
     {
         $grade->delete();
 
-        return response()->json([]);
+        return response()->json();
     }
 }

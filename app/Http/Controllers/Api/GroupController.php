@@ -98,6 +98,6 @@ class GroupController extends Controller
     {
         $group->users()->detach($user->id);
 
-        return response()->json([]);
+        return response()->json();
     }
 }
