@@ -12,7 +12,7 @@
                     "Auth"
                 ],
                 "summary": "Login",
-                "operationId": "82d74137970376a374510566964c9813",
+                "operationId": "f2a1e12b2f5fc17624bd407c8caa92a1",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -25,11 +25,11 @@
                                 "properties": {
                                     "login": {
                                         "type": "string",
-                                        "example": "user23"
+                                        "example": "admin"
                                     },
                                     "password": {
                                         "type": "string",
-                                        "example": "12345678"
+                                        "example": "password"
                                     }
                                 },
                                 "type": "object"
@@ -63,7 +63,7 @@
                     "Cabinet"
                 ],
                 "summary": "CabinetsInfo",
-                "operationId": "e857b0cb4a07f10bbbd0f1b6706286b7",
+                "operationId": "909ae843198f0a6888371673a6a0407d",
                 "responses": {
                     "200": {
                         "description": "Ok",
@@ -117,7 +117,7 @@
                     "Cabinet"
                 ],
                 "summary": "Create",
-                "operationId": "a30829548ca3d941c88abb33c242cc6d",
+                "operationId": "332876ed19fa78ea15d4d9c085ac9fbb",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -194,7 +194,7 @@
                     "Cabinet"
                 ],
                 "summary": "GetCabinetID",
-                "operationId": "4b4621ebbb2a0c03a23f914a70ac2c60",
+                "operationId": "fac2dea2e59779c8384edb7d39ea83f3",
                 "parameters": [
                     {
                         "name": "cabinet",
@@ -254,7 +254,7 @@
                     "Cabinet"
                 ],
                 "summary": "Update",
-                "operationId": "82ed994e47f5944e478c3a8a40fbda08",
+                "operationId": "c9ef39712ec80abb8112797133ba83f8",
                 "parameters": [
                     {
                         "name": "cabinet",
@@ -338,7 +338,7 @@
                     "Cabinet"
                 ],
                 "summary": "Delete",
-                "operationId": "a00a41c9bb166c77b990294ed76a048d",
+                "operationId": "6325c03c42947aa5b08b2f7917d8d58d",
                 "parameters": [
                     {
                         "name": "cabinet",
@@ -366,7 +366,7 @@
                     "Date"
                 ],
                 "summary": "DatesInfo",
-                "operationId": "b198eddefa7705dcf2b7d9e229b3c102",
+                "operationId": "09d2d0594ff1926974a303dedc3e20af",
                 "parameters": [
                     {
                         "name": "dates[]",
@@ -463,7 +463,7 @@
                     "Date"
                 ],
                 "summary": "DatesSubjectInfo",
-                "operationId": "4732f7169a6d976c58a36c8b1bda9a93",
+                "operationId": "ebe7954612e6f7d9df67895a02ac5d7f",
                 "parameters": [
                     {
                         "name": "subject",
@@ -508,13 +508,13 @@
                 ]
             }
         },
-        "/api/grades": {
+        "/api/teacher/grades": {
             "get": {
                 "tags": [
                     "Grade"
                 ],
-                "summary": "GradesInfo for Students",
-                "operationId": "8422a14a071581db62c0836e007c4d92",
+                "summary": "GradesInfo for Teachers",
+                "operationId": "c90c46753aa6311cbfac22128061df09",
                 "parameters": [
                     {
                         "name": "user",
@@ -560,18 +560,22 @@
                                                         "type": "string",
                                                         "example": "2024-12-20 17:49:36"
                                                     },
+                                                    "student": {
+                                                        "type": "string",
+                                                        "example": "User Userov Userovich"
+                                                    },
                                                     "grade": {
                                                         "type": "integer",
                                                         "example": 5
-                                                    },
-                                                    "user": {
-                                                        "type": "string",
-                                                        "example": "User Userov Userovich"
                                                     },
                                                     "date": {
                                                         "type": "string",
                                                         "format": "date",
                                                         "example": "2024-12-20"
+                                                    },
+                                                    "teacher": {
+                                                        "type": "string",
+                                                        "example": "User Userov Userovich"
                                                     }
                                                 },
                                                 "type": "object"
@@ -595,7 +599,7 @@
                     "Grade"
                 ],
                 "summary": "Create",
-                "operationId": "97735cc9dfeff3d9098aa4d85c993aef",
+                "operationId": "1651a2eebfc6847d89c96d3c7d416f0d",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -646,18 +650,22 @@
                                                     "type": "string",
                                                     "example": "2024-12-20 17:49:36"
                                                 },
+                                                "student": {
+                                                    "type": "string",
+                                                    "example": "User Userov Userovich"
+                                                },
                                                 "grade": {
                                                     "type": "integer",
                                                     "example": 5
-                                                },
-                                                "user": {
-                                                    "type": "string",
-                                                    "example": "User Userov Userovich"
                                                 },
                                                 "date": {
                                                     "type": "string",
                                                     "format": "date",
                                                     "example": "2024-12-20"
+                                                },
+                                                "teacher": {
+                                                    "type": "string",
+                                                    "example": "User Userov Userovich"
                                                 }
                                             },
                                             "type": "object"
@@ -676,13 +684,13 @@
                 ]
             }
         },
-        "/api/teacher/grades": {
+        "/api/grades": {
             "get": {
                 "tags": [
                     "Grade"
                 ],
-                "summary": "GradesInfo for Teachers",
-                "operationId": "1b1f65ac050727335836018f34e5a488",
+                "summary": "GradesInfo for Students",
+                "operationId": "c50c7a51afefb15b2dd9c9892864a8e8",
                 "parameters": [
                     {
                         "name": "user",
@@ -728,18 +736,22 @@
                                                         "type": "string",
                                                         "example": "2024-12-20 17:49:36"
                                                     },
+                                                    "student": {
+                                                        "type": "string",
+                                                        "example": "User Userov Userovich"
+                                                    },
                                                     "grade": {
                                                         "type": "integer",
                                                         "example": 5
-                                                    },
-                                                    "user": {
-                                                        "type": "string",
-                                                        "example": "User Userov Userovich"
                                                     },
                                                     "date": {
                                                         "type": "string",
                                                         "format": "date",
                                                         "example": "2024-12-20"
+                                                    },
+                                                    "teacher": {
+                                                        "type": "string",
+                                                        "example": "User Userov Userovich"
                                                     }
                                                 },
                                                 "type": "object"
@@ -759,20 +771,27 @@
                 ]
             }
         },
-        "/api/grades/{grade}": {
+        "/api/teacher/grades/user/{user}/date/{date}": {
             "put": {
                 "tags": [
                     "Grade"
                 ],
                 "summary": "Update",
-                "operationId": "b23a6c23725ec8f7301737b84319fe81",
+                "operationId": "7615362f457bf45f2dd49a9cfb7b6b4c",
                 "parameters": [
                     {
-                        "name": "grade",
+                        "name": "user",
                         "in": "path",
-                        "description": "Grade ID",
+                        "description": "User ID",
                         "required": true,
                         "example": 1
+                    },
+                    {
+                        "name": "date",
+                        "in": "path",
+                        "description": "Date",
+                        "required": false,
+                        "example": "2024-12-26"
                     }
                 ],
                 "requestBody": {
@@ -781,22 +800,12 @@
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "grade",
-                                    "user_id",
-                                    "date_id"
+                                    "grade"
                                 ],
                                 "properties": {
                                     "grade": {
                                         "type": "integer",
                                         "example": 5
-                                    },
-                                    "user_id": {
-                                        "type": "integer",
-                                        "example": 1
-                                    },
-                                    "date_id": {
-                                        "type": "integer",
-                                        "example": 1
                                     }
                                 },
                                 "type": "object"
@@ -825,18 +834,22 @@
                                                     "type": "string",
                                                     "example": "2024-12-20 17:49:36"
                                                 },
+                                                "student": {
+                                                    "type": "string",
+                                                    "example": "User Userov Userovich"
+                                                },
                                                 "grade": {
                                                     "type": "integer",
                                                     "example": 5
-                                                },
-                                                "user": {
-                                                    "type": "string",
-                                                    "example": "User Userov Userovich"
                                                 },
                                                 "date": {
                                                     "type": "string",
                                                     "format": "date",
                                                     "example": "2024-12-20"
+                                                },
+                                                "teacher": {
+                                                    "type": "string",
+                                                    "example": "User Userov Userovich"
                                                 }
                                             },
                                             "type": "object"
@@ -853,13 +866,15 @@
                         "bearerAuth": []
                     }
                 ]
-            },
+            }
+        },
+        "/api/tecaher/grades/{grade}": {
             "delete": {
                 "tags": [
                     "Grade"
                 ],
                 "summary": "Delete",
-                "operationId": "82ce6fe6cc730ad5a97065c300a67c07",
+                "operationId": "0f9ed5c63cd08a3ef50c217e3bd8df23",
                 "parameters": [
                     {
                         "name": "grade",
@@ -887,7 +902,7 @@
                     "Group"
                 ],
                 "summary": "GroupsInfo",
-                "operationId": "42bae3f26bf83e45b919fcbd6f2720d7",
+                "operationId": "07efea04c0d6ea258e02a3d0758dab9e",
                 "responses": {
                     "200": {
                         "description": "Ok",
@@ -937,7 +952,7 @@
                     "Group"
                 ],
                 "summary": "Create",
-                "operationId": "89db403173427de890a5d41ca8519a08",
+                "operationId": "63186a9539a67a0efbb64b498d525199",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1005,7 +1020,7 @@
                     "Group User"
                 ],
                 "summary": "Create",
-                "operationId": "b5aa6ca7cd0462798c4b508e275a8ad5",
+                "operationId": "caa439c9de16d314b2aa554c61eb678b",
                 "parameters": [
                     {
                         "name": "group",
@@ -1092,7 +1107,7 @@
                     "Group User"
                 ],
                 "summary": "Delete",
-                "operationId": "c960d7b87ccf75b4b23abfa0a033591b",
+                "operationId": "6a2ffb564ebc23c441f055fd438978fd",
                 "parameters": [
                     {
                         "name": "group",
@@ -1127,7 +1142,7 @@
                     "Group"
                 ],
                 "summary": "GetGroupID",
-                "operationId": "b77150428df0b8d1c3af9552e763dc65",
+                "operationId": "39cb060f930384197d9153467fab6a3b",
                 "parameters": [
                     {
                         "name": "group",
@@ -1183,7 +1198,7 @@
                     "Group"
                 ],
                 "summary": "Update",
-                "operationId": "331761998f3b0aa1a801eb01d3f4fdaa",
+                "operationId": "db88b614888a139be87e09da76baf022",
                 "parameters": [
                     {
                         "name": "group",
@@ -1258,7 +1273,7 @@
                     "Group"
                 ],
                 "summary": "Delete",
-                "operationId": "54094f01a1f0294a063e25e282917d39",
+                "operationId": "8ca8be6e5dc45eb223a9f148155ee7a8",
                 "parameters": [
                     {
                         "name": "group",
@@ -1286,7 +1301,7 @@
                     "Group User"
                 ],
                 "summary": "GroupsUserInfo",
-                "operationId": "fe1aa7d093536f4d78394cdabd4ac00e",
+                "operationId": "769cf785649fcaf0067285960e644517",
                 "parameters": [
                     {
                         "name": "role",
@@ -1377,7 +1392,7 @@
                     "Lesson"
                 ],
                 "summary": "Create",
-                "operationId": "0deeca9e844dc146d365a0b05cc055d4",
+                "operationId": "0903d7262d490ef24fd947d079de7b17",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1488,7 +1503,7 @@
                     "Lesson"
                 ],
                 "summary": "LessonsInfo",
-                "operationId": "616b520697fda882347614be52660832",
+                "operationId": "a6be82ca1a6100317322af8c042dd09d",
                 "parameters": [
                     {
                         "name": "has_weekly_schedule",
@@ -1592,7 +1607,7 @@
                     "Lesson"
                 ],
                 "summary": "Update",
-                "operationId": "0276dcd2064ee1982a2e8d85d14190ea",
+                "operationId": "a96d865e96a5fa660f205a774277206a",
                 "parameters": [
                     {
                         "name": "lesson",
@@ -1710,7 +1725,7 @@
                     "Lesson"
                 ],
                 "summary": "Delete",
-                "operationId": "412e6b45ea63bafc0d6d6dc0f08c27d1",
+                "operationId": "48f1fe5d0099c7741d376596143bfe74",
                 "parameters": [
                     {
                         "name": "lesson",
@@ -1738,7 +1753,7 @@
                     "Role"
                 ],
                 "summary": "RolesInfo",
-                "operationId": "d759adc397a06cb7eaed9fcd91d708b7",
+                "operationId": "17ea939ea6f3f5d03806f0790668723c",
                 "responses": {
                     "200": {
                         "description": "Ok",
@@ -1788,7 +1803,7 @@
                     "Role"
                 ],
                 "summary": "Create",
-                "operationId": "988a10414d5cadb65aeb70d172b1fdf5",
+                "operationId": "43275130d47db0a458ff82a671fd6116",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1856,7 +1871,7 @@
                     "Role"
                 ],
                 "summary": "GetRoleID",
-                "operationId": "0846af1b52e8890e31bed5a2aa62677e",
+                "operationId": "790a0321261ec6cddbe7ccba7e342234",
                 "parameters": [
                     {
                         "name": "role",
@@ -1912,7 +1927,7 @@
                     "Role"
                 ],
                 "summary": "Update",
-                "operationId": "2a48c28af18fe70d44b7978222460b99",
+                "operationId": "beb77890f8836667bb9d85d3df44fdbf",
                 "parameters": [
                     {
                         "name": "role",
@@ -1987,7 +2002,7 @@
                     "Role"
                 ],
                 "summary": "Delete",
-                "operationId": "d49ccb923c36753a9c1dfef62cba3b36",
+                "operationId": "4031301d693ff3656d70c2a1eb744886",
                 "parameters": [
                     {
                         "name": "role",
@@ -2015,7 +2030,7 @@
                     "Semester"
                 ],
                 "summary": "SemestersInfo",
-                "operationId": "cf2913192f19f5e219c0b890da6f57af",
+                "operationId": "dce0e222556ce947d2a22e2c457de188",
                 "parameters": [
                     {
                         "name": "group",
@@ -2087,7 +2102,7 @@
                     "Semester"
                 ],
                 "summary": "Create",
-                "operationId": "ac66ba2c9916d7ac9fc6cc8ff4d58e60",
+                "operationId": "52ad3d96e768ec17884f71e84daa2ea8",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -2181,7 +2196,7 @@
                     "Semester"
                 ],
                 "summary": "Update",
-                "operationId": "8e4e8ab19b8d2f8f7e242e0cd01a7bc1",
+                "operationId": "48e1818a1323d0d7bbe80e9180924c4d",
                 "parameters": [
                     {
                         "name": "semester",
@@ -2282,7 +2297,7 @@
                     "Semester"
                 ],
                 "summary": "Delete",
-                "operationId": "545345072f4df4f5c09c5c75b907e5e3",
+                "operationId": "45dd75ac6f29ddc9139e038f8800a5fe",
                 "parameters": [
                     {
                         "name": "semester",
@@ -2310,7 +2325,7 @@
                     "Subject"
                 ],
                 "summary": "SubjectsInfo",
-                "operationId": "12497b066572afd147f379b9cde711ab",
+                "operationId": "e25219cb48b95854adfad9baf028c352",
                 "responses": {
                     "200": {
                         "description": "Ok",
@@ -2360,7 +2375,7 @@
                     "Subject"
                 ],
                 "summary": "Create",
-                "operationId": "175bb390f066ee59c5aaa43d861db8a6",
+                "operationId": "9ee8357c3b02f5d0fd259264a76c127b",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -2428,7 +2443,7 @@
                     "Subject"
                 ],
                 "summary": "GetSubjectID",
-                "operationId": "893ab96b73c5f2f1292b6f71931e2598",
+                "operationId": "2a1277364f47ee52f786c97d4f68fcc5",
                 "parameters": [
                     {
                         "name": "subject",
@@ -2484,7 +2499,7 @@
                     "Subject"
                 ],
                 "summary": "Update",
-                "operationId": "60ede9ac804b763ac2fb4f4203f6efa0",
+                "operationId": "fbbcb146d14878588f0226f4c39d2c58",
                 "parameters": [
                     {
                         "name": "subject",
@@ -2559,7 +2574,7 @@
                     "Subject"
                 ],
                 "summary": "Delete",
-                "operationId": "0465349b526b40967d21b00afb2547b3",
+                "operationId": "d0ad7eda4676f6fcc8cb6ca7f1fea7db",
                 "parameters": [
                     {
                         "name": "subject",
@@ -2587,7 +2602,7 @@
                     "User"
                 ],
                 "summary": "UsersInfo",
-                "operationId": "4544f248046aed947ceb62dbf5b40c1a",
+                "operationId": "e0fc0d029abe2eac17443d9fa3c5089f",
                 "responses": {
                     "200": {
                         "description": "Ok",
@@ -2653,7 +2668,7 @@
                     "User"
                 ],
                 "summary": "Create",
-                "operationId": "5645f140f0fe32147b607ee812a34b9a",
+                "operationId": "ae2a2a4f358e0f253ec5954e8537ddaf",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -2767,7 +2782,7 @@
                     "User Subject"
                 ],
                 "summary": "Create",
-                "operationId": "6e1e5b74f7a9c4547f734d8abbf737e3",
+                "operationId": "d84776dac7f2e718076d07265f4d952c",
                 "parameters": [
                     {
                         "name": "user",
@@ -2854,7 +2869,7 @@
                     "User Subject"
                 ],
                 "summary": "Delete",
-                "operationId": "30e7dd38e47c91af8b0003e8a87b3c5a",
+                "operationId": "9a45be31b0087a6fbc802fc9eef125d6",
                 "parameters": [
                     {
                         "name": "user",
@@ -2889,7 +2904,7 @@
                     "User"
                 ],
                 "summary": "TeachersInfo",
-                "operationId": "3edeff89c42dcc4966de16117dc2ee87",
+                "operationId": "2e603bdf4026ec9e3c24cdc833bb4946",
                 "responses": {
                     "200": {
                         "description": "Ok",
@@ -2953,7 +2968,7 @@
                     "User"
                 ],
                 "summary": "StudentsInfo",
-                "operationId": "64f921ed752d8666e952d1145de1df5b",
+                "operationId": "51399259c6450da93bafd6b6a1ec7790",
                 "responses": {
                     "200": {
                         "description": "Ok",
@@ -3017,7 +3032,7 @@
                     "User"
                 ],
                 "summary": "AdminsInfo",
-                "operationId": "6dea359e5905a1cfbff761bcfa862d42",
+                "operationId": "25fb665f5a35b3f00a61d979b05f2c9c",
                 "responses": {
                     "200": {
                         "description": "Ok",
@@ -3081,7 +3096,7 @@
                     "User"
                 ],
                 "summary": "GetUserID",
-                "operationId": "748bc742334adaee7de4183311e4e382",
+                "operationId": "bf086a72a43885b9c780a7af5d018538",
                 "parameters": [
                     {
                         "name": "user",
@@ -3153,7 +3168,7 @@
                     "User"
                 ],
                 "summary": "Update",
-                "operationId": "93f6ed5426f6a0a5117d60bff5beb9f3",
+                "operationId": "ebf1302652e29d2910b9f8f14f84db8e",
                 "parameters": [
                     {
                         "name": "user",
@@ -3274,7 +3289,7 @@
                     "User"
                 ],
                 "summary": "Delete",
-                "operationId": "310953a7070097257ff822f81dcc9170",
+                "operationId": "7f98ba5ec74597dd1640e1e91c36792b",
                 "parameters": [
                     {
                         "name": "user",
@@ -3302,7 +3317,7 @@
                     "User Subject"
                 ],
                 "summary": "UserSubjectsInfo",
-                "operationId": "5be6ef38ed9b0504761a26a340e4aae7",
+                "operationId": "5d2ac42058d61450aa2fb853dd388adb",
                 "responses": {
                     "200": {
                         "description": "Ok",
@@ -3375,7 +3390,7 @@
                     "User Subject"
                 ],
                 "summary": "GetUserSubjectsID",
-                "operationId": "133e99e326990907a6595a1d3fbc68dc",
+                "operationId": "36428b29fb1411a248fabab1752c3982",
                 "parameters": [
                     {
                         "name": "user",

@@ -6,6 +6,31 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ *
+ * @OA\Post(
+ *     path="/api/login",
+ *     summary="Login",
+ *     tags={"Auth"},
+ *
+ *     @OA\RequestBody(
+ *        required=true,
+ *        @OA\JsonContent(
+ *            required={"login", "password"},
+ *            @OA\Property(property="login", type="string", example="admin"),
+ *            @OA\Property(property="password", type="string", example="password")
+ *        )
+ *     ),
+ *
+ *     @OA\Response(
+ *        response=200,
+ *        description="Ok",
+ *        @OA\JsonContent(
+ *               @OA\Property(property="token", type="string", example="your_token_here"),
+ *          )
+ *     )
+ * ),
+ */
 class AuthController extends Controller
 {
     public function login(LoginRequest $request)
