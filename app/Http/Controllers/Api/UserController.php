@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\StoreUserRequest;
-use App\Http\Resources\Admin\AdminResource;
 use App\Http\Resources\User\UserCollection;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UserSubjectCollection;
@@ -138,6 +137,6 @@ class UserController extends Controller
     {
         $user->subjects()->detach($subject->id);
 
-        return response()->json([]);
+        return response()->json();
     }
 }

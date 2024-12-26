@@ -53,6 +53,6 @@ class CabinetController extends Controller
     {
         $cabinet->delete();
 
-        return response()->json([]);
+        return response()->json();
     }
 }

@@ -75,6 +75,6 @@ class SemesterController extends Controller
     {
         $semester->delete();
 
-        return response()->json([]);
+        return response()->json();
     }
 }
