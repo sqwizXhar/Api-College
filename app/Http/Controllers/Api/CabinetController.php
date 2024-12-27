@@ -7,6 +7,7 @@ use App\Http\Requests\Cabinet\StoreCabinetRequest;
 use App\Http\Resources\Cabinet\CabinetCollection;
 use App\Http\Resources\Cabinet\CabinetResource;
 use App\Models\Cabinet;
+use App\Services\CabinetService;
 
 /**
  *
@@ -160,6 +161,13 @@ use App\Models\Cabinet;
  */
 class CabinetController extends Controller
 {
+    protected $cabinetService;
+
+    public function __construct(CabinetService $cabinetService)
+    {
+        $this->cabinetService = $cabinetService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -173,9 +181,7 @@ class CabinetController extends Controller
      */
     public function store(StoreCabinetRequest $request)
     {
-        $cabinet = Cabinet::create($request->validated());
-
-        return new CabinetResource($cabinet);
+        return new CabinetResource($this->cabinetService->create($request->validated()));
     }
 
     /**
@@ -191,7 +197,7 @@ class CabinetController extends Controller
      */
     public function update(StoreCabinetRequest $request, Cabinet $cabinet)
     {
-        $cabinet->update($request->validated());
+        $this->cabinetService->update($cabinet, $request->validated());
 
         return new CabinetResource($cabinet);
     }
@@ -201,7 +207,7 @@ class CabinetController extends Controller
      */
     public function destroy(Cabinet $cabinet)
     {
-        $cabinet->delete();
+        $this->cabinetService->delete($cabinet->id);
 
         return response()->json();
     }

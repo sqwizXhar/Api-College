@@ -6,9 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Lesson\LessonRequest;
 use App\Http\Requests\Lesson\StoreLessonRequest;
 use App\Http\Resources\Lesson\LessonResource;
-use App\Models\Cabinet;
 use App\Models\Lesson;
-use App\Models\Semester;
+use App\Services\LessonService;
 
 /**
  *
@@ -172,6 +171,13 @@ use App\Models\Semester;
  */
 class LessonController extends Controller
 {
+    protected $lessonService;
+
+    public function __construct(LessonService $lessonService)
+    {
+        $this->lessonService = $lessonService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -179,27 +185,7 @@ class LessonController extends Controller
     {
         $validated = $request->validated();
 
-        $date = $validated['date'] ?? null;
-        $semester = $validated['semester'] ?? null;
-
-        $daysOfWeek = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница'];
-        $weeklySchedule = [];
-
-        foreach ($daysOfWeek as $day) {
-            $schedule = Lesson::where('day_of_week', $day)
-                ->whereHas('dates', function ($query) use ($date) {
-                    if ($date) {
-                        $query->where('date', $date);
-                    }
-                })
-                ->whereHas('semester', function ($query) use ($semester) {
-                    if ($semester) {
-                        $query->where('semester_id', $semester);
-                    }
-                })
-                ->get();
-            $weeklySchedule[$day] = LessonResource::collection($schedule);
-        }
+        $weeklySchedule = $this->lessonService->getWeeklySchedule($validated);
 
         return response()->json($weeklySchedule);
     }
@@ -209,19 +195,7 @@ class LessonController extends Controller
      */
     public function store(StoreLessonRequest $request)
     {
-        $validated = $request->validated();
-
-        $cabinet = Cabinet::find($validated['cabinet_id']);
-        $semester = Semester::find($validated['semester_id']);
-
-        $lesson = new Lesson();
-        $lesson->fill($validated);
-        $lesson->subject_user_id = $validated['subject_user_id'];
-        $lesson->cabinet()->associate($cabinet);
-        $lesson->semester()->associate($semester);
-        $lesson->save();
-
-        return new LessonResource($lesson);
+        return new LessonResource($this->lessonService->store($request->validated()));
     }
 
     /**
@@ -237,13 +211,7 @@ class LessonController extends Controller
      */
     public function update(StoreLessonRequest $request, Lesson $lesson)
     {
-        $validated = $request->validated();
-
-        $lesson->cabinet()->associate($validated['cabinet_id']);
-        $lesson->semester()->associate($validated['semester_id']);
-        $lesson->subject_user_id = $validated['subject_user_id'];
-
-        $lesson->update($validated);
+        $this->lessonService->update($lesson, $request->validated());
 
         return new LessonResource($lesson);
     }
