@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Grade;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\BaseFormRequest;
 
-class UpdateGradeRequest extends FormRequest
+class UpdateGradeRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,6 +23,7 @@ class UpdateGradeRequest extends FormRequest
     {
         return [
             'grade' => 'required|integer|between:2,5',
+            'date' => 'required|date|date_format:Y-m-d|exists:dates,date',
         ];
     }
 }
