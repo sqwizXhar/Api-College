@@ -8,11 +8,9 @@ use App\Http\Resources\User\UserCollection;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UserSubjectCollection;
 use App\Http\Resources\User\UserSubjectResource;
-use App\Models\Group;
-use App\Models\Role;
 use App\Models\Subject;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use App\Services\UserService;
 
 /**
  *
@@ -417,6 +415,13 @@ use Illuminate\Support\Facades\Hash;
  */
 class UserController extends Controller
 {
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -427,36 +432,22 @@ class UserController extends Controller
 
     public function getStudents()
     {
-        $students = User::whereHas('role', function ($query) {
-            $query->where('name', 'student');
-        })->get();
-
-        return new UserCollection($students);
+        return new UserCollection($this->userService->getStudents());
     }
 
     public function getTeachers()
     {
-        $teachers = User::whereHas('role', function ($query) {
-            $query->where('name', 'teacher');
-        })->get();
-
-        return new UserCollection($teachers);
+        return new UserCollection($this->userService->getTeachers());
     }
 
     public function getAdmins()
     {
-        $admins = User::whereHas('role', function ($query) {
-            $query->where('name', 'admin');
-        })->get();
-
-        return new UserCollection($admins);
+        return new UserCollection($this->userService->getAdmins());
     }
 
     public function getUserSubjects()
     {
-        $user = User::has('subjects')->get();
-
-        return new UserSubjectCollection($user);
+        return new UserSubjectCollection($this->userService->getUserSubjects());
     }
 
     /**
@@ -466,39 +457,24 @@ class UserController extends Controller
     {
         $validated = $request->validated();
 
-        $validated['password'] = Hash::make($validated['password']);
+        $result = $this->userService->createUser($validated);
 
-        $role = Role::find($validated['role_id']);
-
-        $user = new User();
-        $user->fill($validated);
-        $user->role()->associate($role);
-        $user->save();
-
-        if ($role->id != Role::adminRole()->id && isset($validated['group_id'])) {
-            $group = Group::find($validated['group_id']);
-            if ($group) {
-                $user->groups()->sync($group->id);
-            }
-        } elseif ($role->isAdmin() && isset($validated['group_id'])) {
-            return response()->json(['error' => __('error.role_cannot_have_groups')], 400);
+        if(isset($result['error'])){
+            return response()->json($result, 400);
         }
 
-        $user->createToken('authToken')->plainTextToken;
-
-        return new UserResource($user);
+        return new UserResource($result);
     }
 
     public function storeUserSubject(User $user, Subject $subject)
     {
-        if ($user?->role->name === 'teacher') {
-            $user->subjects()->attach($subject->id);
-            $user->save();
+        $result = $this->userService->storeUserSubject($user, $subject);
 
-            return new UserSubjectResource($user);
+        if(!$result){
+            return response()->json(['error' => __('error.invalid_role')]);
         }
 
-        return response()->json(['error' => __('error.invalid_role')], 400);
+        return new UserSubjectResource($result);
     }
 
     /**
@@ -519,7 +495,7 @@ class UserController extends Controller
      */
     public function update(StoreUserRequest $request, User $user)
     {
-        $user->update($request->validated());
+        $this->userService->update($user, $request->validated());
 
         return new UserResource($user);
     }
@@ -529,14 +505,14 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
+        $this->userService->delete($user->id);
 
-        return response()->json([]);
+        return response()->json();
     }
 
     public function destroyUserSubject(User $user, Subject $subject)
     {
-        $user->subjects()->detach($subject->id);
+        $this->userService->destroyUserSubject($user, $subject);
 
         return response()->json();
     }

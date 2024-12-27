@@ -3,7 +3,6 @@
 namespace App\Http\Resources\User;
 
 use App\Http\Resources\BaseResource;
-use App\Http\Resources\Subject\SubjectResource;
 use Illuminate\Http\Request;
 
 class UserSubjectResource extends BaseResource
@@ -13,7 +12,7 @@ class UserSubjectResource extends BaseResource
      *
      * @var string|null
      */
-    public static $wrap = 'userSubject';
+    public static $wrap = 'user';
 
     /**
      * Transform the resource into an array.

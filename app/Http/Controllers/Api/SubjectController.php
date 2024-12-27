@@ -7,6 +7,7 @@ use App\Http\Requests\Subject\StoreSubjectRequest;
 use App\Http\Resources\Subject\SubjectCollection;
 use App\Http\Resources\Subject\SubjectResource;
 use App\Models\Subject;
+use App\Services\SubjectService;
 
 /**
  *
@@ -154,6 +155,13 @@ use App\Models\Subject;
  */
 class SubjectController extends Controller
 {
+    protected $subjectService;
+
+    public function __construct(SubjectService $subjectService)
+    {
+        $this->subjectService = $subjectService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -167,9 +175,7 @@ class SubjectController extends Controller
      */
     public function store(StoreSubjectRequest $request)
     {
-        $subject = Subject::create($request->validated());
-
-        return new SubjectResource($subject);
+        return new SubjectResource($this->subjectService->create($request->validated()));
     }
 
     /**
@@ -185,7 +191,7 @@ class SubjectController extends Controller
      */
     public function update(StoreSubjectRequest $request, Subject $subject)
     {
-        $subject->update($request->validated());
+        $this->subjectService->update($subject, $request->validated());
 
         return new SubjectResource($subject);
     }
@@ -195,7 +201,7 @@ class SubjectController extends Controller
      */
     public function destroy(Subject $subject)
     {
-        $subject->delete();
+        $this->subjectService->delete($subject->id);
 
         return response()->json();
     }
