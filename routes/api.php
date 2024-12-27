@@ -20,9 +20,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('teachers', [UserController::class, 'getTeachers'])->name('users.teachers');
 
     Route::middleware(CheckRole::class . ':teacher')->prefix('teacher')->group(function () {
-        Route::put('grades/user/{user}/date/{date}', [GradeController::class, 'update'])->name('user.grades.update');
+        Route::put('grades/user/{user}', [GradeController::class, 'update'])->name('user.grades.update');
         Route::apiResource('grades', GradeController::class)->except('update');
-        Route::get('dates', [DateController::class, 'getDates'])->name('dates.info');
+        Route::get('dates', [DateController::class, 'getDatesSubject'])->name('dates.subject.info');
     });
 
     Route::middleware(CheckRole::class . ':student')->group(function () {
