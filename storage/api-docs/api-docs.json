@@ -143,8 +143,8 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "Ok",
+                    "201": {
+                        "description": "Created",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -630,8 +630,8 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "Ok",
+                    "201": {
+                        "description": "Created",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -771,13 +771,13 @@
                 ]
             }
         },
-        "/api/teacher/grades/user/{user}/date/{date}": {
+        "/api/teacher/grades/user/{user}": {
             "put": {
                 "tags": [
                     "Grade"
                 ],
                 "summary": "Update",
-                "operationId": "7615362f457bf45f2dd49a9cfb7b6b4c",
+                "operationId": "5f3927cc3b4e60385691989302255241",
                 "parameters": [
                     {
                         "name": "user",
@@ -788,9 +788,9 @@
                     },
                     {
                         "name": "date",
-                        "in": "path",
+                        "in": "query",
                         "description": "Date",
-                        "required": false,
+                        "required": true,
                         "example": "2024-12-26"
                     }
                 ],
@@ -973,8 +973,8 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "Ok",
+                    "201": {
+                        "description": "Created",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1038,8 +1038,8 @@
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "Ok",
+                    "201": {
+                        "description": "Created",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1439,8 +1439,8 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "Ok",
+                    "201": {
+                        "description": "Created",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1824,8 +1824,8 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "Ok",
+                    "201": {
+                        "description": "Created",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2139,8 +2139,8 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "Ok",
+                    "201": {
+                        "description": "Created",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2396,8 +2396,8 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "Ok",
+                    "201": {
+                        "description": "Created",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2719,8 +2719,8 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "Ok",
+                    "201": {
+                        "description": "Created",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2800,8 +2800,8 @@
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "Ok",
+                    "201": {
+                        "description": "Created",
                         "content": {
                             "application/json": {
                                 "schema": {

@@ -35,8 +35,8 @@ use App\Services\UserService;
  *     ),
  *
  *     @OA\Response(
- *        response=200,
- *        description="Ok",
+ *        response=201,
+ *        description="Created",
  *        @OA\JsonContent(
  *               @OA\Property(
  *                   property="user",
@@ -77,8 +77,8 @@ use App\Services\UserService;
  *         ),
  *
  *         @OA\Response(
- *            response=200,
- *            description="Ok",
+ *            response=201,
+ *            description="Created",
  *            @OA\JsonContent(
  *                   @OA\Property(
  *                       property="user",
