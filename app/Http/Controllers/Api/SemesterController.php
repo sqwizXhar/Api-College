@@ -7,8 +7,8 @@ use App\Http\Requests\Semester\SemesterRequest;
 use App\Http\Requests\Semester\StoreSemesterRequest;
 use App\Http\Resources\Semester\SemesterCollection;
 use App\Http\Resources\Semester\SemesterResource;
-use App\Models\Group;
 use App\Models\Semester;
+use App\Services\SemesterService;
 
 /**
  *
@@ -147,21 +147,19 @@ use App\Models\Semester;
  */
 class SemesterController extends Controller
 {
+    protected $semesterService;
+
+    public function __construct(SemesterService $semesterService)
+    {
+        $this->semesterService = $semesterService;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index(SemesterRequest $request)
     {
-        $validated = $request->validated();
-        $group = $validated['group'];
-
-        $semester = Semester::whereHas('group', function ($query) use ($group) {
-                $query->where('name', $group);
-            })
-            ->orderBy('number')
-            ->get();
-
-        return new SemesterCollection($semester);
+        return new SemesterCollection($this->semesterService->getSemesters($request->validated()));
     }
 
     /**
@@ -169,16 +167,7 @@ class SemesterController extends Controller
      */
     public function store(StoreSemesterRequest $request)
     {
-        $validated = $request->validated();
-
-        $group = Group::find($validated['group_id']);
-
-        $semester = new Semester();
-        $semester->fill($validated);
-        $semester->group()->associate($group);
-        $semester->save();
-
-        return new SemesterResource($semester);
+        return new SemesterResource($this->semesterService->create($request->validated()));
     }
 
     /**
@@ -194,11 +183,7 @@ class SemesterController extends Controller
      */
     public function update(StoreSemesterRequest $request, Semester $semester)
     {
-        $validated = $request->validated();
-
-        $semester->group()->associate($validated['group_id']);
-
-        $semester->update($validated);
+        $this->semesterService->update($semester, $request->validated());
 
         return new SemesterResource($semester);
     }
@@ -208,7 +193,7 @@ class SemesterController extends Controller
      */
     public function destroy(Semester $semester)
     {
-        $semester->delete();
+        $this->semesterService->delete($semester->id);
 
         return response()->json();
     }

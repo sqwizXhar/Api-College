@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 /**
+ *
  * @OA\Info(
  *     title="Backend API",
  *     version="1.0.0",

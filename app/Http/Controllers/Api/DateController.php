@@ -6,11 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Date\DateRequest;
 use App\Http\Requests\Date\GetDatesRequest;
 use App\Http\Resources\Date\DateCollection;
-use App\Models\Date;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
+use App\Services\DateService;
 
 /**
+ *
  * @OA\Get(
  *      path="/api/admin/dates",
  *      summary="DatesInfo",
@@ -89,44 +88,25 @@ use Illuminate\Support\Facades\DB;
  */
 class DateController extends Controller
 {
+    protected $dateService;
+
+    public function __construct(DateService $dateService)
+    {
+        $this->dateService = $dateService;
+    }
+
     /**
      * Display a listing of the resource.
      */
 
     public function index(DateRequest $request)
     {
-        $validated = $request->validated();
-
-        $date = $validated['dates'];
-        $semester = $validated['semester'] ?? null;
-
-        $dateQuery = Date::whereHas('lesson', function ($query) use ($semester) {
-            if ($semester) {
-                $query->where('semester_id', $semester);
-            }
-        })->whereIn('date', $date)
-            ->get();
-
-        return new DateCollection($dateQuery);
+        return new DateCollection($this->dateService->getDates($request->validated()));
     }
 
-    public function getDates(GetDatesRequest $request)
+    public function getDatesSubject(GetDatesRequest $request)
     {
-        $validated = $request->validated();
-        $subject = $validated['subject'];
-
-        $today = Carbon::today();
-
-        $startDayOfMonth = $today->copy()->startOfMonth();
-
-        $dates = Db::table('dates')
-            ->join('lessons', 'lessons.id', '=', 'dates.lesson_id')
-            ->join('subject_user', 'subject_user.id', '=', 'lessons.subject_user_id')
-            ->join('subjects', 'subjects.id', '=', 'subject_user.subject_id')
-            ->where('subjects.name','=' ,$subject)
-            ->whereBetween('dates.date', [$startDayOfMonth, $today])
-            ->select('dates.id', 'dates.date')
-            ->get();
+        $dates = $this->dateService->getDatesSubject($request->validated());
 
         return response()->json($dates);
     }

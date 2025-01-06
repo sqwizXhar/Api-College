@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\LoginRequest;
-use Illuminate\Support\Facades\Auth;
+use App\Services\AuthService;
 
 /**
  *
@@ -33,19 +33,21 @@ use Illuminate\Support\Facades\Auth;
  */
 class AuthController extends Controller
 {
+    protected $authService;
+
+    public function __construct(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
+
     public function login(LoginRequest $request)
     {
-        $credentials = $request->validated();
+        $result = $this->authService->login($request->validated());
 
-        if (!Auth::attempt($credentials)) {
-            return response()->json(['message' => 'Unauthorized'], 401);
+        if (isset($result['error'])) {
+            return response()->json($result, 401);
         }
 
-        $user = Auth::user();
-        $token = $user->createToken('authToken')->plainTextToken;
-
-        return response()->json([
-            'token' => $token,
-        ]);
+        return response()->json($result);
     }
 }

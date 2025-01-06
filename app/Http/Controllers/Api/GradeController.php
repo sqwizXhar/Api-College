@@ -8,9 +8,9 @@ use App\Http\Requests\Grade\StoreGradeRequest;
 use App\Http\Requests\Grade\UpdateGradeRequest;
 use App\Http\Resources\Grade\GradeCollection;
 use App\Http\Resources\Grade\GradeResource;
-use App\Models\Date;
 use App\Models\Grade;
 use App\Models\User;
+use App\Services\GradeService;
 
 /**
  *
@@ -141,7 +141,7 @@ use App\Models\User;
  *
  *
  * @OA\Put(
- *       path="/api/teacher/grades/user/{user}/date/{date}",
+ *       path="/api/teacher/grades/user/{user}",
  *       summary="Update",
  *       tags={"Grade"},
  *       security={{ "bearerAuth": {} }},
@@ -156,9 +156,9 @@ use App\Models\User;
  *
  *       @OA\Parameter(
  *            description="Date",
- *            in="path",
+ *            in="query",
  *            name="date",
- *            required=false,
+ *            required=true,
  *            example="2024-12-26"
  *        ),
  *
@@ -211,27 +211,19 @@ use App\Models\User;
  */
 class GradeController extends Controller
 {
+    protected $gradeService;
+
+    public function __construct(GradeService $gradeService)
+    {
+        $this->gradeService = $gradeService;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index(GradeRequest $request)
     {
-        $validated = $request->validated();
-
-        $user = $validated['user'];
-        $date = $validated['date'] ?? null;
-
-        $grade = Grade::whereHas('user', function ($query) use ($user) {
-            $query->where('id', $user);
-        })
-            ->whereHas('date', function ($query) use ($date) {
-                if (isset($date)) {
-                    $query->where('date', $date);
-                }
-            })
-            ->get();
-
-        return new GradeCollection($grade);
+        return new GradeCollection($this->gradeService->index($request->validated()));
     }
 
     /**
@@ -239,18 +231,7 @@ class GradeController extends Controller
      */
     public function store(StoreGradeRequest $request)
     {
-        $validated = $request->validated();
-
-        $user = User::find($validated['user_id']);
-        $date = Date::find($validated['date_id']);
-
-        $grade = new Grade();
-        $grade->fill($validated);
-        $grade->user()->associate($user);
-        $grade->date()->associate($date);
-        $grade->save();
-
-        return new GradeResource($grade);
+        return new GradeResource($this->gradeService->create($request->validated()));
     }
 
     /**
@@ -264,19 +245,15 @@ class GradeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateGradeRequest $request, User $user, string $date)
+    public function update(UpdateGradeRequest $request, User $user)
     {
-        $validated = $request->validated();
+        $result = $this->gradeService->updateGrade($user, $request->validated());
 
-        $grade = Grade::where('user_id', $user->id)
-            ->whereHas('date', function ($query) use ($date) {
-                $query->where('date', $date);
-            })
-              ->first();
+        if (isset($result['error'])) {
+            return response()->json($result, 400);
+        }
 
-        $grade->update(['grade' => $validated['grade']]);
-
-        return new GradeResource($grade);
+        return new GradeResource($result);
     }
 
     /**
@@ -284,7 +261,7 @@ class GradeController extends Controller
      */
     public function destroy(Grade $grade)
     {
-        $grade->delete();
+        $this->gradeService->delete($grade->id);
 
         return response()->json();
     }

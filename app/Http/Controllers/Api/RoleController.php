@@ -7,6 +7,7 @@ use App\Http\Requests\Role\StoreRoleRequest;
 use App\Http\Resources\Role\RoleCollection;
 use App\Http\Resources\Role\RoleResource;
 use App\Models\Role;
+use App\Services\RoleService;
 
 /**
  *
@@ -154,6 +155,13 @@ use App\Models\Role;
  */
 class RoleController extends Controller
 {
+    protected $roleService;
+
+    public function __construct(RoleService $roleService)
+    {
+        $this->roleService = $roleService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -167,9 +175,7 @@ class RoleController extends Controller
      */
     public function store(StoreRoleRequest $request)
     {
-        $role = Role::create($request->validated());
-
-        return new RoleResource($role);
+        return new RoleResource($this->roleService->create($request->validated()));
     }
 
     /**
@@ -185,7 +191,7 @@ class RoleController extends Controller
      */
     public function update(StoreRoleRequest $request, Role $role)
     {
-        $role->update($request->validated());
+        $this->roleService->update($role, $request->validated());
 
         return new RoleResource($role);
     }
@@ -195,7 +201,7 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        $role->delete();
+        $this->roleService->delete($role->id);
 
         return response()->json();
     }

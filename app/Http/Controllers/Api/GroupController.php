@@ -10,8 +10,8 @@ use App\Http\Resources\Group\GroupResource;
 use App\Http\Resources\Group\GroupUserCollection;
 use App\Http\Resources\Group\GroupUserResource;
 use App\Models\Group;
-use App\Models\Role;
 use App\Models\User;
+use App\Services\GroupService;
 
 /**
  *
@@ -277,6 +277,13 @@ use App\Models\User;
  */
 class GroupController extends Controller
 {
+    protected $groupService;
+
+    public function __construct(GroupService $groupService)
+    {
+        $this->groupService = $groupService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -288,15 +295,8 @@ class GroupController extends Controller
     public function getGroupUsers(StoreGroupUserRequest $request)
     {
         $validated = $request->validated();
-        $role = $validated['role'];
 
-        $groups = Group::whereHas('users.role', function ($query) use ($role) {
-            $query->where('name', $role);
-        })->with(['users' => function ($query) use ($role) {
-            $query->whereHas('role', function ($UserRole) use ($role) {
-                $UserRole->where('name', $role);
-            });
-        }])->get();
+        $groups = $this->groupService->getGroupUsers($validated['role']);
 
         return new GroupUserCollection($groups);
     }
@@ -306,21 +306,18 @@ class GroupController extends Controller
      */
     public function store(StoreGroupRequest $request)
     {
-        $group = Group::create($request->validated());
-
-        return new GroupResource($group);
+        return new GroupResource($this->groupService->create($request->validated()));
     }
 
     public function storeGroupUser(Group $group, User $user)
     {
-        if ($user && $user->role && $user->role->id != Role::adminRole()->id) {
-            $group->users()->attach($user->id);
-            $group->save();
+        $group = $this->groupService->storeGroupUser($group, $user);
 
-            return new GroupUserResource($group);
+        if (!$group) {
+            return response()->json(['error' => __('error.invalid_role')], 400);
         }
 
-        return response()->json(['error' => __('error.invalid_role')], 400);
+        return new GroupUserResource($group);
     }
 
     /**
@@ -341,7 +338,7 @@ class GroupController extends Controller
      */
     public function update(StoreGroupRequest $request, Group $group)
     {
-        $group->update($request->validated());
+        $this->groupService->update($group, $request->validated());
 
         return new GroupResource($group);
     }
@@ -351,14 +348,14 @@ class GroupController extends Controller
      */
     public function destroy(Group $group)
     {
-        $group->delete();
+        $this->groupService->delete($group->id);
 
-        return response()->json([]);
+        return response()->json();
     }
 
     public function destroyGroupUser(Group $group, User $user)
     {
-        $group->users()->detach($user->id);
+        $this->groupService->destroyGroupUser($group, $user->id);
 
         return response()->json();
     }
