@@ -7,8 +7,6 @@ use App\Http\Requests\Date\DateRequest;
 use App\Http\Requests\Date\GetDatesRequest;
 use App\Http\Resources\Date\DateCollection;
 use App\Services\DateService;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 
 /**
  *
@@ -108,21 +106,7 @@ class DateController extends Controller
 
     public function getDatesSubject(GetDatesRequest $request)
     {
-        $validated = $request->validated();
-        $subject = $validated['subject'];
-
-        $today = Carbon::today();
-
-        $startDayOfMonth = $today->copy()->startOfMonth();
-
-        $dates = Db::table('dates')
-            ->join('lessons', 'lessons.id', '=', 'dates.lesson_id')
-            ->join('subject_user', 'subject_user.id', '=', 'lessons.subject_user_id')
-            ->join('subjects', 'subjects.id', '=', 'subject_user.subject_id')
-            ->where('subjects.name', '=', $subject)
-            ->whereBetween('dates.date', [$startDayOfMonth, $today])
-            ->select('dates.id', 'dates.date')
-            ->get();
+        $dates = $this->dateService->getDatesSubject($request->validated());
 
         return response()->json($dates);
     }

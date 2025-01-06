@@ -432,22 +432,36 @@ class UserController extends Controller
 
     public function getStudents()
     {
-        return new UserCollection($this->userService->getStudents());
+        $students = User::whereHas('role', function ($query) {
+            $query->where('name', 'student');
+        })->get();
+
+        return new UserCollection($students);
     }
 
     public function getTeachers()
     {
-        return new UserCollection($this->userService->getTeachers());
+        $teachers = User::whereHas('role', function ($query) {
+            $query->where('name', 'teacher');
+        })->get();
+
+        return new UserCollection($teachers);
     }
 
     public function getAdmins()
     {
-        return new UserCollection($this->userService->getAdmins());
+        $admins = User::whereHas('role', function ($query) {
+            $query->where('name', 'admin');
+        })->get();
+
+        return new UserCollection($admins);
     }
 
     public function getUserSubjects()
     {
-        return new UserSubjectCollection($this->userService->getUserSubjects());
+        $user = User::has('subjects')->get();
+
+        return new UserSubjectCollection($user);
     }
 
     /**
@@ -455,11 +469,9 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $validated = $request->validated();
+        $result = $this->userService->create($request->validated());
 
-        $result = $this->userService->createUser($validated);
-
-        if(isset($result['error'])){
+        if (isset($result['error'])) {
             return response()->json($result, 400);
         }
 
@@ -470,7 +482,7 @@ class UserController extends Controller
     {
         $result = $this->userService->storeUserSubject($user, $subject);
 
-        if(!$result){
+        if (!$result) {
             return response()->json(['error' => __('error.invalid_role')]);
         }
 

@@ -231,7 +231,7 @@ class GradeController extends Controller
      */
     public function store(StoreGradeRequest $request)
     {
-        return new GradeResource($this->gradeService->store($request->validated()));
+        return new GradeResource($this->gradeService->create($request->validated()));
     }
 
     /**

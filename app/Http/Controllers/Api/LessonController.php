@@ -195,7 +195,7 @@ class LessonController extends Controller
      */
     public function store(StoreLessonRequest $request)
     {
-        return new LessonResource($this->lessonService->store($request->validated()));
+        return new LessonResource($this->lessonService->create($request->validated()));
     }
 
     /**

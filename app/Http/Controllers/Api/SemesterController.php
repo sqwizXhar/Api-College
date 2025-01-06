@@ -167,7 +167,7 @@ class SemesterController extends Controller
      */
     public function store(StoreSemesterRequest $request)
     {
-        return new SemesterResource($this->semesterService->createSemester($request->validated()));
+        return new SemesterResource($this->semesterService->create($request->validated()));
     }
 
     /**
@@ -183,7 +183,7 @@ class SemesterController extends Controller
      */
     public function update(StoreSemesterRequest $request, Semester $semester)
     {
-        $this->semesterService->updateSemester($semester, $request->validated());
+        $this->semesterService->update($semester, $request->validated());
 
         return new SemesterResource($semester);
     }
