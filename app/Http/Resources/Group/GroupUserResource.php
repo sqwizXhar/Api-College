@@ -12,7 +12,7 @@ class GroupUserResource extends BaseResource
      *
      * @var string|null
      */
-    public static $wrap = 'groupUser';
+    public static $wrap = 'group';
 
     /**
      * Transform the resource into an array.
