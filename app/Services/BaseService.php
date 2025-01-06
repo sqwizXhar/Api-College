@@ -15,7 +15,8 @@ class BaseService
 
     public function create(array $attributes)
     {
-        $model = $this->model->newInstance();
+        $model = $this->model;
+
         $model->fill($attributes);
         $model->save();
 
