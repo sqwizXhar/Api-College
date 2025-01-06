@@ -31,7 +31,7 @@ class GradeService extends BaseService
         return $grade->get();
     }
 
-    public function store(array $validated)
+    public function create(array $validated)
     {
         $grade = new Grade();
         $grade->fill($validated);

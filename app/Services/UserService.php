@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use phpDocumentor\Reflection\Types\False_;
 
 class UserService extends BaseService
 {
@@ -15,33 +16,7 @@ class UserService extends BaseService
         parent::__construct($user);
     }
 
-    public function getStudents()
-    {
-        return User::whereHas('role', function ($query) {
-            $query->where('name', 'student');
-        })->get();
-    }
-
-    public function getTeachers()
-    {
-        return User::whereHas('role', function ($query) {
-            $query->where('name', 'teacher');
-        })->get();
-    }
-
-    public function getAdmins()
-    {
-        return User::whereHas('role', function ($query) {
-            $query->where('name', 'admin');
-        })->get();
-    }
-
-    public function getUserSubjects()
-    {
-        return User::has('subjects')->get();
-    }
-
-    public function createUser(array $validated)
+    public function create(array $validated)
     {
         $validated['password'] = Hash::make($validated['password']);
 
@@ -75,7 +50,7 @@ class UserService extends BaseService
             return $user;
         }
 
-        return null;
+        return false;
     }
 
     public function destroyUserSubject(User $user, Subject $subject)

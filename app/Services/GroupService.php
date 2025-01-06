@@ -33,7 +33,7 @@ class GroupService extends BaseService
             return $group;
         }
 
-        return null;
+        return false;
     }
 
     public function destroyGroupUser(Group $group, $userId)

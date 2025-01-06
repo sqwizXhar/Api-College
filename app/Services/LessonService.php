@@ -6,9 +6,15 @@ use App\Http\Resources\Lesson\LessonResource;
 use App\Models\Cabinet;
 use App\Models\Lesson;
 use App\Models\Semester;
+use Illuminate\Database\Eloquent\Model;
 
-class LessonService
+class LessonService extends BaseService
 {
+    public function __construct(Lesson $lesson)
+    {
+        parent::__construct($lesson);
+    }
+
     public function getWeeklySchedule(array $validated)
     {
         $date = $validated['date'] ?? null;
@@ -40,7 +46,7 @@ class LessonService
         return $weeklySchedule;
     }
 
-    public function store(array $validated)
+    public function create(array $validated)
     {
         $lesson = new Lesson();
         $lesson->fill($validated);
@@ -52,14 +58,12 @@ class LessonService
         return $lesson;
     }
 
-    public function update(Lesson $lesson, array $validated)
+    public function update(Model $lesson, array $validated)
     {
         $lesson->cabinet()->associate($validated['cabinet_id']);
         $lesson->semester()->associate($validated['semester_id']);
         $lesson->subject_user_id = $validated['subject_user_id'];
 
-        $lesson->update($validated);
-
-        return new LessonResource($lesson);
+        parent::update($lesson, $validated);
     }
 }

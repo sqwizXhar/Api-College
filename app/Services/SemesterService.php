@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Group;
 use App\Models\Semester;
+use Illuminate\Database\Eloquent\Model;
 
 class SemesterService extends BaseService
 {
@@ -23,7 +24,7 @@ class SemesterService extends BaseService
             ->get();
     }
 
-    public function createSemester(array $validated)
+    public function create(array $validated)
     {
         $semester = new Semester();
         $semester->fill($validated);
@@ -33,12 +34,10 @@ class SemesterService extends BaseService
         return $semester;
     }
 
-    public function updateSemester(Semester $semester, array $validated)
+    public function update(Model $semester, array $validated)
     {
         $semester->group()->associate($validated['group_id']);
 
-        $semester->update($validated);
-
-        return $semester;
+        parent::update($semester, $validated);
     }
 }
