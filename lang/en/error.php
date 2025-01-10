@@ -6,4 +6,5 @@ return [
     'lesson_cannot_be_deleted' => 'Lesson cannot be deleted',
     'user_not_found' => 'User not found',
     'role_not_found' => 'Role not found',
+    'successfully_logged_out' => 'Successfully logged out',
 ];
