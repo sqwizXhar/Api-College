@@ -7,6 +7,7 @@ use App\Models\Cabinet;
 use App\Models\Lesson;
 use App\Models\Semester;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class LessonService extends BaseService
 {
@@ -20,30 +21,32 @@ class LessonService extends BaseService
         $date = $validated['date'] ?? null;
         $semester = $validated['semester'] ?? null;
 
-        $daysOfWeek = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница'];
-        $weeklySchedule = [];
+        return Cache::remember('schedule_' . $date . '_' . $semester, now()->addDay(), function () use ($date, $semester) {
+            $daysOfWeek = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница'];
+            $weeklySchedule = [];
 
-        foreach ($daysOfWeek as $day) {
-            $scheduleQuery = Lesson::where('day_of_week', $day);
+            foreach ($daysOfWeek as $day) {
+                $scheduleQuery = Lesson::where('day_of_week', $day);
 
-            if ($date) {
-                $scheduleQuery->whereHas('dates', function ($query) use ($date) {
-                    $query->where('date', $date);
-                });
+                if ($date) {
+                    $scheduleQuery->whereHas('dates', function ($query) use ($date) {
+                        $query->where('date', $date);
+                    });
+                }
+
+                if ($semester) {
+                    $scheduleQuery->whereHas('semester', function ($query) use ($semester) {
+                        $query->where('semester_id', $semester);
+                    });
+                }
+
+                $schedule = $scheduleQuery->get();
+
+                $weeklySchedule[$day] = LessonResource::collection($schedule)->toArray(request());
             }
 
-            if ($semester) {
-                $scheduleQuery->whereHas('semester', function ($query) use ($semester) {
-                    $query->where('semester_id', $semester);
-                });
-            }
-
-            $schedule = $scheduleQuery->get();
-
-            $weeklySchedule[$day] = LessonResource::collection($schedule);
-        }
-
-        return $weeklySchedule;
+            return $weeklySchedule;
+        });
     }
 
     public function create(array $validated)
