@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', [AuthController::class, 'login'])->name('user.login');
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('logout', [AuthController::class, 'logout'])->name('user.logout');
     Route::apiResource('lessons', LessonController::class)->only('index');
     Route::get('teachers', [UserController::class, 'getTeachers'])->name('users.teachers');
 
@@ -26,8 +27,8 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::middleware(CheckRole::class . ':student')->group(function () {
-        Route::apiResource('grades', GradeController::class)->only('index');
-    });
+        Route::get('grades', [GradeController::class, 'index'])->name('student.grades.index');
+    })->name('user.grades.info');
 
     Route::middleware(CheckRole::class . ':admin')->prefix('admin')->group(function () {
         Route::apiResources([
